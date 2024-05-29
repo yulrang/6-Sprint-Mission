@@ -1,27 +1,39 @@
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getItemDetail } from "api/api";
+import { Link, useParams } from "react-router-dom";
+import { getItemComments, getItemDetail } from "api/api";
 import { useAsync } from "hooks/useAsync";
 import Button from "components/Button";
 import Input from "components/Input";
 import "./ItemDetailPage.scss";
 import icoHeart from "img/ic_heart.svg";
 import icoKebab from "img/ic_kebab.svg";
+import icoBack from "img/ic_back.svg";
+import { ReplyList } from "components/ReplyList";
 
 export function ItemDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
   const [tags, setTags] = useState([]);
+  const [comments, setComments] = useState([]);
   const [isItemDetailLoading, itemDetailLoadingError, getItemDetailAsync] =
     useAsync(getItemDetail);
+  const [
+    isItemCommentsLoading,
+    itemCommentsLoadingError,
+    getItemCommentsAsync,
+  ] = useAsync(getItemComments);
 
   const handleLoad = useCallback(
     async (productId) => {
       let productResult = await getItemDetailAsync(productId);
       if (!productResult) return;
 
+      let commentsResult = await getItemCommentsAsync(productId);
+      if (!commentsResult) return;
+
       setProduct(productResult);
       setTags(productResult.tags);
+      setComments(commentsResult);
     },
     [getItemDetailAsync]
   );
@@ -84,7 +96,13 @@ export function ItemDetailPage() {
         </div>
       </section>
       <section className="section-reply">
-        {<ul className="reply-list"></ul>}
+        <ReplyList items={comments} />
+      </section>
+      <section className="section-btn">
+        <Link to="/items" className="btn-list">
+          <span>목록으로 돌아가기</span>
+          <img src={icoBack} aria-hidden="true" />
+        </Link>
       </section>
     </div>
   );

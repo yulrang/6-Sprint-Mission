@@ -1,6 +1,6 @@
 import { Header } from "./layout/Header";
 import { View } from "./layout/View";
-import "./style/css/style.min.css";
+import "./style/style.scss";
 
 function App() {
   return (

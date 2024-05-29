@@ -1,4 +1,4 @@
-@import "../style/scss/common";
+@import "../style/common";
 
 .section-detail {
   display: flex;
@@ -113,5 +113,19 @@
     .btn-comment {
       align-self: flex-end;
     }
+  }
+}
+
+.section-btn {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  .btn-list {
+    @include btnLarge();
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 38.5px;
+    font-size: 1.8rem;
   }
 }
