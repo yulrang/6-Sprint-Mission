@@ -5,7 +5,7 @@ import { AddItemPage } from "./page/AddItemPage";
 import { ItemDetailPage } from "./page/ItemDetailPage";
 import { HomePage } from "./page/HomePage";
 import { SignInPage } from "./page/SignInPage";
-import { JoinPage } from "page/JoinPage";
+import { JoinPage } from "./page/JoinPage";
 
 export default function Main() {
   return (
