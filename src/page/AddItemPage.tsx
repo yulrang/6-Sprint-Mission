@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAsync } from "hooks/useAsync";
 import { createItems } from "api/api";
 import Input from "components/Input";
@@ -13,45 +13,43 @@ const INITIAL_VALUES = {
   images: null,
 };
 
-export function AddItemPage({
-  initialValues = INITIAL_VALUES,
-  initialPreview,
-}) {
+export function AddItemPage({ initialValues = INITIAL_VALUES }) {
   const [onSubmitAsync] = useAsync(createItems);
   const [isDisableSubmit, setIsDisableSubmit] = useState(true);
   const [values, setValues] = useState(initialValues);
+  const navigate = useNavigate();
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: keyof typeof INITIAL_VALUES, value: string) => {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    handleChange(name, value);
+    handleChange(name as keyof typeof INITIAL_VALUES, value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("description", values.description);
-    formData.append("price", values.price);
-    formData.append("tags", values.tags);
-    formData.append("images", values.images);
+    formData.append("name", values.name || "");
+    formData.append("description", values.description || "");
+    formData.append("price", values.price || "");
+    formData.append("tags", values.tags || "");
+    formData.append("images", values.images || "");
 
-    let result = await onSubmitAsync(formData);
-    if (!result) return;
+    //let result = await onSubmitAsync(formData);
+    //if (!result) return;
 
-    Navigate("/items");
+    navigate("/items");
   };
 
   useEffect(() => {
     setIsDisableSubmit(
       Object.values(values).every(
-        (el) => el !== "" && el !== null && el.length !== 0
+        (el: any) => el !== "" && el !== null && el.length !== 0
       )
     );
   }, [values]);
@@ -74,7 +72,6 @@ export function AddItemPage({
             <Input.File
               name="images"
               value={values.images}
-              initialPreview={initialPreview}
               onChange={handleChange}
             />
           </section>

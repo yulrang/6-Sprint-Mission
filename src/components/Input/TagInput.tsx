@@ -1,23 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import Styles from "./Input.module.scss";
 import icoX from "../../img/ic_x.svg";
 
-export default function TagInput({ name, onChange }) {
-  const [tagArr, setTagArr] = useState([]);
-  const tagInput = useRef();
+interface TagInputProps {
+  name: string;
+  onChange: (name: string, value: string[]) => void;
+}
 
-  const handleKeydown = (e) => {
-    if (e.key === "Enter" && e.target.value !== "") {
-      const nextValue = e.target.value;
+export default function TagInput({ name, onChange }: TagInputProps) {
+  const [tagArr, setTagArr] = useState<string[]>([]);
+  const tagInput = useRef<HTMLInputElement>(null);
+
+  const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && e.currentTarget.value !== "") {
+      const nextValue = e.currentTarget.value;
 
       setTagArr((prevArr) => [...prevArr, nextValue]);
-      e.target.value = "";
+      if (tagInput.current) tagInput.current.value = "";
     }
   };
 
-  const handleDelete = (e) => {
-    const nextTagArr = tagArr.filter(
-      (el, index) => index !== Number(e.target.value)
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const nextTagArr: string[] = tagArr.filter(
+      (el, index) => index !== Number(e.currentTarget.value)
     );
 
     setTagArr(nextTagArr);

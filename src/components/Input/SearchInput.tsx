@@ -1,13 +1,21 @@
 import Styles from "./Input.module.scss";
 import icoSearch from "../../img/ic_search.svg";
+import { ChangeEvent, FormEvent } from "react";
 
+interface SearchInputProps {
+  name: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  className: string;
+}
 export default function SearchInput({
   name,
   value,
   onChange,
   onSubmit,
   className,
-}) {
+}: SearchInputProps) {
   return (
     <div className={className}>
       <form onSubmit={onSubmit} className={`${Styles.search}`}>

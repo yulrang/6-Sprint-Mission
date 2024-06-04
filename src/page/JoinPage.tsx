@@ -4,19 +4,32 @@ import "./SignPage.scss";
 import LogoImg from "img/logo-big.png";
 import IcoGoogle from "img/ic_google.svg";
 import IcoKakao from "img/ic_kakao.svg";
-import { useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export function JoinPage() {
-  const [isEmailInvalid, setIsEmailInvalid] = useState(null);
-  const [isNameInvalid, setIsNameInvalid] = useState(true);
-  const [isPasswordInvalid, setIsPasswordInvalid] = useState(null);
-  const [isRePasswordInvalid, setIsRePasswordInvalid] = useState(true);
-  const [isPasswordNotSame, setIsPasswordNotSame] = useState(null);
+  const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);
+  const [isNameInvalid, setIsNameInvalid] = useState<boolean | null>(true);
+  const [isPasswordInvalid, setIsPasswordInvalid] = useState<boolean | null>(
+    null
+  );
+  const [isRePasswordInvalid, setIsRePasswordInvalid] = useState<
+    boolean | null
+  >(true);
+  const [isPasswordNotSame, setIsPasswordNotSame] = useState<boolean | null>(
+    null
+  );
   const [isFormInvalid, setIsFormInvalid] = useState(true);
-  const inputPW = useRef();
-  const inputRePW = useRef();
+  const inputPW = useRef<HTMLInputElement>();
+  const inputRePW = useRef<HTMLInputElement>();
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     switch (e.target.type) {
       case "text":
         if (e.target.value.length === 0) {
@@ -27,9 +40,9 @@ export function JoinPage() {
         break;
       case "password":
         if (
-          inputPW.current.value.length >= 8 &&
-          inputRePW.current.value.length >= 8 &&
-          inputPW.current.value !== inputRePW.current.value
+          inputPW.current!.value.length >= 8 &&
+          inputRePW.current!.value.length >= 8 &&
+          inputPW.current?.value !== inputRePW.current?.value
         ) {
           setIsPasswordNotSame(true);
         } else {
@@ -41,13 +54,22 @@ export function JoinPage() {
     }
   };
   useEffect(() => {
-    setIsFormInvalid(
-      isEmailInvalid ||
-        isPasswordInvalid ||
-        isRePasswordInvalid ||
-        isNameInvalid ||
-        isPasswordNotSame
-    );
+    if (
+      isEmailInvalid !== null &&
+      isPasswordInvalid !== null &&
+      isPasswordInvalid !== null &&
+      isRePasswordInvalid !== null &&
+      isNameInvalid !== null &&
+      isPasswordNotSame !== null
+    ) {
+      setIsFormInvalid(
+        isEmailInvalid ||
+          isPasswordInvalid ||
+          isRePasswordInvalid ||
+          isNameInvalid ||
+          isPasswordNotSame
+      );
+    }
   }, [handleChange]);
 
   return (
@@ -73,7 +95,10 @@ export function JoinPage() {
                   이메일
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Email id="join-email" isInvalid={setIsEmailInvalid} />
+                  <Input.Email
+                    id="join-email"
+                    setIsInvalid={setIsEmailInvalid}
+                  />
                   {isEmailInvalid && (
                     <p className="alert">잘못된 이메일 형식입니다.</p>
                   )}
@@ -99,7 +124,7 @@ export function JoinPage() {
                   <Input.Password
                     id="join-pw"
                     inputRef={inputPW}
-                    isInvalid={setIsPasswordInvalid}
+                    setIsInvalid={setIsPasswordInvalid}
                   />
                 </span>
               </div>
@@ -111,7 +136,7 @@ export function JoinPage() {
                   <Input.Password
                     id="join-pw-re"
                     inputRef={inputRePW}
-                    isInvalid={setIsRePasswordInvalid}
+                    setIsInvalid={setIsRePasswordInvalid}
                   />
                   {isPasswordNotSame && (
                     <p className="alert">비밀번호가 일치하지 않습니다.</p>

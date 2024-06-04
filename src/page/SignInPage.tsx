@@ -4,14 +4,14 @@ import "./SignPage.scss";
 import LogoImg from "img/logo-big.png";
 import IcoGoogle from "img/ic_google.svg";
 import IcoKakao from "img/ic_kakao.svg";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export function SignInPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState(true);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(true);
   const [isFormInvalid, setIsFormInvalid] = useState(true);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     if (!isEmailInvalid && !isPasswordInvalid) {
       setIsFormInvalid(false);
     } else {
@@ -47,7 +47,7 @@ export function SignInPage() {
                     className="section-form__input"
                     placeholder="이메일을 입력해주세요"
                     required={true}
-                    isInvalid={setIsEmailInvalid}
+                    setIsInvalid={setIsEmailInvalid}
                   />
                 </span>
               </div>
@@ -58,7 +58,7 @@ export function SignInPage() {
                 <span className="section-form__input-box">
                   <Input.Password
                     id="login-pw"
-                    isInvalid={setIsPasswordInvalid}
+                    setIsInvalid={setIsPasswordInvalid}
                   />
                 </span>
               </div>

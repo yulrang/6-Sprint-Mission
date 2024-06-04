@@ -1,6 +1,22 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export async function getItems({ order, page, pageSize, keyword = "" }) {
+interface Item {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export async function getItems({
+  order,
+  page,
+  pageSize,
+  keyword = "",
+}: {
+  order: string;
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}): Promise<Item[]> {
   const query = `?orderBy=${order}&page=${page}&pageSize=${pageSize}&keyword=${keyword}`;
   let response;
   try {
@@ -15,7 +31,7 @@ export async function getItems({ order, page, pageSize, keyword = "" }) {
   return body;
 }
 
-export async function createItems(formData) {
+export async function createItems(formData: FormData) {
   const response = await fetch(`${BASE_URL}/products`, {
     method: "POST",
     body: formData,
@@ -27,7 +43,7 @@ export async function createItems(formData) {
   return body;
 }
 
-export async function getItemDetail(productId) {
+export async function getItemDetail(productId: string) {
   let response;
   try {
     response = await fetch(`${BASE_URL}/products/${productId}`);
@@ -41,7 +57,7 @@ export async function getItemDetail(productId) {
   return body;
 }
 
-export async function getItemComments(productId) {
+export async function getItemComments(productId: string) {
   let response;
   try {
     response = await fetch(

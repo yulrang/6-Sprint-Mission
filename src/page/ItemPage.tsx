@@ -1,4 +1,9 @@
-import { useState } from "react";
+import {
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+  ReactNode,
+  useState,
+} from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useResponsive } from "hooks/useResponsive";
 import { ItemList } from "components/ItemList";
@@ -15,31 +20,25 @@ export function ItemPage() {
     order: "recent",
     page: 1,
   });
-  const [isPopDropdown, setPopState] = useState(false);
-  const sortOptions = [
-    { value: "recent", name: "최신순" },
-    { value: "favorite", name: "좋아요순" },
-  ];
 
-  const handlePop = (e) => {
-    let { name, value } = e.target;
+  const handlePop = (e: React.MouseEvent<HTMLButtonElement>) => {
+    let { name, value } = e.currentTarget;
 
-    setPopState(!isPopDropdown);
     handleChange(name, value);
   };
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: string) => {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchParams(values.search ? { keyword: values.search } : {});
   };
@@ -52,9 +51,9 @@ export function ItemPage() {
             <h2 className="section-tit">베스트 상품</h2>
           </header>
           <div className="section-content">
-            {isPC && <ItemList order="favorite" size="4" />}
-            {isTablet && <ItemList order="favorite" size="2" />}
-            {isMobile && <ItemList order="favorite" size="1" />}
+            {isPC && <ItemList order="favorite" pageSize={4} />}
+            {isTablet && <ItemList order="favorite" pageSize={2} />}
+            {isMobile && <ItemList order="favorite" pageSize={1} />}
           </div>
         </div>
       </section>
@@ -73,12 +72,12 @@ export function ItemPage() {
               상품 등록하기
             </Link>
             <Input.Select
-              isShow={isPopDropdown}
-              selectOptions={sortOptions}
+              selectOptions={[
+                { value: "recent", name: "최신순" },
+                { value: "favorite", name: "좋아요순" },
+              ]}
               name="order"
               value={values.order}
-              onPop={setPopState}
-              onClick={handlePop}
               onChange={handleChange}
               className="section-item__dropdown"
             ></Input.Select>
@@ -87,7 +86,7 @@ export function ItemPage() {
             {isPC && (
               <ItemList
                 order={values.order}
-                size="10"
+                pageSize={10}
                 keyword={values.search}
                 page={values.page}
               />
@@ -95,7 +94,7 @@ export function ItemPage() {
             {isTablet && (
               <ItemList
                 order={values.order}
-                size="6"
+                pageSize={6}
                 keyword={values.search}
                 page={values.page}
               />
@@ -103,7 +102,7 @@ export function ItemPage() {
             {isMobile && (
               <ItemList
                 order={values.order}
-                size="4"
+                pageSize={4}
                 keyword={values.search}
                 page={values.page}
               />

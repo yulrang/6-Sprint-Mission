@@ -1,6 +1,16 @@
 import { useState } from "react";
 import Styles from "./Input.module.scss";
 
+interface TextInputProps {
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
+  className?: string;
+  required?: boolean;
+  placeholder?: string;
+}
+
 export default function TextInput({
   name,
   value,
@@ -9,9 +19,9 @@ export default function TextInput({
   className,
   required,
   placeholder,
-}) {
+}: TextInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
       setIsEmpty(true);
     } else {

@@ -2,7 +2,18 @@ import { Link } from "react-router-dom";
 import Styles from "./ItemCard.module.scss";
 import icoHeart from "../img/ic_heart.svg";
 
-export function ItemCard({ item }) {
+interface ItemCardProps {
+  item: {
+    id: number;
+    images: string[];
+    name: string;
+    description: string;
+    price: number;
+    favoriteCount: number;
+  };
+}
+
+export function ItemCard({ item }: ItemCardProps) {
   return (
     <>
       <div className={Styles["img-wrap"]}>

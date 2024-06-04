@@ -2,7 +2,14 @@ import Styles from "./Pagination.module.scss";
 import icoLeft from "../img/ic_arrow_left.svg";
 import icoRight from "../img/ic_arrow_right.svg";
 
-export function Pagination({ now, total, onClick, onChange }) {
+interface PaginationProps {
+  now: number;
+  total: number;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onChange: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function Pagination({ now, total, onClick, onChange }: PaginationProps) {
   const rendering = () => {
     const result = [];
     for (let i = 0; i < total; i++) {
@@ -34,10 +41,10 @@ export function Pagination({ now, total, onClick, onChange }) {
     return result;
   };
 
-  const handlePrevClick = (e) => {
+  const handlePrevClick = () => {
     if (now > 1) onChange((prevPaging) => prevPaging - 1);
   };
-  const handleNextClick = (e) => {
+  const handleNextClick = () => {
     if (now < total) onChange((prevPaging) => prevPaging + 1);
   };
   return (

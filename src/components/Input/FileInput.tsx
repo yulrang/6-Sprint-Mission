@@ -1,30 +1,48 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Styles from "./Input.module.scss";
 import icoPlus from "../../img/ic_plus.svg";
 import icoX from "../../img/ic_x.svg";
 
-export default function FileInput({ name, value, initialPreview, onChange }) {
-  const [preview, setPreviews] = useState(null);
-  const fileInput = useRef();
+interface FileInputProps {
+  name?: string;
+  value?: File | null;
+  onChange?: (name: string, file: File | null) => void;
+}
 
-  const handleChange = (e) => {
-    onChange(name, e.target.files[0]);
+export default function FileInput({ name, value, onChange }: FileInputProps) {
+  const [preview, setPreview] = useState<string | null>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      onChange && onChange(name || "", e.target.files[0]);
+    }
   };
 
-  const handleClearClick = (e) => {
-    setPreviews(null);
-    onChange(name, null);
+  const handleClearClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setPreview(null);
+    onChange && onChange(name || "", null);
   };
 
   useEffect(() => {
     if (!value) return;
-    const nextPreview = URL.createObjectURL(fileInput.current.files[0]);
-    setPreviews(nextPreview);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+
+    reader.readAsDataURL(value);
 
     return () => {
-      URL.revokeObjectURL(nextPreview);
+      URL.revokeObjectURL(preview as string);
     };
-  }, [value, initialPreview]);
+  }, [value]);
 
   return (
     <div className={Styles["file-view"]}>

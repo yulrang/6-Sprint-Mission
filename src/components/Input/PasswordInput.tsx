@@ -1,32 +1,38 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Styles from "./Input.module.scss";
+
+interface PasswordInputProps {
+  id?: string;
+  className?: string;
+  required?: boolean;
+  inputRef: React.RefObject<HTMLInputElement>;
+  setIsInvalid: (value: boolean) => void;
+}
 
 export default function PasswordInput({
   id,
   className,
   required,
   inputRef,
-  isInvalid,
-}) {
+  setIsInvalid,
+}: PasswordInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
-  const handleCheck = (e) => {
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      inputRef.current.type = "text";
+      inputRef.current?.setAttribute("type", "text");
     } else {
-      inputRef.current.type = "password";
+      inputRef.current?.setAttribute("type", "password");
     }
   };
 
-  const handleChange = (e) => {
-    if (e.target.value.length < 8) {
-      isInvalid(true);
-    } else {
-      isInvalid(false);
-    }
-    if (e.target.value.length < 8) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length < 8) {
+      setIsInvalid(true);
       setIsEmpty(true);
     } else {
+      setIsInvalid(false);
       setIsEmpty(false);
     }
   };
@@ -38,7 +44,7 @@ export default function PasswordInput({
           type="password"
           className={`${Styles.input} ${className}`}
           placeholder="비밀번호를 입력해주세요"
-          minLength="8"
+          minLength={8}
           required={required}
           ref={inputRef}
           onChange={handleChange}

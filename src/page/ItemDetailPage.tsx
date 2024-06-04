@@ -10,9 +10,26 @@ import icoKebab from "img/ic_kebab.svg";
 import icoBack from "img/ic_back.svg";
 import { ReplyList } from "components/ReplyList";
 
+interface Product {
+  name: string;
+  images: string;
+  price: number;
+  description: string;
+  tags: string[];
+  favoriteCount: number;
+}
+const defaultProduct: Product = {
+  name: "",
+  images: "",
+  price: 0,
+  description: "",
+  tags: [],
+  favoriteCount: 0,
+};
+
 export function ItemDetailPage() {
   const { productId } = useParams();
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState<Product>(defaultProduct);
   const [tags, setTags] = useState([]);
   const [comments, setComments] = useState([]);
   const [isItemDetailLoading, itemDetailLoadingError, getItemDetailAsync] =
@@ -24,7 +41,17 @@ export function ItemDetailPage() {
   ] = useAsync(getItemComments);
 
   const handleLoad = useCallback(
-    async (productId) => {
+    async (productId: string | undefined) => {
+      if (
+        typeof getItemDetailAsync !== "function" ||
+        typeof getItemCommentsAsync !== "function"
+      ) {
+        console.error(
+          "getItemDetailAsync or getItemCommentsAsync is not a function"
+        );
+        return;
+      }
+
       let productResult = await getItemDetailAsync(productId);
       if (!productResult) return;
 

@@ -1,7 +1,11 @@
 import Styles from "./GNB.module.scss";
 import { NavLink } from "react-router-dom";
 
-function getLinkClass({ isActive }) {
+interface getLinkClassProps {
+  isActive: boolean;
+}
+
+function getLinkClass({ isActive }: getLinkClassProps) {
   return isActive ? `${Styles.link} ${Styles.on}` : Styles.link;
 }
 
@@ -14,7 +18,7 @@ export function GNB() {
         </NavLink>
       </li>
       <li className={Styles["gnb-list"]}>
-        <NavLink to={["/items", "/additem"]} className={getLinkClass}>
+        <NavLink to={"/items"} className={getLinkClass}>
           중고마켓
         </NavLink>
       </li>

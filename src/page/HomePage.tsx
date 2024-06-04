@@ -19,11 +19,11 @@ export function HomePage() {
             <a href="/" className="link">
               <picture className="img-logo">
                 <source
-                  srcset={LogoTypo}
+                  srcSet={LogoTypo}
                   media="(max-width: 768px)"
                   width="103"
                 />
-                <source srcset={Logo} media="(min-width: 769px)" width="153" />
+                <source srcSet={Logo} media="(min-width: 769px)" width="153" />
                 <img src={Logo} alt="판다마켓 로고" />
               </picture>
               <span className="blind">판다마켓</span>
@@ -110,12 +110,12 @@ export function HomePage() {
         <h1 className="footer__tit">©codeit - 2024</h1>
         <ul className="footer__nav">
           <li>
-            <a href="/privacy.html" className="link">
+            <a href="/privacy" className="link">
               Privacy Policy
             </a>
           </li>
           <li>
-            <a href="/faq.htmnl" className="link">
+            <a href="/faq" className="link">
               FAQ
             </a>
           </li>

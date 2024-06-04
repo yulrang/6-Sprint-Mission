@@ -2,42 +2,58 @@ import { useResponsive } from "../../hooks/useResponsive";
 import Styles from "./Input.module.scss";
 import icoArrow from "../../img/ic_arrow_down.svg";
 import icoSort from "../../img/ic_sort.svg";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
+
+interface Option {
+  value: string;
+  name: string;
+}
+
+interface SelectProps {
+  selectOptions: Option[];
+  name: string;
+  value: string;
+  onChange: (name: string, value: string) => void;
+  className?: string;
+}
 
 export default function Select({
-  isShow,
   selectOptions,
   name,
   value,
-  onPop,
-  onClick,
   onChange,
   className,
-}) {
+}: SelectProps) {
   const [isPC, isTablet, isMobile] = useResponsive();
-  const OPTIONS = selectOptions;
+  const [isShow, setIsShow] = useState(false);
+  const [mainValue, setMainValue] = useState(value);
 
-  const handleClick = (e) => {
-    onChange(name, e.target.value);
-    onPop(false);
+  const handleMainClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setIsShow(!isShow);
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMainValue(e.target.value);
+    onChange(name, e.currentTarget.value);
+    setIsShow(false);
   };
 
   return (
     <div className={`${Styles.select} ${className}`}>
-      <form onChange={handleClick}>
+      <form>
         <div className={Styles["select-main"]}>
           <button
             type="button"
             name={name}
-            value={value}
+            value={mainValue}
             aria-expanded={isShow}
             aria-controls="select-box"
-            onClick={onClick}
+            onClick={handleMainClick}
             className={Styles["select-main__btn"]}
           >
             {(isPC || isTablet) && (
               <>
                 <span aria-hidden="true">
-                  {OPTIONS.find((el) => el.value === value).name}
+                  {selectOptions.find((el) => el.value === mainValue)?.name}
                 </span>
                 <img
                   src={icoArrow}
@@ -55,12 +71,8 @@ export default function Select({
           </button>
         </div>
         {isShow && (
-          <ul
-            id="select-box"
-            aria-hidden={onPop}
-            className={Styles["select-lists"]}
-          >
-            {OPTIONS.map((option, index) => {
+          <ul id="select-box" className={Styles["select-lists"]}>
+            {selectOptions.map((option, index) => {
               return (
                 <li className={Styles["select-list"]}>
                   <input
@@ -68,11 +80,10 @@ export default function Select({
                     name={name}
                     id={`select-${index + 1}`}
                     value={option.value}
-                    onClick={handleClick}
+                    onChange={handleChange}
                     className={Styles.radio}
                   />
                   <label
-                    type="radio"
                     htmlFor={`select-${index + 1}`}
                     className={Styles["select-list__btn"]}
                   >
