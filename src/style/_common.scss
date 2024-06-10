@@ -1,0 +1,111 @@
+$size-desktop: 1200px;
+$size-tablet: 768px;
+$size-mobile: 375px;
+
+/* common */
+@font-face {
+  font-family: Pretendard;
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Abel;
+  src: url("https://fonts.gstatic.com/s/abel/v18/MwQ5bhbm2POE2V9BPQ.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --brand-blue: #3692ff;
+  --error-red: #f74747;
+  --cool-grey50: rgba(249, 250, 251, 1);
+  --cool-grey100: #f3f4f6;
+  --cool-grey200: #e5e7eb;
+  --cool-grey400: #9ca3af;
+  --cool-grey600: rgba(75, 85, 99, 1);
+  --cool-grey800: rgba(31, 41, 55, 1);
+  --grey700: #374151;
+  font-size: 62.5%;
+  font-family: Pretendard;
+  color: #1f2937;
+}
+
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+.link {
+  &:hover {
+    .title {
+      text-decoration: underline;
+    }
+  }
+  &:active {
+    color: var(--brand-blue);
+  }
+  &:visited,
+  &:link {
+    color: #4b5563;
+  }
+}
+.line {
+  margin: 0;
+  border: 1px solid #e5e7eb;
+}
+.error {
+  display: flex;
+  justify-content: center;
+  .error-txt {
+    font-size: 16px;
+  }
+}
+.alert {
+  display: block;
+  padding: 8px 16px;
+  font-family: Pretendard;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.79rem;
+  color: var(--error-red);
+}
+
+@mixin btnLarge() {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 56px;
+  padding: 16px 124px;
+  background: var(--brand-blue);
+  border: 0;
+  border-radius: 40px;
+  font-family: Pretendard, sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 2.4rem;
+}
+
+@mixin btnSmall() {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 14px;
+  background: var(--brand-blue);
+  border: 0;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 2rem;
+}

@@ -1,0 +1,87 @@
+$size-desktop: 1200px;
+$size-tablet: 768px;
+$size-mobile: 375px;
+@mixin collapse($line) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+.boardCardLists {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  @media screen and (max-width: $size-desktop) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: $size-tablet) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 24px 16px;
+  background: var(--cool-grey50);
+  border-radius: 8px;
+}
+.flag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 102px;
+  height: 30px;
+  background: var(--brand-blue);
+  border-radius: 0px 0px 32px 32px;
+  .name {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+}
+.title {
+  min-height: 4.76rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.38rem;
+  color: var(--cool-grey800);
+  @include collapse(2);
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+.wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  .writer {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.67rem;
+    color: var(--cool-grey600);
+  }
+  .like {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    .count {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.67rem;
+      color: var(--cool-grey500);
+      font-style: normal;
+    }
+  }
+}
+.date {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.67rem;
+  font-style: normal;
+  color: var(--cool-grey400);
+}
