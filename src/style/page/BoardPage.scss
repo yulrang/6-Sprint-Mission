@@ -1,0 +1,41 @@
+@import "../common.scss";
+
+.section-boards {
+  padding-top: 40px;
+  &:first-child {
+    padding-top: 24px;
+  }
+  .section-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .section-tit {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.38rem;
+  }
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    .section-boards__btn {
+      @include btnSmall();
+    }
+    .section-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      .section-boards__search {
+        flex: 1 1;
+      }
+      .section-boards__dropdown {
+        flex: 0 0 130px;
+        @media screen and (max-width: $size-tablet) {
+          flex: 0 0 50px;
+        }
+      }
+    }
+  }
+}
