@@ -56,18 +56,18 @@ export function BoardCard({ order, pageSize }: ArticleListProps) {
               </div>
               <h3 className={Styles.title}>
                 <Link href={`boards/${article.id}`} className={Styles.link}>
-                  {article.title}
+                  <span>{article.title}</span>
+                  {article.image && (
+                    <figure className={Styles.image}>
+                      <Image
+                        width="72"
+                        height="72"
+                        src={article.image}
+                        alt="이미지"
+                      />
+                    </figure>
+                  )}
                 </Link>
-                {article.image && (
-                  <figure className={Styles.image}>
-                    <Image
-                      width="72"
-                      height="72"
-                      src={article.image}
-                      alt="이미지"
-                    />
-                  </figure>
-                )}
               </h3>
               <div className={Styles.info}>
                 <span className={Styles.wrap}>

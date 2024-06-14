@@ -50,9 +50,18 @@ $size-mobile: 375px;
   line-height: 2.38rem;
   @include collapse(2);
   .link {
+    display: flex;
     color: var(--cool-grey800);
     &:hover {
       text-decoration: underline;
+    }
+    .image {
+      width: 72px;
+      height: 72px;
+      border: 1px solid var(--cool-grey200);
+      border-radius: 8px;
+      flex: 0 0 72px;
+      overflow: hidden;
     }
   }
 }
