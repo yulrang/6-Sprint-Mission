@@ -96,7 +96,20 @@ export default function ItemDetailPage({
           </div>
         </section>
         <hr className="line" />
-        <section className="section-article-content">{article.content}</section>
+        <section className="section-article-content">
+          <div>{article.content}</div>
+          {article.image && (
+            <figure>
+              <Image
+                width="72"
+                height="72"
+                src={article.image}
+                alt="이미지"
+                className="content-img"
+              />
+            </figure>
+          )}
+        </section>
         <section className="section-comment">
           <h3 className="section-tit">댓글 달기</h3>
           <div className="section-content">

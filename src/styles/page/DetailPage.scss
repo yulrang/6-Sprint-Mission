@@ -164,4 +164,9 @@
   font-weight: 400;
   line-height: 2.4rem;
   color: var(--cool-grey800);
+  .content-img {
+    margin: 10px 0;
+    width: fit-content;
+    height: fit-content;
+  }
 }
