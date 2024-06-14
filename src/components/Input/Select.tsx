@@ -1,8 +1,9 @@
-import { useResponsive } from "../../hooks/useResponsive";
+import Image from "next/image";
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
 import Styles from "./Input.module.scss";
-import icoArrow from "../../img/ic_arrow_down.svg";
-import icoSort from "../../img/ic_sort.svg";
-import { ChangeEvent, MouseEventHandler, useState } from "react";
+import { useResponsive } from "@/hooks/useResponsive";
+import icoArrow from "@/img/ic_arrow_down.svg";
+import icoSort from "@/img/ic_sort.svg";
 
 interface Option {
   value: string;
@@ -25,6 +26,7 @@ export default function Select({
   className,
 }: SelectProps) {
   const [isPC, isTablet, isMobile] = useResponsive();
+  const [device, setDevice] = useState("");
   const [isShow, setIsShow] = useState(false);
   const [mainValue, setMainValue] = useState(value);
 
@@ -36,6 +38,10 @@ export default function Select({
     onChange(name, e.currentTarget.value);
     setIsShow(false);
   };
+
+  useEffect(() => {
+    setDevice(isMobile ? "mobile" : isTablet ? "tablet" : "desktop");
+  }, [isPC, isTablet, isMobile]);
 
   return (
     <div className={`${Styles.select} ${className}`}>
@@ -50,12 +56,14 @@ export default function Select({
             onClick={handleMainClick}
             className={Styles["select-main__btn"]}
           >
-            {(isPC || isTablet) && (
+            {(device === "desktop" || device === "tablet") && (
               <>
                 <span aria-hidden="true">
                   {selectOptions.find((el) => el.value === mainValue)?.name}
                 </span>
-                <img
+                <Image
+                  width="24"
+                  height="24"
                   src={icoArrow}
                   alt="아이콘"
                   aria-hidden="true"
@@ -63,9 +71,15 @@ export default function Select({
                 />
               </>
             )}
-            {isMobile && (
+            {device === "mobile" && (
               <>
-                <img src={icoSort} alt="아이콘" aria-hidden="true" />
+                <Image
+                  width="24"
+                  height="24"
+                  src={icoSort}
+                  alt="아이콘"
+                  aria-hidden="true"
+                />
               </>
             )}
           </button>

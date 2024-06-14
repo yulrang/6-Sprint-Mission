@@ -1,9 +1,5 @@
 "use client";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import LogoImg from "@/src/img/logo-big.png";
-import IcoGoogle from "@/src/img/ic_google.svg";
-import IcoKakao from "@/src/img/ic_kakao.svg";
+import Image from "next/image";
 import {
   ChangeEvent,
   useRef,
@@ -12,8 +8,11 @@ import {
   useEffect,
   useState,
 } from "react";
-import "src/style/page/SignPage.scss";
-import Image from "next/image";
+import Input from "@/components/Input";
+import Button from "@/components/Button/Button";
+import LogoImg from "@/img/logo-big.png";
+import IcoGoogle from "@/img/ic_google.svg";
+import IcoKakao from "@/img/ic_kakao.svg";
 
 export default function JoinPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);
@@ -148,12 +147,13 @@ export default function JoinPage() {
                 </span>
               </div>
               <div className="section-form__box">
-                <Button.Large
+                <Button
+                  size="large"
                   className="section-form__btn"
                   disabled={isFormInvalid}
                 >
                   회원가입
-                </Button.Large>
+                </Button>
               </div>
             </fieldset>
           </form>

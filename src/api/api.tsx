@@ -1,6 +1,6 @@
-import { GetItemsResult } from "@/src/types/item";
-import { GetArticlesResult } from "@/src/types/article";
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+import { GetItemsResult } from "@/types/item";
+import { GetArticlesResult } from "@/types/article";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getItems({
   order,

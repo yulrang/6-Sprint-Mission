@@ -1,25 +1,22 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import Styles from "./ItemCard.module.scss";
-import icoHeart from "../img/ic_heart.svg";
+import icoHeart from "@/img/ic_heart.svg";
+import { Item } from "@/types/item";
 
 interface ItemCardProps {
-  item: {
-    id: number;
-    images: string[];
-    name: string;
-    description: string;
-    price: number;
-    favoriteCount: number;
-  };
+  item: Item;
 }
 
 export function ItemCard({ item }: ItemCardProps) {
   return (
     <>
       <div className={Styles["img-wrap"]}>
-        <Link to={`/items/${item.id}`} className="link">
+        <Link href={`/items/${item.id}`} className="link">
           <img
-            src={item.images[0]}
+            width="221"
+            height="221"
+            src={item?.images[0]}
             alt={item.name + " 이미지"}
             className={Styles.img}
           />
@@ -27,13 +24,13 @@ export function ItemCard({ item }: ItemCardProps) {
       </div>
       <div className={Styles.content}>
         <h2 className={Styles.title}>
-          <Link to={`/items/${item.id}`} className={Styles.link}>
+          <Link href={`/items/${item.id}`} className={Styles.link}>
             {item.description}
           </Link>
         </h2>
         <p className={Styles.price}>{item.price.toLocaleString()}원</p>
         <p className={Styles.favorite}>
-          <img src={icoHeart} alt="좋아요" />
+          <Image width="16" height="16" src={icoHeart} alt="좋아요" />
           <span>{item.favoriteCount}</span>
         </p>
       </div>

@@ -1,4 +1,6 @@
-@import "../style/common";
+$size-desktop: 1200px;
+$size-tablet: 768px;
+$size-mobile: 375px;
 
 .gnb {
   display: flex;
@@ -18,7 +20,13 @@
       padding: 0 4px;
     }
   }
-  .link.on {
-    color: var(--brand-blue);
+  .link {
+    color: var(--cool-grey600);
+    &:visited {
+      color: var(--cool-grey600);
+    }
+    &.on {
+      color: var(--brand-blue);
+    }
   }
 }

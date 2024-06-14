@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAsync } from "@/src/hooks/useAsync";
-import { createItems } from "@/src/api/api";
+import { useAsync } from "@/hooks/useAsync";
+import { createItems } from "@/api/api";
 import Input from "@/components/Input";
-import Button from "@/components/Button";
+import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
 
 const INITIAL_VALUES = {
@@ -70,12 +70,13 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
           <div className="section-wrap">
             <header className="section-header">
               <h2 className="section-tit">상품 등록하기</h2>
-              <Button.Small
+              <Button
+                size="small"
                 disabled={!isDisableSubmit}
                 className="btn-small btn-submit"
               >
                 등록
-              </Button.Small>
+              </Button>
             </header>
             <section className="section-addItem-content">
               <h3 className="section-tit">상품 이미지</h3>

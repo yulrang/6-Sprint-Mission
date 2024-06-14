@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Styles from "./Pagination.module.scss";
-import icoLeft from "../img/ic_arrow_left.svg";
-import icoRight from "../img/ic_arrow_right.svg";
+import icoLeft from "@/img/ic_arrow_left.svg";
+import icoRight from "@/img/ic_arrow_right.svg";
 
 interface PaginationProps {
   now: number;
@@ -56,7 +57,7 @@ export function Pagination({ now, total, onClick, onChange }: PaginationProps) {
             className={Styles["pagination-list__btn"]}
             onClick={handlePrevClick}
           >
-            <img src={icoLeft} alt="이전 페이지" />
+            <Image width="16" height="16" src={icoLeft} alt="이전 페이지" />
           </button>
         </li>
         {rendering()}
@@ -66,7 +67,7 @@ export function Pagination({ now, total, onClick, onChange }: PaginationProps) {
             className={Styles["pagination-list__btn"]}
             onClick={handleNextClick}
           >
-            <img src={icoRight} alt="이후 페이지" />
+            <Image width="16" height="16" src={icoRight} alt="이후 페이지" />
           </button>
         </li>
       </ul>

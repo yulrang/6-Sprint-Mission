@@ -1,24 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import Styles from "./ItemList.module.scss";
 import { ItemCard } from "./ItemCard";
-import { getItems } from "../api/api";
-import { useAsync } from "../hooks/useAsync";
 import { Pagination } from "./Pagination";
-
-interface Item {
-  id: number;
-  images: string[];
-  name: string;
-  description: string;
-  price: number;
-  favoriteCount: number;
-}
+import { getItems } from "@/api/api";
+import { useAsync } from "@/hooks/useAsync";
+import { Item } from "@/types/item";
 
 interface ItemListProps {
   order: string;
   keyword?: string;
   page?: number;
-  pageSize?: number;
+  pageSize: number;
 }
 
 export function ItemList({
@@ -29,15 +21,13 @@ export function ItemList({
 }: ItemListProps) {
   const [items, setItems] = useState<Item[]>([]);
   const [paging, setPaging] = useState<number>(1);
-  const [isLoading, loadingError, getItemsAsync] = useAsync(getItems); //커스텀 훅
+  const [isLoading, loadingError, getItemsAsync] = useAsync(getItems);
   const [pageTotal, setPageTotal] = useState<number>(0);
 
   const handleLoad = useCallback(
     async (options: ItemListProps) => {
       if (typeof getItemsAsync !== "function") {
-        console.error(
-          "getItemDetailAsync or getItemCommentsAsync is not a function"
-        );
+        console.error("getItemsAsync is not a function");
         return;
       }
 
@@ -49,7 +39,7 @@ export function ItemList({
       setPageTotal(Math.ceil(totalCount / pageSize));
       setItems(list);
     },
-    [pageSize, getItemsAsync]
+    [getItemsAsync]
   );
 
   const handleLoadMore = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -88,16 +78,14 @@ export function ItemList({
     );
   }
   return (
-    <>
-      <ul className={`${Styles.itemLists} ${Styles.best}`}>
-        {items.map((item) => {
-          return (
-            <li key={item.id} className={Styles.itemList}>
-              <ItemCard item={item} />
-            </li>
-          );
-        })}
-      </ul>
-    </>
+    <ul className={`${Styles.itemLists} ${Styles.best}`}>
+      {items.map((item) => {
+        return (
+          <li key={item.id} className={Styles.itemList}>
+            <ItemCard item={item} />
+          </li>
+        );
+      })}
+    </ul>
   );
 }

@@ -1,12 +1,14 @@
-import Button from "components/Button";
-import Input from "components/Input";
-import "./SignPage.scss";
-import LogoImg from "img/logo-big.png";
-import IcoGoogle from "img/ic_google.svg";
-import IcoKakao from "img/ic_kakao.svg";
+"use client";
+import Image from "next/image";
 import { ChangeEvent, useState } from "react";
+import Button from "@/components/Button/Button";
+import Input from "@/components/Input";
+import LogoImg from "@/img/logo-big.png";
+import IcoGoogle from "@/img/ic_google.svg";
+import IcoKakao from "@/img/ic_kakao.svg";
+import Link from "next/link";
 
-export function SignInPage() {
+export default function SignInPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState(true);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(true);
   const [isFormInvalid, setIsFormInvalid] = useState(true);
@@ -25,7 +27,9 @@ export function SignInPage() {
         <header className="section-form__header">
           <h1 className="blind">로그인 페이지</h1>
           <a href="/" className="link-home">
-            <img
+            <Image
+              width="396"
+              height="132"
               src={LogoImg}
               alt="판다마켓 로고 이미지"
               className="img-home"
@@ -63,14 +67,15 @@ export function SignInPage() {
                 </span>
               </div>
               <div className="section-form__box">
-                <Button.Large
+                <Button
+                  size="large"
                   type="submit"
                   id="btn-submit"
                   className="section-form__btn btn-large"
                   disabled={isFormInvalid}
                 >
                   로그인
-                </Button.Large>
+                </Button>
               </div>
             </fieldset>
           </form>
@@ -79,14 +84,24 @@ export function SignInPage() {
           <h2 className="section-other__tit">간편 로그인하기</h2>
           <ul className="section-other__content">
             <li className="section-other__list">
-              <a href="https://www.google.com" className="link">
-                <img src={IcoGoogle} alt="구글 로그인 바로가기" />
-              </a>
+              <Link href="https://www.google.com" className="link">
+                <Image
+                  width="42"
+                  height="42"
+                  src={IcoGoogle}
+                  alt="구글 로그인 바로가기"
+                />
+              </Link>
             </li>
             <li className="section-other__list">
-              <a href="https://www.kakaocorp.com/page/" className="link">
-                <img src={IcoKakao} alt="카카오 로그인 바로가기" />
-              </a>
+              <Link href="https://www.kakaocorp.com/page/" className="link">
+                <Image
+                  width="42"
+                  height="42"
+                  src={IcoKakao}
+                  alt="카카오 로그인 바로가기"
+                />
+              </Link>
             </li>
           </ul>
         </section>

@@ -1,17 +1,16 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
-import { getItemComments, getItemDetail } from "@/src/api/api";
-import { useAsync } from "@/src/hooks/useAsync";
-import Button from "@/components/Button";
+import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
 import { ReplyList } from "@/components/ReplyList";
 import Header from "@/components/Header";
-import icoHeart from "@/src/img/ic_heart.svg";
-import icoKebab from "@/src/img/ic_kebab.svg";
-import icoBack from "@/src/img/ic_back.svg";
-import { Item } from "@/src/types/item";
+import icoHeart from "@/img/ic_heart.svg";
+import icoKebab from "@/img/ic_kebab.svg";
+import icoBack from "@/img/ic_back.svg";
+import { Item } from "@/types/item";
+import axios from "@/api/axios";
+import { GetServerSidePropsContext } from "next";
+import { getItemComments, getItemDetail } from "@/api/api";
 
 const defaultProduct: Item = {
   id: 0,
@@ -26,51 +25,35 @@ const defaultProduct: Item = {
   favoriteCount: 0,
 };
 
-export default function ItemDetailPage({
-  params,
-}: {
-  params: { productId: string };
-}) {
-  const productId = params.productId;
-  const [product, setProduct] = useState<Item>(defaultProduct);
-  const [tags, setTags] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [isItemDetailLoading, itemDetailLoadingError, getItemDetailAsync] =
-    useAsync(getItemDetail);
-  const [
-    isItemCommentsLoading,
-    itemCommentsLoadingError,
-    getItemCommentsAsync,
-  ] = useAsync(getItemComments);
-  const handleLoad = useCallback(
-    async (productId: string | undefined) => {
-      if (
-        typeof getItemDetailAsync !== "function" ||
-        typeof getItemCommentsAsync !== "function"
-      ) {
-        console.error(
-          "getItemDetailAsync or getItemCommentsAsync is not a function"
-        );
-        return;
-      }
-
-      let productResult = await getItemDetailAsync(productId);
-      if (!productResult) return;
-
-      let commentsResult = await getItemCommentsAsync(productId);
-      if (!commentsResult) return;
-
-      setProduct(productResult);
-      setTags(productResult.tags);
-      setComments(commentsResult);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query;
+  let product;
+  let comments;
+  try {
+    const productRes = await getItemDetail(String(id));
+    const commentRes = await getItemComments(String(id));
+    product = productRes ?? [];
+    comments = commentRes ?? [];
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      product,
+      comments,
     },
-    [getItemDetailAsync, getItemCommentsAsync, productId]
-  );
+  };
+}
 
-  useEffect(() => {
-    handleLoad(productId);
-  }, [handleLoad]);
-
+export default function ItemDetailPage({
+  product,
+  comments,
+}: {
+  product: any;
+  comments: any;
+}) {
   return (
     <>
       <Header />
@@ -92,7 +75,7 @@ export default function ItemDetailPage({
                 </button>
               </h2>
               <strong className="detail-price">
-                {product.price.toLocaleString()}원
+                {product.price?.toLocaleString()}원
               </strong>
               <hr className="line" />
               <section className="section-detail-content">
@@ -105,7 +88,7 @@ export default function ItemDetailPage({
                 <h3 className="section-tit">상품 태그</h3>
                 <div className="section-content tag-view">
                   <ul className="tag-container">
-                    {tags.map((tag) => {
+                    {product.tags?.map((tag: string) => {
                       return <li className="tag-view__list">{tag}</li>;
                     })}
                   </ul>
@@ -129,7 +112,9 @@ export default function ItemDetailPage({
               className="input-theme txt-comment"
               placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
             />
-            <Button.Small className="btn-comment">등록</Button.Small>
+            <Button size="small" className="btn-comment">
+              등록
+            </Button>
           </div>
         </section>
         <section className="section-reply">

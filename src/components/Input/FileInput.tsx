@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   ChangeEvent,
   MouseEventHandler,
@@ -6,8 +7,8 @@ import {
   useState,
 } from "react";
 import Styles from "./Input.module.scss";
-import icoPlus from "../../img/ic_plus.svg";
-import icoX from "../../img/ic_x.svg";
+import icoPlus from "@/img/ic_plus.svg";
+import icoX from "@/img/ic_x.svg";
 
 interface FileInputProps {
   name?: string;
@@ -47,7 +48,9 @@ export default function FileInput({ name, value, onChange }: FileInputProps) {
   return (
     <div className={Styles["file-view"]}>
       <label htmlFor="item-file" className={Styles["file-view__label"]}>
-        <img
+        <Image
+          width="48"
+          height="48"
           src={icoPlus}
           alt="아이콘"
           aria-hidden="true"
@@ -73,7 +76,13 @@ export default function FileInput({ name, value, onChange }: FileInputProps) {
             onClick={handleClearClick}
             className={Styles["btn-close"]}
           >
-            <img src={icoX} alt="아이콘" aria-hidden="true" />
+            <Image
+              width="8"
+              height="8"
+              src={icoX}
+              alt="아이콘"
+              aria-hidden="true"
+            />
           </button>
         </div>
       )}

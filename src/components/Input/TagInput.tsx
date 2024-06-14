@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import Styles from "./Input.module.scss";
-import icoX from "../../img/ic_x.svg";
+import icoX from "@/img/ic_x.svg";
 
 interface TagInputProps {
   name: string;
@@ -53,7 +54,13 @@ export default function TagInput({ name, onChange }: TagInputProps) {
                 onClick={handleDelete}
                 className={Styles["tag-view__btn"]}
               >
-                <img src={icoX} alt="아이콘" aria-hidden="true" />
+                <Image
+                  width="8"
+                  height="8"
+                  src={icoX}
+                  alt="아이콘"
+                  aria-hidden="true"
+                />
               </button>
             </li>
           );

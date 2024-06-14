@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Styles from "./BoardList.module.scss";
-import { useAsync } from "@/src/hooks/useAsync";
-import { getArticles } from "@/src/api/api";
-import icoProfile from "@/src/img/ic_profile.svg";
-import icoHeart from "@/src/img/ic_heart.svg";
-import { Article } from "@/src/types/article";
+import { useAsync } from "@/hooks/useAsync";
+import { getArticles } from "@/api/api";
+import icoProfile from "@/img/ic_profile.svg";
+import icoHeart from "@/img/ic_heart.svg";
+import { Article } from "@/types/article";
 
 interface articleListProps {
   order: string;
