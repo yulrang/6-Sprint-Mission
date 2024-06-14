@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export function useAsync(asyncFunction: (...args: any[]) => Promise<any>) {
+export function useAsync<T>(asyncFunction: (...args: any[]) => Promise<T>) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
 
