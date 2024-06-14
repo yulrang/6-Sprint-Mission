@@ -6,6 +6,7 @@ import { getArticles } from "@/src/api/api";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoMedal from "@/src/img/ic_medal.svg";
 import { Article } from "@/src/types/article";
+import Link from "next/link";
 
 interface ArticleListProps {
   order: string;
@@ -53,7 +54,11 @@ export function BoardCard({ order, pageSize }: ArticleListProps) {
                 />
                 <span className={Styles.name}>Best</span>
               </div>
-              <h3 className={Styles.title}>{article.title}</h3>
+              <h3 className={Styles.title}>
+                <Link href={`boards/${article.id}`} className={Styles.link}>
+                  {article.title}
+                </Link>
+              </h3>
               <div className={Styles.info}>
                 <span className={Styles.wrap}>
                   <strong className={Styles.writer}>

@@ -6,6 +6,8 @@ import { getArticles } from "@/src/api/api";
 import icoProfile from "@/src/img/ic_profile.svg";
 import icoHeart from "@/src/img/ic_heart.svg";
 import { Article } from "@/src/types/article";
+import Link from "next/link";
+import { WriterInfo } from "./WriterInfo";
 
 interface articleListProps {
   order: string;
@@ -55,7 +57,11 @@ export function BoardList({
           <li key={article.id} className={Styles.boardList}>
             <article className={Styles.article}>
               <div className={Styles.main}>
-                <h3 className={Styles.title}>{article.title}</h3>
+                <h3 className={Styles.title}>
+                  <Link href={`boards/${article.id}`} className={Styles.link}>
+                    {article.title}
+                  </Link>
+                </h3>
                 {article.image && (
                   <figure className={Styles.image}>
                     <Image
@@ -68,22 +74,7 @@ export function BoardList({
                 )}
               </div>
               <div className={Styles.info}>
-                <span className={Styles.wrap}>
-                  <figure className={Styles.profile}>
-                    <Image
-                      width="24"
-                      height="24"
-                      src={icoProfile}
-                      alt="프로필"
-                    />
-                  </figure>
-                  <strong className={Styles.writer}>
-                    {article.writer.nickname}
-                  </strong>
-                  <em className={Styles.date}>
-                    {new Date(article.createdAt).toLocaleDateString("ko-KR")}
-                  </em>
-                </span>
+                <WriterInfo article={article} />
                 <span className={Styles.wrap}>
                   <Image
                     width="24"

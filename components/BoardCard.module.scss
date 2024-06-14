@@ -48,8 +48,13 @@ $size-mobile: 375px;
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.38rem;
-  color: var(--cool-grey800);
   @include collapse(2);
+  .link {
+    color: var(--cool-grey800);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 .info {
   display: flex;

@@ -4,15 +4,16 @@ import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
 import { ReplyList } from "@/components/ReplyList";
 import Header from "@/components/Header";
-import icoHeart from "@/src/img/ic_heart.svg";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { Item } from "@/src/types/item";
 import { GetServerSidePropsContext } from "next";
-import { getItemComments, getItemDetail } from "@/src/api/api";
-import { ChangeEvent, useState } from "react";
+import { getArticleComments, getArticleDetail } from "@/src/api/api";
+import { WriterInfo } from "@/components/WriterInfo";
+import icoHeart from "@/src/img/ic_heart.svg";
+import { ChangeEvent, useRef, useState } from "react";
 
-const defaultProduct: Item = {
+const defaultarticle: Item = {
   id: 0,
   createdAt: "",
   updatedAt: "",
@@ -27,12 +28,12 @@ const defaultProduct: Item = {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
-  let product;
+  let article;
   let comments;
   try {
-    const productRes = await getItemDetail(String(id));
-    const commentRes = await getItemComments(String(id));
-    product = productRes ?? [];
+    const articleRes = await getArticleDetail(String(id));
+    const commentRes = await getArticleComments(String(id));
+    article = articleRes ?? [];
     comments = commentRes ?? [];
   } catch {
     return {
@@ -41,17 +42,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
   return {
     props: {
-      product,
+      article,
       comments,
     },
   };
 }
 
 export default function ItemDetailPage({
-  product,
+  article,
   comments,
 }: {
-  product: any;
+  article: any;
   comments: any;
 }) {
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
@@ -63,58 +64,46 @@ export default function ItemDetailPage({
       <Header />
       <div className="section-wrap">
         <section className="section-detail">
-          <div className="section-img">
-            <img
-              src={product.images}
-              alt="상품 이미지"
-              className="detail-img"
-            />
-          </div>
           <div className="section-content">
             <div className="section-row">
-              <h2 className="section-tit">
-                <span className="detail-tit">{product.name}</span>
-                <button type="button" className="btn-more">
-                  <Image width="24" height="24" src={icoKebab} alt="더보기" />
-                </button>
-              </h2>
-              <strong className="detail-price">
-                {product.price?.toLocaleString()}원
-              </strong>
-              <hr className="line" />
-              <section className="section-detail-content">
-                <h3 className="section-tit">상품 소개</h3>
-                <div className="section-content">
-                  <p>{product.description}</p>
-                </div>
-              </section>
-              <section className="section-detail-content">
-                <h3 className="section-tit">상품 태그</h3>
-                <div className="section-content tag-view">
-                  <ul className="tag-container">
-                    {product.tags?.map((tag: string) => {
-                      return <li className="tag-view__list">{tag}</li>;
-                    })}
-                  </ul>
-                </div>
-              </section>
-            </div>
-            <div className="section-row">
-              <button type="button" className="btn-heart">
-                <Image width="32" height="32" src={icoHeart} alt="좋아요" />
-                <span>{product.favoriteCount}</span>
-              </button>
+              <div>
+                <h2 className="section-tit">
+                  <span className="detail-tit">{article.title}</span>
+                  <button type="button" className="btn-more">
+                    <Image width="24" height="24" src={icoKebab} alt="더보기" />
+                  </button>
+                </h2>
+              </div>
+              <div>
+                <ul className="info-list">
+                  <li>
+                    <WriterInfo article={article} />
+                  </li>
+                  <li>
+                    <span className="like">
+                      <Image
+                        width="24"
+                        height="24"
+                        src={icoHeart}
+                        alt="좋아요 수"
+                      />
+                      <em className="count">{article.likeCount}</em>
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
         <hr className="line" />
+        <section className="section-article-content">{article.content}</section>
         <section className="section-comment">
-          <h3 className="section-tit">문의하기</h3>
+          <h3 className="section-tit">댓글 달기</h3>
           <div className="section-content">
             <Input.Textarea
               name="comment"
               className="input-theme txt-comment"
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+              placeholder="댓글을 입력해주세요."
               onChange={handleChange}
             />
             <Button

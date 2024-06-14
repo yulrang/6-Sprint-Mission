@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Styles from "./ReplyList.module.scss";
+import userImg from "@/src/img/ic_profile.svg";
 
 interface Reply {
   content: string;
@@ -39,7 +41,12 @@ export function ReplyList({ items }: ReplyListProps) {
             <p className={Styles["content"]}>{item?.content}</p>
             <div className={Styles["reply-list__info"]}>
               <figure className={Styles["reply-list__writer-img"]}>
-                <img src={item?.writer?.image} alt="댓글 작성자 프로필" />
+                <Image
+                  width="32"
+                  height="32"
+                  src={item?.writer?.image ?? userImg}
+                  alt="댓글 작성자 프로필"
+                />
               </figure>
               <div className={Styles["reply-list__writer-info"]}>
                 <strong className={Styles["writer"]}>

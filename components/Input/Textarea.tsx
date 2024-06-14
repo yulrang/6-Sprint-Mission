@@ -1,3 +1,4 @@
+import { LegacyRef } from "react";
 import Styles from "./Input.module.scss";
 
 interface TextAreaProps {
@@ -9,6 +10,7 @@ interface TextAreaProps {
   required?: boolean;
   placeholder?: string;
   size: string;
+  ref: LegacyRef<HTMLTextAreaElement>;
 }
 
 export default function TextArea({
@@ -19,6 +21,7 @@ export default function TextArea({
   className,
   required,
   placeholder,
+  ref,
   size = "small",
 }: TextAreaProps) {
   return (
@@ -32,6 +35,7 @@ export default function TextArea({
       }`}
       placeholder={placeholder}
       required={required}
+      ref={ref}
     />
   );
 }

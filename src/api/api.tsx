@@ -97,3 +97,35 @@ export async function getArticles({
   const body = await response.json();
   return body;
 }
+
+export async function getArticleDetail(articleId: string) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/articles/${articleId}`);
+  } catch (error) {
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("게시글을 불러오는데 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function getArticleComments(productId: string) {
+  let response;
+  try {
+    response = await fetch(
+      `${BASE_URL}/articles/${productId}/comments/?limit=100`
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("댓글을 불러오는데 실패했습니다.");
+  }
+  const body = await response.json();
+  return body.list;
+}
