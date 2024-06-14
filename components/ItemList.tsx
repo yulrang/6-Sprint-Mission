@@ -4,7 +4,7 @@ import { ItemCard } from "./ItemCard";
 import { Pagination } from "./Pagination";
 import { getItems } from "@/src/api/api";
 import { useAsync } from "@/src/hooks/useAsync";
-import { Item } from "@/types/item";
+import { Item } from "@/src/types/item";
 
 interface ItemListProps {
   order: string;

@@ -7,8 +7,7 @@ import Header from "@/components/Header";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
-import { Item } from "@/types/item";
-import axios from "@/src/api/axios";
+import { Item } from "@/src/types/item";
 import { GetServerSidePropsContext } from "next";
 import { getItemComments, getItemDetail } from "@/src/api/api";
 

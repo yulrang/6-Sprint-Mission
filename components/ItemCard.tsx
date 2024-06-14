@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Styles from "./ItemCard.module.scss";
 import icoHeart from "@/src/img/ic_heart.svg";
-import { Item } from "@/types/item";
+import { Item } from "@/src/types/item";
 
 interface ItemCardProps {
   item: Item;
