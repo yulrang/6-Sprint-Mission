@@ -51,6 +51,9 @@ textarea.input {
     padding: 16px 56px 16px 24px;
   }
 }
+textarea.input.large {
+  min-height: 282px;
+}
 
 .search {
   box-sizing: border-box;

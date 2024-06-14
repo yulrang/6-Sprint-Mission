@@ -53,7 +53,7 @@ export default function Page() {
           <header className="section-header">
             <div className="section-info">
               <h2 className="section-tit">게시글</h2>
-              <Link href="/additem" className="section-boards__btn">
+              <Link href="/addboard" className="section-boards__btn">
                 글쓰기
               </Link>
             </div>

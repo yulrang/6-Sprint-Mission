@@ -11,12 +11,10 @@ import Header from "@/components/Header";
 const INITIAL_VALUES = {
   name: null,
   description: null,
-  price: null,
-  tags: null,
   images: null,
 };
 
-export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
+export default function AddBoardPage({ initialValues = INITIAL_VALUES }) {
   const [isLoading, loadingError, onSubmitAsync] = useAsync(createItems);
   const [isDisableSubmit, setIsDisableSubmit] = useState(true);
   const [values, setValues] = useState(initialValues);
@@ -39,8 +37,6 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
     const formData = new FormData();
     formData.append("name", values.name || "");
     formData.append("description", values.description || "");
-    formData.append("price", values.price || "");
-    formData.append("tags", values.tags || "");
     formData.append("images", values.images || "");
 
     if (typeof onSubmitAsync !== "function") {
@@ -69,7 +65,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
         <form onSubmit={handleSubmit}>
           <div className="section-wrap">
             <header className="section-header">
-              <h2 className="section-tit">상품 등록하기</h2>
+              <h2 className="section-tit">게시글 쓰기</h2>
               <Button
                 size="small"
                 disabled={!isDisableSubmit}
@@ -79,45 +75,39 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
               </Button>
             </header>
             <section className="section-addItem-content">
-              <h3 className="section-tit">상품 이미지</h3>
-              <Input.File
-                name="images"
-                value={values.images}
-                onChange={handleChange}
-              />
-            </section>
-            <section className="section-addItem-content">
-              <h3 className="section-tit">상품명</h3>
+              <h3 className="section-tit">
+                <sup>
+                  *<span className="blind">필수 입력사항</span>
+                </sup>
+                제목
+              </h3>
               <Input.Text
                 name="name"
                 value={values.name}
                 onChange={handleInputChange}
-                placeholder="상품명을 입력해주세요"
+                placeholder="제목을 입력해주세요"
               />
             </section>
             <section className="section-addItem-content">
-              <h3 className="section-tit">상품 소개</h3>
+              <h3 className="section-tit">
+                <sup>
+                  *<span className="blind">필수 입력사항</span>
+                </sup>
+                내용
+              </h3>
               <Input.Textarea
                 name="description"
                 value={values.description}
                 onChange={handleInputChange}
-                placeholder="상품 소개를 입력해주세요"
+                size="large"
+                placeholder="내용을 입력해주세요"
               />
             </section>
             <section className="section-addItem-content">
-              <h3 className="section-tit">판매가격</h3>
-              <Input.Text
-                name="price"
-                value={values.price}
-                onChange={handleInputChange}
-                placeholder="판매 가격을 입력해주세요"
-              />
-            </section>
-            <section className="section-addItem-content">
-              <h3 className="section-tit">태그</h3>
-              <Input.Tag
-                name="tags"
-                value={values.tags}
+              <h3 className="section-tit">상품 이미지</h3>
+              <Input.File
+                name="images"
+                value={values.images}
                 onChange={handleChange}
               />
             </section>

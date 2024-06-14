@@ -11,7 +11,9 @@ export default function GNB() {
         <Link
           href="/boards"
           className={
-            pathname === "/boards" ? `${Styles.link} ${Styles.on}` : Styles.link
+            pathname.includes("/boards") || pathname.includes("/addboard")
+              ? `${Styles.link} ${Styles.on}`
+              : Styles.link
           }
         >
           자유게시판

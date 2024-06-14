@@ -8,6 +8,7 @@ interface TextAreaProps {
   className?: string;
   required?: boolean;
   placeholder?: string;
+  size: string;
 }
 
 export default function TextArea({
@@ -18,6 +19,7 @@ export default function TextArea({
   className,
   required,
   placeholder,
+  size = "small",
 }: TextAreaProps) {
   return (
     <textarea
@@ -25,7 +27,9 @@ export default function TextArea({
       value={value}
       onChange={onChange}
       id={id}
-      className={`${Styles.input} ${className}`}
+      className={`${Styles.input} ${className} ${
+        size === "large" ? Styles.large : ""
+      }`}
       placeholder={placeholder}
       required={required}
     />
