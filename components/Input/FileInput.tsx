@@ -7,8 +7,8 @@ import {
   useState,
 } from "react";
 import Styles from "./Input.module.scss";
-import icoPlus from "@/img/ic_plus.svg";
-import icoX from "@/img/ic_x.svg";
+import icoPlus from "@/src/img/ic_plus.svg";
+import icoX from "@/src/img/ic_x.svg";
 
 interface FileInputProps {
   name?: string;

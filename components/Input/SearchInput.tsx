@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent } from "react";
 import Styles from "./Input.module.scss";
-import icoSearch from "@/img/ic_search.svg";
+import icoSearch from "@/src/img/ic_search.svg";
 import Image from "next/image";
 
 interface SearchInputProps {

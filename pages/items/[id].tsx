@@ -4,13 +4,13 @@ import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
 import { ReplyList } from "@/components/ReplyList";
 import Header from "@/components/Header";
-import icoHeart from "@/img/ic_heart.svg";
-import icoKebab from "@/img/ic_kebab.svg";
-import icoBack from "@/img/ic_back.svg";
+import icoHeart from "@/src/img/ic_heart.svg";
+import icoKebab from "@/src/img/ic_kebab.svg";
+import icoBack from "@/src/img/ic_back.svg";
 import { Item } from "@/types/item";
-import axios from "@/api/axios";
+import axios from "@/src/api/axios";
 import { GetServerSidePropsContext } from "next";
-import { getItemComments, getItemDetail } from "@/api/api";
+import { getItemComments, getItemDetail } from "@/src/api/api";
 
 const defaultProduct: Item = {
   id: 0,

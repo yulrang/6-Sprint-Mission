@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/img/logo_img.png";
-import MainImg01 from "@/img/Img_home_01.png";
-import MainImg02 from "@/img/Img_home_02.png";
-import MainImg03 from "@/img/Img_home_03.png";
-import IcoFacebook from "@/img/ic_facebook.svg";
-import IcoYoutube from "@/img/ic_youtube.svg";
-import IcoTwitter from "@/img/ic_twitter.svg";
-import IcoInstagram from "@/img/ic_instagram.svg";
+import Logo from "@/src/img/logo_img.png";
+import MainImg01 from "@/src/img/Img_home_01.png";
+import MainImg02 from "@/src/img/Img_home_02.png";
+import MainImg03 from "@/src/img/Img_home_03.png";
+import IcoFacebook from "@/src/img/ic_facebook.svg";
+import IcoYoutube from "@/src/img/ic_youtube.svg";
+import IcoTwitter from "@/src/img/ic_twitter.svg";
+import IcoInstagram from "@/src/img/ic_instagram.svg";
 
 export default function Page() {
   return (

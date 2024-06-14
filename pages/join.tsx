@@ -10,9 +10,9 @@ import {
 } from "react";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
-import LogoImg from "@/img/logo-big.png";
-import IcoGoogle from "@/img/ic_google.svg";
-import IcoKakao from "@/img/ic_kakao.svg";
+import LogoImg from "@/src/img/logo-big.png";
+import IcoGoogle from "@/src/img/ic_google.svg";
+import IcoKakao from "@/src/img/ic_kakao.svg";
 
 export default function JoinPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);

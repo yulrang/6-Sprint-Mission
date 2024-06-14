@@ -1,6 +1,6 @@
 import Image from "next/image";
-import LogoTypo from "@/img/logo_typo.png";
-import LogoImg from "@/img/logo_img.png";
+import LogoTypo from "@/src/img/logo_typo.png";
+import LogoImg from "@/src/img/logo_img.png";
 
 interface LogoProps {
   children: string;

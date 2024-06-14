@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
 import Styles from "./Input.module.scss";
-import { useResponsive } from "@/hooks/useResponsive";
-import icoArrow from "@/img/ic_arrow_down.svg";
-import icoSort from "@/img/ic_sort.svg";
+import { useResponsive } from "@/src/hooks/useResponsive";
+import icoArrow from "@/src/img/ic_arrow_down.svg";
+import icoSort from "@/src/img/ic_sort.svg";
 
 interface Option {
   value: string;

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import Styles from "./ItemList.module.scss";
 import { ItemCard } from "./ItemCard";
 import { Pagination } from "./Pagination";
-import { getItems } from "@/api/api";
-import { useAsync } from "@/hooks/useAsync";
+import { getItems } from "@/src/api/api";
+import { useAsync } from "@/src/hooks/useAsync";
 import { Item } from "@/types/item";
 
 interface ItemListProps {

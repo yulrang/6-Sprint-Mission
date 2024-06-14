@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import Styles from "./Input.module.scss";
-import icoX from "@/img/ic_x.svg";
+import icoX from "@/src/img/ic_x.svg";
 
 interface TagInputProps {
   name: string;

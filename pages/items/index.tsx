@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useResponsive } from "@/hooks/useResponsive";
+import { useResponsive } from "@/src/hooks/useResponsive";
 import { ItemList } from "@/components/ItemList";
 import Input from "@/components/Input";
 import Header from "@/components/Header";

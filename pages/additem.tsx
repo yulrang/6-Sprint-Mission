@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAsync } from "@/hooks/useAsync";
-import { createItems } from "@/api/api";
+import { useAsync } from "@/src/hooks/useAsync";
+import { createItems } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";

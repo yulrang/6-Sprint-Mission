@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Styles from "./Pagination.module.scss";
-import icoLeft from "@/img/ic_arrow_left.svg";
-import icoRight from "@/img/ic_arrow_right.svg";
+import icoLeft from "@/src/img/ic_arrow_left.svg";
+import icoRight from "@/src/img/ic_arrow_right.svg";
 
 interface PaginationProps {
   now: number;
