@@ -1,9 +1,9 @@
 "use client";
-import Input from "components/Input";
-import Button from "components/Button";
-import LogoImg from "src/img/logo-big.png";
-import IcoGoogle from "src/img/ic_google.svg";
-import IcoKakao from "src/img/ic_kakao.svg";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
+import LogoImg from "@/src/img/logo-big.png";
+import IcoGoogle from "@/src/img/ic_google.svg";
+import IcoKakao from "@/src/img/ic_kakao.svg";
 import {
   ChangeEvent,
   useRef,

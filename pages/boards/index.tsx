@@ -1,12 +1,11 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { useResponsive } from "@/src/hooks/useResponsive";
-import { ItemList } from "@/components/ItemList";
 import Input from "@/components/Input";
-import Link from "next/link";
-import "@/src/style/page/BoardPage.scss";
 import { BoardList } from "@/components/BoardList";
 import { BoardCard } from "@/components/BoardCard";
+import Header from "@/components/Header";
 
 export default function Page() {
   const [isPC, isTablet, isMobile] = useResponsive();
@@ -35,6 +34,7 @@ export default function Page() {
 
   return (
     <>
+      <Header />
       <section className="section-boards">
         <div className="section-wrap">
           <header className="section-header">

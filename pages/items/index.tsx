@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
-import { useResponsive } from "src/hooks/useResponsive";
-import { ItemList } from "components/ItemList";
-import Input from "components/Input";
 import Link from "next/link";
-import "src/style/page/ItemPage.scss";
+import { useState } from "react";
+import { useResponsive } from "@/src/hooks/useResponsive";
+import { ItemList } from "@/components/ItemList";
+import Input from "@/components/Input";
+import Header from "@/components/Header";
 
 export default function Page() {
   const [isPC, isTablet, isMobile] = useResponsive();
@@ -33,6 +33,7 @@ export default function Page() {
 
   return (
     <>
+      <Header />
       <section className="section-items best">
         <div className="section-wrap">
           <header className="section-header">

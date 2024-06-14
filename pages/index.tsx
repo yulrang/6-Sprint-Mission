@@ -1,14 +1,13 @@
-import LogoTypo from "src/img/logo_typo.png";
-import Logo from "src/img/logo_img.png";
-import MainImg01 from "src/img/Img_home_01.png";
-import MainImg02 from "src/img/Img_home_02.png";
-import MainImg03 from "src/img/Img_home_03.png";
-import IcoFacebook from "src/img/ic_facebook.svg";
-import IcoYoutube from "src/img/ic_youtube.svg";
-import IcoTwitter from "src/img/ic_twitter.svg";
-import IcoInstagram from "src/img/ic_instagram.svg";
 import Link from "next/link";
 import Image from "next/image";
+import Logo from "@/src/img/logo_img.png";
+import MainImg01 from "@/src/img/Img_home_01.png";
+import MainImg02 from "@/src/img/Img_home_02.png";
+import MainImg03 from "@/src/img/Img_home_03.png";
+import IcoFacebook from "@/src/img/ic_facebook.svg";
+import IcoYoutube from "@/src/img/ic_youtube.svg";
+import IcoTwitter from "@/src/img/ic_twitter.svg";
+import IcoInstagram from "@/src/img/ic_instagram.svg";
 
 export default function Page() {
   return (
@@ -19,11 +18,15 @@ export default function Page() {
             <a href="/" className="link">
               <picture className="img-logo">
                 <source
-                  srcSet={LogoTypo}
+                  srcSet="img/logo_typo.png"
                   media="(max-width: 768px)"
                   width="103"
                 />
-                <source srcSet={Logo} media="(min-width: 769px)" width="153" />
+                <source
+                  srcSet="img/logo_img.png"
+                  media="(min-width: 769px)"
+                  width="153"
+                />
                 <Image width="153" height="51" src={Logo} alt="판다마켓 로고" />
               </picture>
               <span className="blind">판다마켓</span>

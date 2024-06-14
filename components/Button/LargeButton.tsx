@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Styles from "./Button.module.scss";
-import { ButtonProps } from "./type";
+import { ButtonProps } from "../../src/types/button";
 
 export default function LargeButton({
   type = "button",

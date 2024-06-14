@@ -1,12 +1,11 @@
 "use client";
-import Button from "components/Button";
-import Input from "components/Input";
-import LogoImg from "src/img/logo-big.png";
-import IcoGoogle from "src/img/ic_google.svg";
-import IcoKakao from "src/img/ic_kakao.svg";
-import { ChangeEvent, useState } from "react";
-import "src/style/page/SignPage.scss";
 import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import LogoImg from "@/src/img/logo-big.png";
+import IcoGoogle from "@/src/img/ic_google.svg";
+import IcoKakao from "@/src/img/ic_kakao.svg";
 
 export default function SignInPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState(true);

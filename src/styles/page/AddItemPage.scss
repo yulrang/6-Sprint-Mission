@@ -1,0 +1,32 @@
+.section-addItem {
+  padding: 24px 0 170px;
+  .section-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .section-tit {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .btn-submit {
+      width: 88px;
+    }
+  }
+  .section-addItem-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .section-tit {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .input {
+      width: 100%;
+    }
+  }
+}
