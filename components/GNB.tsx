@@ -1,6 +1,6 @@
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Styles from "./GNB.module.scss";
-import { usePathname } from "next/navigation";
 
 export default function GNB() {
   const pathname = usePathname();

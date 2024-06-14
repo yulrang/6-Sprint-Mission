@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import Styles from "./ItemList.module.scss";
 import { ItemCard } from "./ItemCard";
-import { getItems } from "src/api/api";
-import { useAsync } from "src/hooks/useAsync";
 import { Pagination } from "./Pagination";
-import { Item } from "src/types/item";
+import { getItems } from "@/src/api/api";
+import { useAsync } from "@/src/hooks/useAsync";
+import { Item } from "@/src/types/item";
 
 interface ItemListProps {
   order: string;

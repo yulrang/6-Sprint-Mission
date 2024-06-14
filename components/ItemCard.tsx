@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Styles from "./ItemCard.module.scss";
-import icoHeart from "src/img/ic_heart.svg";
 import Image from "next/image";
-import { Item } from "src/types/item";
+import Styles from "./ItemCard.module.scss";
+import icoHeart from "@/src/img/ic_heart.svg";
+import { Item } from "@/src/types/item";
 
 interface ItemCardProps {
   item: Item;
