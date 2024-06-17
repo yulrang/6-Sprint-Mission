@@ -1,14 +1,8 @@
-import {
-  ChangeEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import Styles from "./Input.module.scss";
-import icoPlus from "src/img/ic_plus.svg";
-import icoX from "src/img/ic_x.svg";
 import Image from "next/image";
+import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
+import icoPlus from "@/src/img/ic_plus.svg";
+import icoX from "@/src/img/ic_x.svg";
+import Styles from "./Input.module.scss";
 
 interface FileInputProps {
   name?: string;
@@ -48,41 +42,16 @@ export default function FileInput({ name, value, onChange }: FileInputProps) {
   return (
     <div className={Styles["file-view"]}>
       <label htmlFor="item-file" className={Styles["file-view__label"]}>
-        <Image
-          width="48"
-          height="48"
-          src={icoPlus}
-          alt="아이콘"
-          aria-hidden="true"
-          className={Styles.img}
-        />
+        <Image width="48" height="48" src={icoPlus} alt="아이콘" aria-hidden="true" className={Styles.img} />
         <span className={Styles.txt}>이미지 등록</span>
       </label>
-      <input
-        type="file"
-        accept="image/png, image/jpeg"
-        ref={fileInput}
-        onChange={handleChange}
-        id="item-file"
-        className={Styles["file-view__input"]}
-        multiple
-      />
+      <input type="file" accept="image/png, image/jpeg" ref={fileInput} onChange={handleChange} id="item-file" className={Styles["file-view__input"]} multiple />
 
       {preview && (
         <div className={Styles["file-view__preview"]}>
           <img src={preview} alt="이미지 미리보기" className={Styles.img} />
-          <button
-            type="button"
-            onClick={handleClearClick}
-            className={Styles["btn-close"]}
-          >
-            <Image
-              width="8"
-              height="8"
-              src={icoX}
-              alt="아이콘"
-              aria-hidden="true"
-            />
+          <button type="button" onClick={handleClearClick} className={Styles["btn-close"]}>
+            <Image width="8" height="8" src={icoX} alt="아이콘" aria-hidden="true" />
           </button>
         </div>
       )}

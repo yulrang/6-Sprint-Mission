@@ -44,12 +44,26 @@ $size-mobile: 375px;
   }
 }
 .title {
-  min-height: 4.76rem;
+  min-height: 72px;
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.38rem;
-  color: var(--cool-grey800);
   @include collapse(2);
+  .link {
+    display: flex;
+    color: var(--cool-grey800);
+    &:hover {
+      text-decoration: underline;
+    }
+    .image {
+      width: 72px;
+      height: 72px;
+      border: 1px solid var(--cool-grey200);
+      border-radius: 8px;
+      flex: 0 0 72px;
+      overflow: hidden;
+    }
+  }
 }
 .info {
   display: flex;

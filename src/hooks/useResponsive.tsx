@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
-export function useResponsive() {
-  const [init, setInit] = useState(false);
+export default function useResponsive() {
   const isPC = useMediaQuery({
     query: "(min-width:1200px)",
   });

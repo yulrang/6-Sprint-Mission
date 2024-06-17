@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import ItemCard from "./ItemCard";
+import Pagination from "./Pagination";
+import { getItems } from "@/src/api/api";
+import useAsync from "@/src/hooks/useAsync";
+import { Item } from "@/src/types/item";
 import Styles from "./ItemList.module.scss";
-import { ItemCard } from "./ItemCard";
-import { getItems } from "src/api/api";
-import { useAsync } from "src/hooks/useAsync";
-import { Pagination } from "./Pagination";
-import { Item } from "src/types/item";
 
 interface ItemListProps {
   order: string;
@@ -13,12 +13,7 @@ interface ItemListProps {
   pageSize: number;
 }
 
-export function ItemList({
-  order = "",
-  pageSize = 0,
-  keyword = "",
-  page = undefined,
-}: ItemListProps) {
+export default function ItemList({ order = "", pageSize = 0, keyword = "", page = undefined }: ItemListProps) {
   const [items, setItems] = useState<Item[]>([]);
   const [paging, setPaging] = useState<number>(1);
   const [isLoading, loadingError, getItemsAsync] = useAsync(getItems);
@@ -31,7 +26,7 @@ export function ItemList({
         return;
       }
 
-      let result = await getItemsAsync(options);
+      const result = await getItemsAsync(options);
       if (!result) return;
 
       const { list, totalCount } = result;
@@ -39,7 +34,7 @@ export function ItemList({
       setPageTotal(Math.ceil(totalCount / pageSize));
       setItems(list);
     },
-    [getItemsAsync]
+    [getItemsAsync, pageSize],
   );
 
   const handleLoadMore = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,13 +49,11 @@ export function ItemList({
     return (
       <>
         <ul className={Styles.itemLists}>
-          {items.map((item) => {
-            return (
-              <li key={item.id} className={Styles.itemList}>
-                <ItemCard item={item} />
-              </li>
-            );
-          })}
+          {items.map((item) => (
+            <li key={item.id} className={Styles.itemList}>
+              <ItemCard item={item} />
+            </li>
+          ))}
         </ul>
 
         {!loadingError && items.length === 0 && (
@@ -68,12 +61,7 @@ export function ItemList({
             <p className={Styles.errorTxt}>일치하는 결과가 없습니다.</p>
           </div>
         )}
-        <Pagination
-          now={paging}
-          total={pageTotal}
-          onClick={handleLoadMore}
-          onChange={setPaging}
-        />
+        <Pagination now={paging} total={pageTotal} onClick={handleLoadMore} onChange={setPaging} />
       </>
     );
   }
