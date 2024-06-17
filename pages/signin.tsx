@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import Button from "@/components/Button/Button";
@@ -27,13 +28,7 @@ export default function SignInPage() {
         <header className="section-form__header">
           <h1 className="blind">로그인 페이지</h1>
           <a href="/" className="link-home">
-            <Image
-              width="396"
-              height="132"
-              src={LogoImg}
-              alt="판다마켓 로고 이미지"
-              className="img-home"
-            />
+            <Image width="396" height="132" src={LogoImg} alt="판다마켓 로고 이미지" className="img-home" />
             <span className="blind">홈 바로가기</span>
           </a>
         </header>
@@ -46,13 +41,7 @@ export default function SignInPage() {
                   이메일
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Email
-                    id="login-email"
-                    className="section-form__input"
-                    placeholder="이메일을 입력해주세요"
-                    required={true}
-                    setIsInvalid={setIsEmailInvalid}
-                  />
+                  <Input.Email id="login-email" className="section-form__input" placeholder="이메일을 입력해주세요" required={true} setIsInvalid={setIsEmailInvalid} />
                 </span>
               </div>
               <div className="section-form__box">
@@ -60,20 +49,11 @@ export default function SignInPage() {
                   비밀번호
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Password
-                    id="login-pw"
-                    setIsInvalid={setIsPasswordInvalid}
-                  />
+                  <Input.Password id="login-pw" setIsInvalid={setIsPasswordInvalid} />
                 </span>
               </div>
               <div className="section-form__box">
-                <Button
-                  size="large"
-                  type="submit"
-                  id="btn-submit"
-                  className="section-form__btn btn-large"
-                  disabled={isFormInvalid}
-                >
+                <Button size="large" type="submit" id="btn-submit" className="section-form__btn btn-large" disabled={isFormInvalid}>
                   로그인
                 </Button>
               </div>
@@ -85,22 +65,12 @@ export default function SignInPage() {
           <ul className="section-other__content">
             <li className="section-other__list">
               <Link href="https://www.google.com" className="link">
-                <Image
-                  width="42"
-                  height="42"
-                  src={IcoGoogle}
-                  alt="구글 로그인 바로가기"
-                />
+                <Image width="42" height="42" src={IcoGoogle} alt="구글 로그인 바로가기" />
               </Link>
             </li>
             <li className="section-other__list">
               <Link href="https://www.kakaocorp.com/page/" className="link">
-                <Image
-                  width="42"
-                  height="42"
-                  src={IcoKakao}
-                  alt="카카오 로그인 바로가기"
-                />
+                <Image width="42" height="42" src={IcoKakao} alt="카카오 로그인 바로가기" />
               </Link>
             </li>
           </ul>
@@ -108,9 +78,9 @@ export default function SignInPage() {
         <section className="section-form__info">
           <p className="content">
             판다마켓이 처음이신가요?{" "}
-            <a href="/join" className="link">
+            <Link href="/join" className="link">
               회원가입
-            </a>
+            </Link>
           </p>
         </section>
       </section>

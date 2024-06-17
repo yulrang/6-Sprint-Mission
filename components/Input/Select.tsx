@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
 import Styles from "./Input.module.scss";
-import { useResponsive } from "@/src/hooks/useResponsive";
+import useResponsive from "@/src/hooks/useResponsive";
 import icoArrow from "@/src/img/ic_arrow_down.svg";
 import icoSort from "@/src/img/ic_sort.svg";
 
@@ -18,13 +18,7 @@ interface SelectProps {
   className?: string;
 }
 
-export default function Select({
-  selectOptions,
-  name,
-  value,
-  onChange,
-  className,
-}: SelectProps) {
+export default function Select({ selectOptions, name, value, onChange, className }: SelectProps) {
   const [isPC, isTablet, isMobile] = useResponsive();
   const [device, setDevice] = useState("");
   const [isShow, setIsShow] = useState(false);
@@ -47,39 +41,16 @@ export default function Select({
     <div className={`${Styles.select} ${className}`}>
       <form>
         <div className={Styles["select-main"]}>
-          <button
-            type="button"
-            name={name}
-            value={mainValue}
-            aria-expanded={isShow}
-            aria-controls="select-box"
-            onClick={handleMainClick}
-            className={Styles["select-main__btn"]}
-          >
+          <button type="button" name={name} value={mainValue} aria-expanded={isShow} aria-controls="select-box" onClick={handleMainClick} className={Styles["select-main__btn"]}>
             {(device === "desktop" || device === "tablet") && (
               <>
-                <span aria-hidden="true">
-                  {selectOptions.find((el) => el.value === mainValue)?.name}
-                </span>
-                <Image
-                  width="24"
-                  height="24"
-                  src={icoArrow}
-                  alt="아이콘"
-                  aria-hidden="true"
-                  className="ico-arrow"
-                />
+                <span aria-hidden="true">{selectOptions.find((el) => el.value === mainValue)?.name}</span>
+                <Image width="24" height="24" src={icoArrow} alt="아이콘" aria-hidden="true" className="ico-arrow" />
               </>
             )}
             {device === "mobile" && (
               <>
-                <Image
-                  width="24"
-                  height="24"
-                  src={icoSort}
-                  alt="아이콘"
-                  aria-hidden="true"
-                />
+                <Image width="24" height="24" src={icoSort} alt="아이콘" aria-hidden="true" />
               </>
             )}
           </button>
@@ -89,18 +60,8 @@ export default function Select({
             {selectOptions.map((option, index) => {
               return (
                 <li className={Styles["select-list"]}>
-                  <input
-                    type="radio"
-                    name={name}
-                    id={`select-${index + 1}`}
-                    value={option.value}
-                    onChange={handleChange}
-                    className={Styles.radio}
-                  />
-                  <label
-                    htmlFor={`select-${index + 1}`}
-                    className={Styles["select-list__btn"]}
-                  >
+                  <input type="radio" name={name} id={`select-${index + 1}`} value={option.value} onChange={handleChange} className={Styles.radio} />
+                  <label htmlFor={`select-${index + 1}`} className={Styles["select-list__btn"]}>
                     {option.name}
                   </label>
                 </li>

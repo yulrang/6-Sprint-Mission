@@ -8,26 +8,12 @@ export default function GNB() {
   return (
     <ul className={Styles.gnb}>
       <li className={Styles["gnb-list"]}>
-        <Link
-          href="/boards"
-          className={
-            pathname.includes("/boards") || pathname.includes("/addboard")
-              ? `${Styles.link} ${Styles.on}`
-              : Styles.link
-          }
-        >
+        <Link href="/boards" className={pathname.includes("/boards") || pathname.includes("/addboard") ? `${Styles.link} ${Styles.on}` : Styles.link}>
           자유게시판
         </Link>
       </li>
       <li className={Styles["gnb-list"]}>
-        <Link
-          href={"/items"}
-          className={
-            pathname.includes("/items") || pathname.includes("/additem")
-              ? `${Styles.link} ${Styles.on}`
-              : Styles.link
-          }
-        >
+        <Link href={"/items"} className={pathname.includes("/items") || pathname.includes("/additem") ? `${Styles.link} ${Styles.on}` : Styles.link}>
           중고마켓
         </Link>
       </li>

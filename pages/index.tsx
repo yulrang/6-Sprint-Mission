@@ -17,16 +17,8 @@ export default function Page() {
           <h1 className="header__logo">
             <Link href="/" className="link">
               <picture className="img-logo">
-                <source
-                  srcSet="img/logo_typo.png"
-                  media="(max-width: 768px)"
-                  width="103"
-                />
-                <source
-                  srcSet="img/logo_img.png"
-                  media="(min-width: 769px)"
-                  width="153"
-                />
+                <source srcSet="img/logo_typo.png" media="(max-width: 768px)" width="103" />
+                <source srcSet="img/logo_img.png" media="(min-width: 769px)" width="153" />
                 <Image width="153" height="51" src={Logo} alt="판다마켓 로고" />
               </picture>
               <span className="blind">판다마켓</span>
@@ -42,9 +34,7 @@ export default function Page() {
       <div className="view">
         <section className="section-banner top">
           <div className="section-wrap">
-            <h2 className="section-banner__tit">
-              일상의 모든 물건을 거래해보세요
-            </h2>
+            <h2 className="section-banner__tit">일상의 모든 물건을 거래해보세요</h2>
             <div className="section-banner__btn">
               <Link href="/items" className="link">
                 구경하러 가기
@@ -56,12 +46,7 @@ export default function Page() {
           <section className="section-desc">
             <div className="section-wrap">
               <div className="section-desc__img">
-                <Image
-                  width="588"
-                  height="444"
-                  src={MainImg01}
-                  alt="인기 상품 이미지"
-                />
+                <Image width="588" height="444" src={MainImg01} alt="인기 상품 이미지" />
               </div>
               <div className="section-desc__content">
                 <strong className="topic">Hot item</strong>
@@ -76,12 +61,7 @@ export default function Page() {
           <section className="section-desc right">
             <div className="section-wrap">
               <div className="section-desc__img">
-                <Image
-                  width="588"
-                  height="444"
-                  src={MainImg02}
-                  alt="상품 검색 이미지"
-                />
+                <Image width="588" height="444" src={MainImg02} alt="상품 검색 이미지" />
               </div>
               <div className="section-desc__content">
                 <strong className="topic">Search</strong>
@@ -96,12 +76,7 @@ export default function Page() {
           <section className="section-desc">
             <div className="section-wrap">
               <div className="section-desc__img">
-                <Image
-                  width="588"
-                  height="444"
-                  src={MainImg03}
-                  alt="상품 등록 이미지"
-                />
+                <Image width="588" height="444" src={MainImg03} alt="상품 등록 이미지" />
               </div>
               <div className="section-desc__content">
                 <strong className="topic">Register</strong>
@@ -141,46 +116,22 @@ export default function Page() {
         <ul className="footer__sns">
           <li>
             <a href="https://facebook.com" target="_blank">
-              <Image
-                width="20"
-                height="20"
-                src={IcoFacebook}
-                alt="facebook 아이콘"
-                className="img-sns"
-              />
+              <Image width="20" height="20" src={IcoFacebook} alt="facebook 아이콘" className="img-sns" />
             </a>
           </li>
           <li>
             <a href="https://twitter.com" target="_blank">
-              <Image
-                width="20"
-                height="20"
-                src={IcoTwitter}
-                alt="twitter 아이콘"
-                className="img-sns"
-              />
+              <Image width="20" height="20" src={IcoTwitter} alt="twitter 아이콘" className="img-sns" />
             </a>
           </li>
           <li>
             <a href="https://youtube.com" target="_blank">
-              <Image
-                width="20"
-                height="20"
-                src={IcoYoutube}
-                alt="youtube 아이콘"
-                className="img-sns"
-              />
+              <Image width="20" height="20" src={IcoYoutube} alt="youtube 아이콘" className="img-sns" />
             </a>
           </li>
           <li>
             <a href="https://instagram.com" target="_blank">
-              <Image
-                width="20"
-                height="20"
-                src={IcoInstagram}
-                alt="instagram 아이콘"
-                className="img-sns"
-              />
+              <Image width="20" height="20" src={IcoInstagram} alt="instagram 아이콘" className="img-sns" />
             </a>
           </li>
         </ul>

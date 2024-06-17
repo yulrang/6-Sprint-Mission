@@ -47,13 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-export default function ItemDetailPage({
-  product,
-  comments,
-}: {
-  product: any;
-  comments: any;
-}) {
+export default function ItemDetailPage({ product, comments }: { product: any; comments: any }) {
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsCommentDisabled(e.target.value === "" ? true : false);
@@ -64,11 +58,7 @@ export default function ItemDetailPage({
       <div className="section-wrap">
         <section className="section-detail">
           <div className="section-img">
-            <img
-              src={product.images}
-              alt="상품 이미지"
-              className="detail-img"
-            />
+            <img src={product.images} alt="상품 이미지" className="detail-img" />
           </div>
           <div className="section-content">
             <div className="section-row">
@@ -78,9 +68,7 @@ export default function ItemDetailPage({
                   <Image width="24" height="24" src={icoKebab} alt="더보기" />
                 </button>
               </h2>
-              <strong className="detail-price">
-                {product.price?.toLocaleString()}원
-              </strong>
+              <strong className="detail-price">{product.price?.toLocaleString()}원</strong>
               <hr className="line" />
               <section className="section-detail-content">
                 <h3 className="section-tit">상품 소개</h3>
@@ -117,11 +105,7 @@ export default function ItemDetailPage({
               placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
               onChange={handleChange}
             />
-            <Button
-              size="small"
-              className="btn-comment"
-              disabled={isCommentDisabled}
-            >
+            <Button type="submit" id="submit-comment" size="small" className="btn-comment" disabled={isCommentDisabled}>
               등록
             </Button>
           </div>
@@ -132,13 +116,7 @@ export default function ItemDetailPage({
         <section className="section-btn">
           <Link href="/items" className="btn-list">
             <span>목록으로 돌아가기</span>
-            <Image
-              width="24"
-              height="24"
-              src={icoBack}
-              aria-hidden="true"
-              alt="아이콘"
-            />
+            <Image width="24" height="24" src={icoBack} aria-hidden="true" alt="아이콘" />
           </Link>
         </section>
       </div>

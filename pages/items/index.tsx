@@ -1,8 +1,9 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
-import { useResponsive } from "@/src/hooks/useResponsive";
-import { ItemList } from "@/components/ItemList";
+import useResponsive from "@/src/hooks/useResponsive";
+import ItemList from "@/components/ItemList";
 import Input from "@/components/Input";
 import Header from "@/components/Header";
 
@@ -40,10 +41,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 상품</h2>
           </header>
           <div className="section-content">
-            <ItemList
-              order="favorite"
-              pageSize={isMobile ? 1 : isTablet ? 2 : 4}
-            />
+            <ItemList order="favorite" pageSize={isMobile ? 1 : isTablet ? 2 : 4} />
           </div>
         </div>
       </section>
@@ -51,14 +49,7 @@ export default function Page() {
         <div className="section-wrap">
           <header className="section-header">
             <h2 className="section-tit">전체 상품</h2>
-            <Input.Search
-              name="search"
-              value={values.search}
-              onSubmit={handleSearch}
-              onChange={handleInputChange}
-              className="section-item__search"
-              placeholder="검색할 상품을 입력해주세요."
-            />
+            <Input.Search name="search" value={values.search} onSubmit={handleSearch} onChange={handleInputChange} className="section-item__search" placeholder="검색할 상품을 입력해주세요." />
             <Link href="/additem" className="section-item__btn">
               상품 등록하기
             </Link>
@@ -71,15 +62,10 @@ export default function Page() {
               value={values.order}
               onChange={handleChange}
               className="section-item__dropdown"
-            ></Input.Select>
+            />
           </header>
           <div className="section-content">
-            <ItemList
-              order={values.order}
-              pageSize={isMobile ? 4 : isTablet ? 6 : 10}
-              keyword={values.search}
-              page={values.page}
-            />
+            <ItemList order={values.order} pageSize={isMobile ? 4 : isTablet ? 6 : 10} keyword={values.search} page={values.page} />
           </div>
         </div>
       </section>

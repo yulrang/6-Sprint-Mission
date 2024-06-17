@@ -13,26 +13,14 @@ interface TextAreaProps {
   ref: LegacyRef<HTMLTextAreaElement>;
 }
 
-export default function TextArea({
-  name,
-  value,
-  onChange,
-  id,
-  className,
-  required,
-  placeholder,
-  ref,
-  size = "small",
-}: TextAreaProps) {
+export default function TextArea({ name, value, onChange, id, className, required, placeholder, ref, size = "small" }: TextAreaProps) {
   return (
     <textarea
       name={name}
       value={value}
       onChange={onChange}
       id={id}
-      className={`${Styles.input} ${className} ${
-        size === "large" ? Styles.large : ""
-      }`}
+      className={`${Styles.input} ${className} ${size === "large" ? Styles.large : ""}`}
       placeholder={placeholder}
       required={required}
       ref={ref}

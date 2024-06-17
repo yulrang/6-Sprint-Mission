@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "./Logo";
+import Logo from "./Logo";
 import GNB from "./GNB";
 
 export default function Header() {

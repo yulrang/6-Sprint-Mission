@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
-import Styles from "./Input.module.scss";
 import icoX from "@/src/img/ic_x.svg";
+import Styles from "./Input.module.scss";
 
 interface TagInputProps {
   name: string;
@@ -22,9 +22,7 @@ export default function TagInput({ name, onChange }: TagInputProps) {
   };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
-    const nextTagArr: string[] = tagArr.filter(
-      (el, index) => index !== Number(e.currentTarget.value)
-    );
+    const nextTagArr: string[] = tagArr.filter((el, index) => index !== Number(e.currentTarget.value));
 
     setTagArr(nextTagArr);
     onChange(name, nextTagArr);
@@ -36,31 +34,14 @@ export default function TagInput({ name, onChange }: TagInputProps) {
 
   return (
     <div className={Styles["tag-view"]}>
-      <input
-        type="text"
-        onKeyDown={handleKeydown}
-        ref={tagInput}
-        className={Styles.input}
-        placeholder="태그를 입력해주세요"
-      />
+      <input type="text" onKeyDown={handleKeydown} ref={tagInput} className={Styles.input} placeholder="태그를 입력해주세요" />
       <ul className={Styles["tag-container"]}>
         {tagArr.map((tag, index) => {
           return (
             <li key={index} className={Styles["tag-view__list"]}>
               <span className={Styles["tag-view__txt"]}>{tag}</span>
-              <button
-                type="button"
-                value={index}
-                onClick={handleDelete}
-                className={Styles["tag-view__btn"]}
-              >
-                <Image
-                  width="8"
-                  height="8"
-                  src={icoX}
-                  alt="아이콘"
-                  aria-hidden="true"
-                />
+              <button type="button" value={index} onClick={handleDelete} className={Styles["tag-view__btn"]}>
+                <Image width="8" height="8" src={icoX} alt="아이콘" aria-hidden="true" />
               </button>
             </li>
           );

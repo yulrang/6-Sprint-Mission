@@ -6,25 +6,11 @@ import { ReplyList } from "@/components/ReplyList";
 import Header from "@/components/Header";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
-import { Item } from "@/src/types/item";
 import { GetServerSidePropsContext } from "next";
 import { getArticleComments, getArticleDetail } from "@/src/api/api";
-import { WriterInfo } from "@/components/WriterInfo";
+import WriterInfo from "@/components/WriterInfo";
 import icoHeart from "@/src/img/ic_heart.svg";
 import { ChangeEvent, useRef, useState } from "react";
-
-const defaultarticle: Item = {
-  id: 0,
-  createdAt: "",
-  updatedAt: "",
-  ownerId: 0,
-  name: "",
-  images: "",
-  price: 0,
-  description: "",
-  tags: [""],
-  favoriteCount: 0,
-};
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
@@ -48,13 +34,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-export default function ItemDetailPage({
-  article,
-  comments,
-}: {
-  article: any;
-  comments: any;
-}) {
+export default function ItemDetailPage({ article, comments }: { article: any; comments: any }) {
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsCommentDisabled(e.target.value === "" ? true : false);
@@ -81,12 +61,7 @@ export default function ItemDetailPage({
                   </li>
                   <li>
                     <span className="like">
-                      <Image
-                        width="24"
-                        height="24"
-                        src={icoHeart}
-                        alt="좋아요 수"
-                      />
+                      <Image width="24" height="24" src={icoHeart} alt="좋아요 수" />
                       <em className="count">{article.likeCount}</em>
                     </span>
                   </li>
@@ -100,30 +75,15 @@ export default function ItemDetailPage({
           <div>{article.content}</div>
           {article.image && (
             <figure>
-              <Image
-                width="72"
-                height="72"
-                src={article.image}
-                alt="이미지"
-                className="content-img"
-              />
+              <Image width="72" height="72" src={article.image} alt="이미지" className="content-img" />
             </figure>
           )}
         </section>
         <section className="section-comment">
           <h3 className="section-tit">댓글 달기</h3>
           <div className="section-content">
-            <Input.Textarea
-              name="comment"
-              className="input-theme txt-comment"
-              placeholder="댓글을 입력해주세요."
-              onChange={handleChange}
-            />
-            <Button
-              size="small"
-              className="btn-comment"
-              disabled={isCommentDisabled}
-            >
+            <Input.Textarea name="comment" className="input-theme txt-comment" placeholder="댓글을 입력해주세요." onChange={handleChange} />
+            <Button type="submit" id="submit-comment" size="small" className="btn-comment" disabled={isCommentDisabled}>
               등록
             </Button>
           </div>
@@ -134,13 +94,7 @@ export default function ItemDetailPage({
         <section className="section-btn">
           <Link href="/items" className="btn-list">
             <span>목록으로 돌아가기</span>
-            <Image
-              width="24"
-              height="24"
-              src={icoBack}
-              aria-hidden="true"
-              alt="아이콘"
-            />
+            <Image width="24" height="24" src={icoBack} aria-hidden="true" alt="아이콘" />
           </Link>
         </section>
       </div>

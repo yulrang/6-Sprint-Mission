@@ -1,13 +1,6 @@
 "use client";
 import Image from "next/image";
-import {
-  ChangeEvent,
-  useRef,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useRef, ReactElement, ReactNode, useEffect, useState } from "react";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import LogoImg from "@/src/img/logo-big.png";
@@ -17,15 +10,9 @@ import IcoKakao from "@/src/img/ic_kakao.svg";
 export default function JoinPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);
   const [isNameInvalid, setIsNameInvalid] = useState<boolean | null>(true);
-  const [isPasswordInvalid, setIsPasswordInvalid] = useState<boolean | null>(
-    null
-  );
-  const [isRePasswordInvalid, setIsRePasswordInvalid] = useState<
-    boolean | null
-  >(true);
-  const [isPasswordNotSame, setIsPasswordNotSame] = useState<boolean | null>(
-    null
-  );
+  const [isPasswordInvalid, setIsPasswordInvalid] = useState<boolean | null>(null);
+  const [isRePasswordInvalid, setIsRePasswordInvalid] = useState<boolean | null>(true);
+  const [isPasswordNotSame, setIsPasswordNotSame] = useState<boolean | null>(null);
   const [isFormInvalid, setIsFormInvalid] = useState(true);
   const inputPW = useRef<HTMLInputElement>();
   const inputRePW = useRef<HTMLInputElement>();
@@ -40,11 +27,7 @@ export default function JoinPage() {
         }
         break;
       case "password":
-        if (
-          inputPW.current!.value.length >= 8 &&
-          inputRePW.current!.value.length >= 8 &&
-          inputPW.current?.value !== inputRePW.current?.value
-        ) {
+        if (inputPW.current!.value.length >= 8 && inputRePW.current!.value.length >= 8 && inputPW.current?.value !== inputRePW.current?.value) {
           setIsPasswordNotSame(true);
         } else {
           setIsPasswordNotSame(false);
@@ -55,23 +38,10 @@ export default function JoinPage() {
     }
   };
   useEffect(() => {
-    if (
-      isEmailInvalid !== null &&
-      isPasswordInvalid !== null &&
-      isPasswordInvalid !== null &&
-      isRePasswordInvalid !== null &&
-      isNameInvalid !== null &&
-      isPasswordNotSame !== null
-    ) {
-      setIsFormInvalid(
-        isEmailInvalid ||
-          isPasswordInvalid ||
-          isRePasswordInvalid ||
-          isNameInvalid ||
-          isPasswordNotSame
-      );
+    if (isEmailInvalid !== null && isPasswordInvalid !== null && isPasswordInvalid !== null && isRePasswordInvalid !== null && isNameInvalid !== null && isPasswordNotSame !== null) {
+      setIsFormInvalid(isEmailInvalid || isPasswordInvalid || isRePasswordInvalid || isNameInvalid || isPasswordNotSame);
     }
-  }, [handleChange]);
+  }, [handleChange, isEmailInvalid, isNameInvalid, isPasswordInvalid, isPasswordNotSame, isRePasswordInvalid]);
 
   return (
     <div className="wrap wrap-form">
@@ -79,13 +49,7 @@ export default function JoinPage() {
         <header className="section-form__header">
           <h1 className="blind">회원가입 페이지</h1>
           <a href="/" className="link-home">
-            <Image
-              width="396"
-              height="132"
-              src={LogoImg}
-              alt="판다마켓 로고 이미지"
-              className="img-home"
-            />
+            <Image width="396" height="132" src={LogoImg} alt="판다마켓 로고 이미지" className="img-home" />
             <span className="blind">홈 바로가기</span>
           </a>
         </header>
@@ -98,13 +62,8 @@ export default function JoinPage() {
                   이메일
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Email
-                    id="join-email"
-                    setIsInvalid={setIsEmailInvalid}
-                  />
-                  {isEmailInvalid && (
-                    <p className="alert">잘못된 이메일 형식입니다.</p>
-                  )}
+                  <Input.Email id="join-email" setIsInvalid={setIsEmailInvalid} />
+                  {isEmailInvalid && <p className="alert">잘못된 이메일 형식입니다.</p>}
                 </span>
               </div>
               <div className="section-form__box">
@@ -112,11 +71,7 @@ export default function JoinPage() {
                   닉네임
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Text
-                    id="join-name"
-                    name="nickname"
-                    placeholder="닉네임을 입력해주세요"
-                  />
+                  <Input.Text id="join-name" name="nickname" placeholder="닉네임을 입력해주세요" />
                 </span>
               </div>
               <div className="section-form__box">
@@ -124,11 +79,7 @@ export default function JoinPage() {
                   비밀번호
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Password
-                    id="join-pw"
-                    inputRef={inputPW}
-                    setIsInvalid={setIsPasswordInvalid}
-                  />
+                  <Input.Password id="join-pw" inputRef={inputPW} setIsInvalid={setIsPasswordInvalid} />
                 </span>
               </div>
               <div className="section-form__box">
@@ -136,22 +87,12 @@ export default function JoinPage() {
                   비밀번호 확인
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Password
-                    id="join-pw-re"
-                    inputRef={inputRePW}
-                    setIsInvalid={setIsRePasswordInvalid}
-                  />
-                  {isPasswordNotSame && (
-                    <p className="alert">비밀번호가 일치하지 않습니다.</p>
-                  )}
+                  <Input.Password id="join-pw-re" inputRef={inputRePW} setIsInvalid={setIsRePasswordInvalid} />
+                  {isPasswordNotSame && <p className="alert">비밀번호가 일치하지 않습니다.</p>}
                 </span>
               </div>
               <div className="section-form__box">
-                <Button
-                  size="large"
-                  className="section-form__btn"
-                  disabled={isFormInvalid}
-                >
+                <Button type="submit" id="submit-join" size="large" className="section-form__btn" disabled={isFormInvalid}>
                   회원가입
                 </Button>
               </div>
@@ -163,22 +104,12 @@ export default function JoinPage() {
           <ul className="section-other__content">
             <li className="section-other__list">
               <a href="https://www.google.com" className="link">
-                <Image
-                  width="42"
-                  height="42"
-                  src={IcoGoogle}
-                  alt="구글 로그인 바로가기"
-                />
+                <Image width="42" height="42" src={IcoGoogle} alt="구글 로그인 바로가기" />
               </a>
             </li>
             <li className="section-other__list">
               <a href="https://www.kakaocorp.com/page/" className="link">
-                <Image
-                  width="42"
-                  height="42"
-                  src={IcoKakao}
-                  alt="카카오 로그인 바로가기"
-                />
+                <Image width="42" height="42" src={IcoKakao} alt="카카오 로그인 바로가기" />
               </a>
             </li>
           </ul>

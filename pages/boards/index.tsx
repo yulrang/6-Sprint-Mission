@@ -1,7 +1,8 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
-import { useResponsive } from "@/src/hooks/useResponsive";
+import useResponsive from "@/src/hooks/useResponsive";
 import Input from "@/components/Input";
 import { BoardList } from "@/components/BoardList";
 import { BoardCard } from "@/components/BoardCard";
@@ -41,10 +42,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 게시글</h2>
           </header>
           <div className="section-content">
-            <BoardCard
-              order="like"
-              pageSize={isMobile ? 1 : isTablet ? 2 : 3}
-            />
+            <BoardCard order="like" pageSize={isMobile ? 1 : isTablet ? 2 : 3} />
           </div>
         </div>
       </section>
@@ -58,14 +56,7 @@ export default function Page() {
               </Link>
             </div>
             <div className="section-info">
-              <Input.Search
-                name="search"
-                value={values.search}
-                onSubmit={handleSearch}
-                onChange={handleInputChange}
-                className="section-boards__search"
-                placeholder="검색할 게시글을 입력해주세요."
-              />
+              <Input.Search name="search" value={values.search} onSubmit={handleSearch} onChange={handleInputChange} className="section-boards__search" placeholder="검색할 게시글을 입력해주세요." />
               <Input.Select
                 selectOptions={[
                   { value: "recent", name: "최신순" },
@@ -79,12 +70,7 @@ export default function Page() {
             </div>
           </header>
           <div className="section-content">
-            <BoardList
-              order={values.order}
-              pageSize={10}
-              keyword={values.search}
-              page={values.page}
-            />
+            <BoardList order={values.order} pageSize={10} keyword={values.search} page={values.page} />
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import GNB from "@/components/GNB";
 import { Logo } from "@/components/Logo";
 
-export function Header() {
+export default function Header() {
   return (
     <header className="header">
       <div className="header-wrap">

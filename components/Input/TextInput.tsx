@@ -5,21 +5,13 @@ interface TextInputProps {
   name: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  id?: string;
-  className?: string;
-  required?: boolean;
-  placeholder?: string;
+  id: string;
+  className: string;
+  required: boolean;
+  placeholder: string;
 }
 
-export default function TextInput({
-  name,
-  value,
-  onChange,
-  id,
-  className,
-  required,
-  placeholder,
-}: TextInputProps) {
+export default function TextInput({ name, value, onChange, id, className, required, placeholder }: TextInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {
@@ -32,30 +24,10 @@ export default function TextInput({
   if (name === "nickname") {
     return (
       <>
-        <input
-          type="text"
-          name={name}
-          value={value}
-          onChange={handleChange}
-          id={id}
-          className={`${Styles.input} ${className}`}
-          placeholder={placeholder}
-          required={required}
-        />
+        <input type="text" name={name} value={value} onChange={handleChange} id={id} className={`${Styles.input} ${className}`} placeholder={placeholder} required={required} />
         {isEmpty && <p className="alert">닉네임을 입력하세요.</p>}
       </>
     );
   }
-  return (
-    <input
-      type="text"
-      name={name}
-      value={value}
-      onChange={onChange}
-      id={id}
-      className={`${Styles.input} ${className}`}
-      placeholder={placeholder}
-      required={required}
-    />
-  );
+  return <input type="text" name={name} value={value} onChange={onChange} id={id} className={`${Styles.input} ${className}`} placeholder={placeholder} required={required} />;
 }
