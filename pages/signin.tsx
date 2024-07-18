@@ -12,7 +12,7 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 import { useRouter } from "next/router";
 
 export default function SignInPage() {
-  const { user, login } = useAuth();
+  const { user, login } = useAuth(false);
   const [values, setValues] = useState({
     email: "",
     password: "",

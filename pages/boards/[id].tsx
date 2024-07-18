@@ -7,9 +7,10 @@ import Header from "@/components/Header";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { GetServerSidePropsContext } from "next";
-import { getArticleComments, getArticleDetail } from "@/src/api/api";
+import { deleteLike, getArticleComments, getArticleDetail, postLike } from "@/src/api/api";
 import WriterInfo from "@/components/WriterInfo";
 import icoHeart from "@/src/img/ic_heart.svg";
+import icoHeartOn from "@/src/img/ic_heart_on.svg";
 import { ChangeEvent, useRef, useState } from "react";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -35,10 +36,27 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function ItemDetailPage({ article, comments }: { article: any; comments: any }) {
+  const [like, setLike] = useState(false);
+  // TODO: isLiked API 추가 가능한지 문의함
+  const [likeTotal, setLikeTotal] = useState<number>(article.likeCount);
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsCommentDisabled(e.target.value === "" ? true : false);
   };
+
+  const handleLike = async(e:ChangeEvent<HTMLInputElement>) => {
+    if(e.target.checked) {
+      await postLike(article.id);
+      setLikeTotal((prevNum) => prevNum + 1);  
+      setLike(true);
+    } else {
+      await deleteLike(article.id);  
+      setLikeTotal((prevNum) => prevNum - 1);  
+      setLike(false);
+    }
+    
+  }
+
   return (
     <>
       <Header />
@@ -61,8 +79,11 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
                   </li>
                   <li>
                     <span className="like">
-                      <Image width="24" height="24" src={icoHeart} alt="좋아요 수" />
-                      <em className="count">{article.likeCount}</em>
+                      <input type="checkbox" id="chk_like" className="chk_like" onChange={handleLike} />
+                      <label htmlFor="chk_like" className="lab_like">
+                        <Image width="24" height="24" src={like ? icoHeartOn : icoHeart} alt="좋아요 수" />
+                      </label>
+                      <em className="count">{likeTotal}</em>
                     </span>
                   </li>
                 </ul>

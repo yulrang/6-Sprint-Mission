@@ -94,6 +94,12 @@
           border-left: 1px solid var(--cool-grey200);
         }
       }
+      .chk_like {
+        display:none;
+      }
+      .lab_like {
+        display: flex;
+      }
       .like {
         display: flex;
         gap: 4px;

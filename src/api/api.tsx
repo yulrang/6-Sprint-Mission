@@ -96,10 +96,10 @@ export async function getArticleDetail(articleId: string) {
   return body;
 }
 
-export async function getArticleComments(productId: string) {
+export async function getArticleComments(articleId: string) {
   let response;
   try {
-    response = await fetch(`${BASE_URL}/articles/${productId}/comments/?limit=100`);
+    response = await fetch(`${BASE_URL}/articles/${articleId}/comments/?limit=100`);
   } catch (error) {
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
@@ -109,6 +109,46 @@ export async function getArticleComments(productId: string) {
   }
   const body = await response.json();
   return body.list;
+}
+
+export async function postLike(articleId: string) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/articles/${articleId}/like`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("좋아요 업데이트에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function deleteLike(articleId: string) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/articles/${articleId}/like`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("좋아요 업데이트에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
 }
 
 export async function uploadImg(data: FormData) {

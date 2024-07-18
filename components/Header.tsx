@@ -6,7 +6,7 @@ import Image from "next/image";
 import ImgUser from "@/src/img/img_user.svg";
 
 export default function Header() {
-  const { user } = useAuth();
+  const { user } = useAuth(false);
 
   return (
     <header className="header">
