@@ -106,3 +106,18 @@ export async function getArticleComments(productId: string) {
   const body = await response.json();
   return body.list;
 }
+
+export async function join(data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/auth/signUp`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("회원가입에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
