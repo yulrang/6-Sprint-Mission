@@ -2,6 +2,10 @@ import { GetItemsResult } from "@/src/types/item";
 import { GetArticlesResult } from "@/src/types/article";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+let accessToken: string;
+if (typeof window !== "undefined") {
+  accessToken = localStorage.getItem("accessToken") ?? "";
+}
 
 export async function getItems({ order, page, pageSize, keyword = "" }: { order: string; page: number; pageSize: number; keyword?: string }): Promise<GetItemsResult> {
   const query = `?orderBy=${order}&page=${page}&pageSize=${pageSize}&keyword=${keyword}`;
@@ -105,6 +109,37 @@ export async function getArticleComments(productId: string) {
   }
   const body = await response.json();
   return body.list;
+}
+
+export async function uploadImg(data: FormData) {
+  const response = await fetch(`${BASE_URL}/images/upload`, {
+    method: "POST",
+    body: data,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("이미지 업로드에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body.url;
+}
+
+export async function postArticle(data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/articles`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("게시글 등록에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
 }
 
 export async function join(data: Record<string, any>) {

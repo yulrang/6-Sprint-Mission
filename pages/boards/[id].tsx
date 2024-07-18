@@ -92,7 +92,7 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
           <ReplyList items={comments} />
         </section>
         <section className="section-btn">
-          <Link href="/items" className="btn-list">
+          <Link href="/boards" className="btn-list">
             <span>목록으로 돌아가기</span>
             <Image width="24" height="24" src={icoBack} aria-hidden="true" alt="아이콘" />
           </Link>

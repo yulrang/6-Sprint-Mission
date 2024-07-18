@@ -94,7 +94,7 @@ export function AuthProvider({ children }) {
   );
 }
 
-export function useAuth() {
+export function useAuth(required) {
   const context = useContext(AuthContext);
   const router = useRouter();
 
@@ -103,10 +103,10 @@ export function useAuth() {
   }
 
   useEffect(() => {
-    if (!context.user && !context.isPending) {
+    if (required && !context.user && !context.isPending) {
       router.push("/signin");
     }
-  }, [context.user, context.isPending]);
+  }, [context.user, context.isPending, required]);
 
   return context;
 }
