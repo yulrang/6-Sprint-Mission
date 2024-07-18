@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, useState } from "react";
 import Styles from "./Input.module.scss";
 
 interface PasswordInputProps {
@@ -8,9 +8,10 @@ interface PasswordInputProps {
   required?: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
   setIsInvalid: (value: boolean) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function PasswordInput({ id, name, className, required, inputRef, setIsInvalid }: PasswordInputProps) {
+export default function PasswordInput({ id, name, className, required, inputRef, setIsInvalid, onChange }: PasswordInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,7 @@ export default function PasswordInput({ id, name, className, required, inputRef,
       setIsInvalid(false);
       setIsEmpty(false);
     }
+    onChange(e);
   };
 
   return (
