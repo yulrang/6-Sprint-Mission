@@ -27,23 +27,59 @@ export function AuthProvider({ children }) {
     isPending: true,
   });
 
-  const login = async (data: { email: string; password: string }) => {
+  const getMe = async (accessToken: string) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      isPending: true,
+    }));
+
+    let nextUser: User | null = null;
+
     try {
-      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const body = await res.json();
+      nextUser = body.data;
+    } finally {
+      setValues((prevValues) => ({
+        ...prevValues,
+        user: nextUser,
+        isPending: false,
+      }));
+    }
+  };
+
+  const login = async (data: { email: string; password: string }) => {
+    let accessToken;
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
-      if (!result.ok) {
+      if (!response.ok) {
         throw new Error("로그인에 실패했습니다.");
+      } else {
+        const result = await response.json();
+        localStorage.setItem("accessToken", result.accessToken);
+        await getMe(result.accessToken);
       }
     } catch (error) {
       console.error("로그인 요청 중 오류 발생:", error);
     }
   };
+
+  useEffect(() => {
+    if (values.user) {
+      getMe();
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
