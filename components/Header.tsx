@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import GNB from "./GNB";
+import { useAuth } from "@/src/contexts/AuthProvider";
+import Image from "next/image";
+import ImgUser from "@/src/img/img_user.svg";
 
 export default function Header() {
+  const { user } = useAuth();
+
   return (
     <header className="header">
       <div className="header-wrap">
@@ -13,9 +18,13 @@ export default function Header() {
           <GNB />
         </div>
         <div>
-          <Link href="/signin" className="btn-login">
-            로그인
-          </Link>
+          {user ? (
+            <Image src={user?.image ?? ImgUser} width={40} height={40} alt="유저 이미지" />
+          ) : (
+            <Link href="/signin" className="btn-login">
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </header>

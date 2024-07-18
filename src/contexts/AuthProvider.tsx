@@ -42,8 +42,8 @@ export function AuthProvider({ children }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const body = await res.json();
-      nextUser = body.data;
+      const result = await res.json();
+      nextUser = result;
     } finally {
       setValues((prevValues) => ({
         ...prevValues,
