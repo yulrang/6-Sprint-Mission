@@ -13,6 +13,7 @@ import icoHeart from "@/src/img/ic_heart.svg";
 import icoHeartOn from "@/src/img/ic_heart_on.svg";
 import { ChangeEvent, FormEvent, FormEventHandler, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import ImgEmpty from "@/src/img/Img_reply_empty.png";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
@@ -123,8 +124,14 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
             </div>
           </form>
         </section>
-        <section className="section-reply">
+        <section className="section-replyList">
           <ReplyList items={comments} />
+          {comments.length === 0 && 
+            <div className="no-reply">
+              <Image src={ImgEmpty} width={140} height={140} alt="댓글 이미지"/>
+              <p>아직 댓글이 없어요.</p>
+              <p>지금 댓글을 달아보세요!</p>
+            </div>}
         </section>
         <section className="section-btn">
           <Link href="/boards" className="btn-list">

@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import GNB from "./GNB";
 import { useAuth } from "@/src/contexts/AuthProvider";
 import Image from "next/image";
-import ImgUser from "@/src/img/img_user.svg";
+import ImgUser from "@/src/img/ic_profile.svg";
 
 export default function Header() {
   const { user } = useAuth(false);

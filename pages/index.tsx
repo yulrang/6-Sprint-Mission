@@ -9,7 +9,7 @@ import IcoYoutube from "@/src/img/ic_youtube.svg";
 import IcoTwitter from "@/src/img/ic_twitter.svg";
 import IcoInstagram from "@/src/img/ic_instagram.svg";
 import { useAuth } from "@/src/contexts/AuthProvider";
-import ImgUser from "@/src/img/img_user.svg";
+import ImgUser from "@/src/img/ic_profile.svg";
 
 export default function Page() {
   const { user } = useAuth(false);
