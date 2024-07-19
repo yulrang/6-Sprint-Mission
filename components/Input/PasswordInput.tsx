@@ -31,7 +31,6 @@ export default function PasswordInput({ id, name, className, required, inputRef,
       setIsInvalid(false);
       setIsEmpty(false);
     }
-    onChange(e);
   };
 
   return (

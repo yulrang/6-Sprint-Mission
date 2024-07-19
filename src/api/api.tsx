@@ -111,6 +111,22 @@ export async function getArticleComments(articleId: string) {
   return body.list;
 }
 
+export async function postArticleComment(articleId:string, data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("댓글 등록에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
 export async function postLike(articleId: string) {
   let response;
   try {
