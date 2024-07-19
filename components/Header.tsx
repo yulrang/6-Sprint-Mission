@@ -6,7 +6,7 @@ import Image from "next/image";
 import ImgUser from "@/src/img/ic_profile.svg";
 
 export default function Header() {
-  const { user } = useAuth(false);
+  const { user, isAuth } = useAuth(true);
 
   return (
     <header className="header">
@@ -18,8 +18,8 @@ export default function Header() {
           <GNB />
         </div>
         <div>
-          {user ? (
-            <Image src={user?.image ?? ImgUser} width={40} height={40} alt="유저 이미지" />
+          {isAuth ? (
+            <Image src={ImgUser} width={40} height={40} alt="유저 이미지" />
           ) : (
             <Link href="/signin" className="btn-login">
               로그인

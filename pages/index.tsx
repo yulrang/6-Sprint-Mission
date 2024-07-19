@@ -12,7 +12,7 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 import ImgUser from "@/src/img/ic_profile.svg";
 
 export default function Page() {
-  const { user } = useAuth(false);
+  const { user, isAuth } = useAuth(false);
 
   return (
     <div className="wrap wrap-index">
@@ -29,8 +29,8 @@ export default function Page() {
             </Link>
           </h1>
           <div className="header__btn">
-            {user ? (
-              <Image src={user?.image ?? ImgUser} width={40} height={40} alt="유저 이미지" />
+            {isAuth ? (
+              <Image src={ImgUser} width={40} height={40} alt="유저 이미지" />
             ) : (
               <Link href="/signin" className="btn-login">
                 로그인

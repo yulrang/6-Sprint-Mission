@@ -12,20 +12,24 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isPending: boolean;
+  isAuth : boolean;
   login: (credentials: Record<string, any>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  isAuth: false,
   isPending: true,
   login: async ({ email, password }) => {},
 });
+
 
 export function AuthProvider({ children }) {
   const [values, setValues] = useState<{ user: User | null; isPending: boolean }>({
     user: null,
     isPending: true,
   });
+  const [isAuth, setIsAuth] = useState(false);
 
   const getMe = async (accessToken: string) => {
     setValues((prevValues) => ({
@@ -54,7 +58,6 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (data: Record<string, any>) => {
-    let accessToken;
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
         method: "POST",
@@ -68,6 +71,7 @@ export function AuthProvider({ children }) {
       } else {
         const result = await response.json();
         localStorage.setItem("accessToken", result.accessToken);
+        setIsAuth(true);
         await getMe(result.accessToken);
       }
     } catch (error) {
@@ -79,6 +83,9 @@ export function AuthProvider({ children }) {
     if (values.user) {
       getMe();
     }
+    if(localStorage.getItem("accessToken")) {
+      setIsAuth(true);
+    }
   }, []);
 
   return (
@@ -86,6 +93,7 @@ export function AuthProvider({ children }) {
       value={{
         user: values.user,
         isPending: values.isPending,
+        isAuth: isAuth,
         login,
       }}
     >
@@ -106,7 +114,10 @@ export function useAuth(required) {
     if (required && !context.user && !context.isPending) {
       router.push("/signin");
     }
-  }, [context.user, context.isPending, required]);
+    if(!required && context.isAuth) {
+      router.push("/");
+    }
+  }, [context.user, context.isPending, context.isAuth, required]);
 
   return context;
 }

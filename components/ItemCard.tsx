@@ -13,7 +13,7 @@ export default function ItemCard({ item }: ItemCardProps) {
     <>
       <div className={Styles["img-wrap"]}>
         <Link href={`/items/${item.id}`} className="link">
-          <img width="221" height="221" src={item?.images[0]} alt={item.name + " 이미지"} className={Styles.img} />
+          <Image width="221" height="221" src={item?.images[0]} alt={item.name + " 이미지"} className={Styles.img} />
         </Link>
       </div>
       <div className={Styles.content}>

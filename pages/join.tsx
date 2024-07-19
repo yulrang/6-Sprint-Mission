@@ -8,6 +8,7 @@ import IcoGoogle from "@/src/img/ic_google.svg";
 import IcoKakao from "@/src/img/ic_kakao.svg";
 import { join } from "@/src/api/api";
 import { useRouter } from "next/router";
+import { useAuth } from "@/src/contexts/AuthProvider";
 
 export default function JoinPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);
@@ -19,6 +20,7 @@ export default function JoinPage() {
   const inputPW = useRef<HTMLInputElement>();
   const inputRePW = useRef<HTMLInputElement>();
   const router = useRouter();
+  const { user } = useAuth(false);
 
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     switch (e.target.type) {

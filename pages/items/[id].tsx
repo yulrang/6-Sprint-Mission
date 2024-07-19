@@ -58,7 +58,7 @@ export default function ItemDetailPage({ product, comments }: { product: any; co
       <div className="section-wrap">
         <section className="section-detail">
           <div className="section-img">
-            <img src={product.images} alt="상품 이미지" className="detail-img" />
+            <Image src={product.images} width={486} height={486} alt="상품 이미지" className="detail-img" />
           </div>
           <div className="section-content">
             <div className="section-row">
