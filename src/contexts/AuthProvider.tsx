@@ -12,7 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isPending: boolean;
-  login: (credentials: { email: string; password: string }) => Promise<void>;
+  login: (credentials: Record<string, any>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const login = async (data: { email: string; password: string }) => {
+  const login = async (data: Record<string, any>) => {
     let accessToken;
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {

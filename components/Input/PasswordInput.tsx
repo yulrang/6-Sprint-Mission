@@ -4,6 +4,7 @@ import Styles from "./Input.module.scss";
 interface PasswordInputProps {
   id: string;
   name: string;
+  value: string;
   className?: string;
   required?: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
@@ -11,7 +12,7 @@ interface PasswordInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function PasswordInput({ id, name, className, required, inputRef, setIsInvalid, onChange }: PasswordInputProps) {
+export default function PasswordInput({ id, name, value, className, required, inputRef, setIsInvalid, onChange }: PasswordInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +37,7 @@ export default function PasswordInput({ id, name, className, required, inputRef,
   return (
     <>
       <span className="section-form__pw-box">
-        <input type="password" name={name} className={`${Styles.input} ${className}`} placeholder="비밀번호를 입력해주세요" minLength={8} required={required} ref={inputRef} onChange={handleChange} />
+        <input type="password" name={name} value={value} className={`${Styles.input} ${className}`} placeholder="비밀번호를 입력해주세요" minLength={8} required={required} ref={inputRef} onChange={handleChange} />
         <input type="checkbox" id={id} className="blind chk-visibility" onChange={handleCheck} />
         <label htmlFor={id} className="spr visibility-off">
           <span className="blind">비밀번호 보기/숨기기</span>

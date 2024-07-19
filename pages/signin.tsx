@@ -30,10 +30,15 @@ export default function SignInPage() {
     }));
   };
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const jsonObject : Record<string, any> = {};
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
 
-    await login({ email: values.email, password: values.password });
+    await login(jsonObject);
     router.push("/");
   }
 
@@ -60,7 +65,6 @@ export default function SignInPage() {
                     id="login-email"
                     className="section-form__input"
                     name="email"
-                    value={values.email}
                     onChange={handleInputChange}
                     placeholder="이메일을 입력해주세요"
                     required={true}
@@ -73,7 +77,7 @@ export default function SignInPage() {
                   비밀번호
                 </label>
                 <span className="section-form__input-box">
-                  <Input.Password id="login-pw" name="password" value={values.password} onChange={handleInputChange} setIsInvalid={setIsPasswordInvalid} />
+                  <Input.Password id="login-pw" name="password" onChange={handleInputChange} setIsInvalid={setIsPasswordInvalid} />
                 </span>
               </div>
               <div className="section-form__box">
