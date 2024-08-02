@@ -13,7 +13,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isPending: boolean;
-  isAuth : boolean;
+  isAuth: boolean;
   login: (credentials: Record<string, any>) => Promise<void>;
 }
 
@@ -24,7 +24,7 @@ const AuthContext = createContext<AuthContextType>({
   login: async ({ email, password }) => {},
 });
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [values, setValues] = useState<{ user: User | null; isPending: boolean }>({
     user: null,
     isPending: true,
@@ -81,7 +81,7 @@ export function AuthProvider({ children }) {
   };
 
   const refresh = async (data: Record<string, any>) => {
-    const tokenObject = { refreshToken : localStorage.getItem("refreshToken") };
+    const tokenObject = { refreshToken: localStorage.getItem("refreshToken") };
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`, {
         method: "POST",
@@ -115,9 +115,9 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken") ?? "";
     if (values.user) {
-      getMe();
+      getMe(accessToken);
     }
-    if(accessToken) {
+    if (accessToken) {
       const thirtyMinute = 30 * 60 * 1000;
       setIsAuth(true);
       setInterval(refresh, thirtyMinute);
@@ -138,7 +138,7 @@ export function AuthProvider({ children }) {
   );
 }
 
-export function useAuth(required) {
+export function useAuth(required: boolean) {
   const context = useContext(AuthContext);
   const router = useRouter();
 
@@ -150,7 +150,7 @@ export function useAuth(required) {
     if (required && !context.user && !context.isPending) {
       router.push("/signin");
     }
-    if(!required && context.isAuth) {
+    if (!required && context.isAuth) {
       router.push("/");
     }
   }, [context.user, context.isPending, context.isAuth, required]);

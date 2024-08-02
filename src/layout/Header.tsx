@@ -1,6 +1,6 @@
 import Link from "next/link";
 import GNB from "@/components/GNB";
-import { Logo } from "@/components/Logo";
+import Logo from "@/components/Logo";
 
 export default function Header() {
   return (
