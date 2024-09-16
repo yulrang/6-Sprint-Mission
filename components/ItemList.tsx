@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
-import Pagination from "./Pagination";
 import { getItems } from "@/src/api/api";
 import useAsync from "@/src/hooks/useAsync";
 import { Item } from "@/src/types/item";
 import Styles from "./ItemList.module.scss";
+import { Pagination } from "@nextui-org/react";
 
 interface ItemListProps {
   order: string;
@@ -13,7 +13,12 @@ interface ItemListProps {
   pageSize: number;
 }
 
-export default function ItemList({ order = "", pageSize = 0, keyword = "", page = undefined }: ItemListProps) {
+export default function ItemList({
+  order = "",
+  pageSize = 0,
+  keyword = "",
+  page = undefined,
+}: ItemListProps) {
   const [items, setItems] = useState<Item[]>([]);
   const [paging, setPaging] = useState<number>(1);
   const [isLoading, loadingError, getItemsAsync] = useAsync(getItems);
@@ -61,7 +66,25 @@ export default function ItemList({ order = "", pageSize = 0, keyword = "", page 
             <p className={Styles.errorTxt}>일치하는 결과가 없습니다.</p>
           </div>
         )}
-        <Pagination now={paging} total={pageTotal} onClick={handleLoadMore} onChange={setPaging} />
+        <Pagination
+          showControls
+          initialPage={1}
+          total={pageTotal}
+          page={paging}
+          onChange={(page) => setPaging(page)}
+          radius="full"
+          size="lg"
+          color="primary"
+          variant="flat"
+          disableAnimation
+          classNames={{
+            base: "flex justify-center",
+            item: "min-w-16 w-16 h-16",
+            prev: "min-w-16 w-16 h-16",
+            next: "min-w-16 w-16 h-16",
+            cursor: "",
+          }}
+        />
       </>
     );
   }

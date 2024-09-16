@@ -11,3 +11,7 @@
 @import "page/BoardPage.scss";
 @import "page/SignPage.scss";
 @import "page/HomePage.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

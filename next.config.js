@@ -16,6 +16,18 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.samsung.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "via.placeholder.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
