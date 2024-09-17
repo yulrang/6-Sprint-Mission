@@ -12,7 +12,7 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 import ImgUser from "@/src/img/ic_profile.svg";
 
 export default function Page() {
-  const { user, isAuth } = useAuth(false);
+  const { isAuth } = useAuth(false);
 
   return (
     <div className="wrap wrap-index">

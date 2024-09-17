@@ -12,7 +12,7 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 import { useRouter } from "next/router";
 
 export default function SignInPage() {
-  const { user, login } = useAuth(false);
+  const { login } = useAuth(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -33,7 +33,7 @@ export default function SignInPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const jsonObject : Record<string, any> = {};
+    const jsonObject: Record<string, any> = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });
@@ -47,10 +47,10 @@ export default function SignInPage() {
       <section className="section-form">
         <header className="section-form__header">
           <h1 className="blind">로그인 페이지</h1>
-          <a href="/" className="link-home">
+          <Link href="/" className="link-home">
             <Image width="396" height="132" src={LogoImg} alt="판다마켓 로고 이미지" className="img-home" />
             <span className="blind">홈 바로가기</span>
-          </a>
+          </Link>
         </header>
         <div className="section-form__content">
           <form action="/items.html" onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ export default function SignInPage() {
                     name="email"
                     onChange={handleInputChange}
                     placeholder="이메일을 입력해주세요"
-                    required={true}
+                    required
                     setIsInvalid={setIsEmailInvalid}
                   />
                 </span>

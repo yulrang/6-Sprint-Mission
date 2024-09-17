@@ -1,6 +1,7 @@
 "use client";
+
 import Image from "next/image";
-import { ChangeEvent, useRef, ReactElement, ReactNode, useEffect, useState, FormEvent } from "react";
+import { ChangeEvent, useRef, useEffect, useState, FormEvent, useCallback } from "react";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import LogoImg from "@/src/img/logo-big.png";
@@ -8,7 +9,7 @@ import IcoGoogle from "@/src/img/ic_google.svg";
 import IcoKakao from "@/src/img/ic_kakao.svg";
 import { join } from "@/src/api/api";
 import { useRouter } from "next/router";
-import { useAuth } from "@/src/contexts/AuthProvider";
+import Link from "next/link";
 
 export default function JoinPage() {
   const [isEmailInvalid, setIsEmailInvalid] = useState<boolean | null>(null);
@@ -20,9 +21,8 @@ export default function JoinPage() {
   const inputPW = useRef<HTMLInputElement>();
   const inputRePW = useRef<HTMLInputElement>();
   const router = useRouter();
-  const { user } = useAuth(false);
 
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
+  const handleChange = useCallback((e: ChangeEvent<HTMLFormElement>) => {
     switch (e.target.type) {
       case "text":
         if (e.target.value.length === 0) {
@@ -41,7 +41,7 @@ export default function JoinPage() {
       default:
         break;
     }
-  };
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,9 +54,7 @@ export default function JoinPage() {
     const result = await join(jsonObject);
 
     if (!result) return;
-    else {
-      router.push("/signin");
-    }
+    router.push("/signin");
   };
 
   useEffect(() => {
@@ -70,10 +68,10 @@ export default function JoinPage() {
       <section className="section-form">
         <header className="section-form__header">
           <h1 className="blind">회원가입 페이지</h1>
-          <a href="/" className="link-home">
+          <Link href="/" className="link-home">
             <Image width="396" height="132" src={LogoImg} alt="판다마켓 로고 이미지" className="img-home" />
             <span className="blind">홈 바로가기</span>
-          </a>
+          </Link>
         </header>
         <div className="section-form__content">
           <form onChange={handleChange} onSubmit={handleSubmit}>
@@ -125,23 +123,23 @@ export default function JoinPage() {
           <h2 className="section-other__tit">간편 로그인하기</h2>
           <ul className="section-other__content">
             <li className="section-other__list">
-              <a href="https://www.google.com" className="link">
+              <Link href="https://www.google.com" className="link">
                 <Image width="42" height="42" src={IcoGoogle} alt="구글 로그인 바로가기" />
-              </a>
+              </Link>
             </li>
             <li className="section-other__list">
-              <a href="https://www.kakaocorp.com/page/" className="link">
+              <Link href="https://www.kakaocorp.com/page/" className="link">
                 <Image width="42" height="42" src={IcoKakao} alt="카카오 로그인 바로가기" />
-              </a>
+              </Link>
             </li>
           </ul>
         </section>
         <section className="section-form__info">
           <p className="content">
             이미 회원이신가요?{" "}
-            <a href="/signin" className="link">
+            <Link href="/signin" className="link">
               로그인
-            </a>
+            </Link>
           </p>
         </section>
       </section>

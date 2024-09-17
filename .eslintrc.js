@@ -22,12 +22,15 @@ module.exports = {
   ],
   plugins: ["react", "react-hooks", "@typescript-eslint", "jsx-a11y", "import", "prettier"],
   rules: {
-    "react/react-in-jsx-scope": "off", // Next.js doesn't require React to be in scope
-    // 'import/prefer-default-export': 'off',
-    // '@typescript-eslint/explicit-module-boundary-types': 'off',
-    "react/prop-types": "off",
-    "no-console": "error",
-    "react/jsx-props-no-spreading": "off",
+    "no-console": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector:
+          "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        message: "Unexpected property on console object was called",
+      },
+    ],
     "prettier/prettier": [
       "error",
       {
@@ -35,6 +38,20 @@ module.exports = {
         useTabs: false,
       },
     ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        required: {
+          some: ["nesting", "id"],
+        },
+      },
+    ],
+    "react/react-in-jsx-scope": "off", // Next.js doesn't require React to be in scope
+    // 'import/prefer-default-export': 'off',
+    // '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "react/prop-types": "off",
+    "no-console": "error",
+    "react/jsx-props-no-spreading": "off",
   },
   settings: {
     react: {

@@ -2,29 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
-import { ReplyList } from "@/components/ReplyList";
+import ReplyList from "@/components/ReplyList";
 import Header from "@/components/Header";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
-import { Item } from "@/src/types/item";
 import { GetServerSidePropsContext } from "next";
 import { getItemComments, getItemDetail } from "@/src/api/api";
 import { ChangeEvent, useState } from "react";
 import ImgProductEmpty from "@/src/img/Img_product_empty.png";
-
-const defaultProduct: Item = {
-  id: 0,
-  createdAt: "",
-  updatedAt: "",
-  ownerId: 0,
-  name: "",
-  images: "",
-  price: 0,
-  description: "",
-  tags: [""],
-  favoriteCount: 0,
-};
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
@@ -51,7 +37,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function ItemDetailPage({ product, comments }: { product: any; comments: any }) {
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setIsCommentDisabled(e.target.value === "" ? true : false);
+    setIsCommentDisabled(e.target.value === "");
   };
   return (
     <>
@@ -80,11 +66,7 @@ export default function ItemDetailPage({ product, comments }: { product: any; co
               <section className="section-detail-content">
                 <h3 className="section-tit">상품 태그</h3>
                 <div className="section-content tag-view">
-                  <ul className="tag-container">
-                    {product.tags?.map((tag: string) => {
-                      return <li className="tag-view__list">{tag}</li>;
-                    })}
-                  </ul>
+                  <ul className="tag-container">{product.tags?.map((tag: string) => <li className="tag-view__list">{tag}</li>)}</ul>
                 </div>
               </section>
             </div>

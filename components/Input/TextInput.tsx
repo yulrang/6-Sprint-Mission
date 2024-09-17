@@ -12,7 +12,6 @@ interface TextInputProps {
 }
 
 export default function TextInput({ name, value, onChange, id, className, required, placeholder }: TextInputProps) {
-  const [content, setContent] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) {

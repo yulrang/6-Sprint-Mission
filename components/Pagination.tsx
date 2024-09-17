@@ -16,7 +16,12 @@ export default function Pagination({ now, total, onClick, onChange }: Pagination
     for (let i = 0; i < total; i++) {
       result.push(
         <li key={i} className={Styles["pagination-list"]}>
-          <button type="button" value={i + 1} onClick={onClick} className={Styles["pagination-list__btn"]}>
+          <button
+            type="button"
+            value={i + 1}
+            onClick={onClick}
+            className={Styles["pagination-list__btn"]}
+          >
             {i + 1}
           </button>
         </li>,
@@ -24,7 +29,12 @@ export default function Pagination({ now, total, onClick, onChange }: Pagination
     }
     result[now - 1] = (
       <li key={now - 1} className={Styles["pagination-list"]}>
-        <button type="button" value={now} onClick={onClick} className={`${Styles["pagination-list__btn"]} ${Styles.on}`}>
+        <button
+          type="button"
+          value={now}
+          onClick={onClick}
+          className={`${Styles["pagination-list__btn"]} ${Styles.on}`}
+        >
           {now}
         </button>
       </li>
@@ -42,13 +52,21 @@ export default function Pagination({ now, total, onClick, onChange }: Pagination
     <div className={Styles["pagination"]}>
       <ul className={Styles["pagination-container"]}>
         <li className={Styles["pagination-list"]}>
-          <button type="button" className={Styles["pagination-list__btn"]} onClick={handlePrevClick}>
+          <button
+            type="button"
+            className={Styles["pagination-list__btn"]}
+            onClick={handlePrevClick}
+          >
             <Image width="16" height="16" src={icoLeft} alt="이전 페이지" />
           </button>
         </li>
         {rendering()}
         <li className={Styles["pagination-list"]}>
-          <button type="button" className={Styles["pagination-list__btn"]} onClick={handleNextClick}>
+          <button
+            type="button"
+            className={Styles["pagination-list__btn"]}
+            onClick={handleNextClick}
+          >
             <Image width="16" height="16" src={icoRight} alt="이후 페이지" />
           </button>
         </li>

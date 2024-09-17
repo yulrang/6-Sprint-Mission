@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
-import { ReplyList } from "@/components/ReplyList";
+import ReplyList from "@/components/ReplyList";
 import Header from "@/components/Header";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
@@ -11,7 +11,7 @@ import { deleteLike, getArticleComments, getArticleDetail, postArticleComment, p
 import WriterInfo from "@/components/WriterInfo";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoHeartOn from "@/src/img/ic_heart_on.svg";
-import { ChangeEvent, FormEvent, FormEventHandler, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import ImgReplyEmpty from "@/src/img/Img_reply_empty.png";
 
@@ -43,32 +43,32 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
   const [likeTotal, setLikeTotal] = useState<number>(article.likeCount);
   const [comment, setComment] = useState<string>("");
   const router = useRouter();
-  
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
-  const handleLike = async(e:ChangeEvent<HTMLInputElement>) => {
-    if(e.target.checked) {
+  const handleLike = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
       await postLike(article.id);
-      setLikeTotal((prevNum) => prevNum + 1);  
+      setLikeTotal((prevNum) => prevNum + 1);
       setLike(true);
     } else {
-      await deleteLike(article.id);  
-      setLikeTotal((prevNum) => prevNum - 1);  
+      await deleteLike(article.id);
+      setLikeTotal((prevNum) => prevNum - 1);
       setLike(false);
-    } 
-  }
+    }
+  };
 
-  const handleReplySubmit = async(e:FormEvent) => {
+  const handleReplySubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
-    const response = await postArticleComment(article.id, {content: comment});
-    if(!response) return;
+
+    const response = await postArticleComment(article.id, { content: comment });
+    if (!response) return;
 
     setComment("");
     router.reload();
-  }
+  };
 
   return (
     <>
@@ -126,12 +126,13 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
         </section>
         <section className="section-replyList">
           <ReplyList items={comments} />
-          {comments.length === 0 && 
+          {comments.length === 0 && (
             <div className="no-reply">
-              <Image src={ImgReplyEmpty} width={140} height={140} alt="댓글 이미지"/>
+              <Image src={ImgReplyEmpty} width={140} height={140} alt="댓글 이미지" />
               <p>아직 댓글이 없어요.</p>
               <p>지금 댓글을 달아보세요!</p>
-            </div>}
+            </div>
+          )}
         </section>
         <section className="section-btn">
           <Link href="/boards" className="btn-list">

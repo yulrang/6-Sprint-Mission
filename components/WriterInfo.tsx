@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Styles from "./WriterInfo.module.scss";
 import icoProfile from "@/src/img/ic_profile.svg";
 import { Article } from "@/src/types/article";
+import Styles from "./WriterInfo.module.scss";
 
 export default function WriterInfo({ article }: { article: Article }) {
   return (

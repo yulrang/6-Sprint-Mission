@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import useAsync from "@/src/hooks/useAsync";
-import { createItems, postArticle, uploadImg } from "@/src/api/api";
+import { postArticle, uploadImg } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
@@ -11,7 +10,6 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 
 export default function AddBoardPage() {
   const { user } = useAuth(true);
-  const [isLoading, loadingError, onSubmitAsync] = useAsync(createItems);
   const [values, setValues] = useState({
     title: "",
     content: "",

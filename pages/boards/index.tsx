@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import useResponsive from "@/src/hooks/useResponsive";
 import Input from "@/components/Input";
-import { BoardList } from "@/components/BoardList";
-import { BoardCard } from "@/components/BoardCard";
+import BoardList from "@/components/BoardList";
+import BoardCard from "@/components/BoardCard";
 import Header from "@/components/Header";
 
 export default function Page() {
@@ -66,7 +66,7 @@ export default function Page() {
                 value={values.order}
                 onChange={handleChange}
                 className="section-boards__dropdown"
-              ></Input.Select>
+              />
             </div>
           </header>
           <div className="section-content">

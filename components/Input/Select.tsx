@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
-import Styles from "./Input.module.scss";
-import useResponsive from "@/src/hooks/useResponsive";
 import icoArrow from "@/src/img/ic_arrow_down.svg";
 import icoSort from "@/src/img/ic_sort.svg";
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
+import useResponsive from "@/src/hooks/useResponsive";
+import Styles from "./Input.module.scss";
 
 interface Option {
   value: string;
@@ -24,7 +24,7 @@ export default function Select({ selectOptions, name, value, onChange, className
   const [isShow, setIsShow] = useState(false);
   const [mainValue, setMainValue] = useState(value);
 
-  const handleMainClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleMainClick: MouseEventHandler<HTMLButtonElement> = () => {
     setIsShow(!isShow);
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,16 +57,14 @@ export default function Select({ selectOptions, name, value, onChange, className
         </div>
         {isShow && (
           <ul id="select-box" className={Styles["select-lists"]}>
-            {selectOptions.map((option, index) => {
-              return (
-                <li className={Styles["select-list"]}>
-                  <input type="radio" name={name} id={`select-${index + 1}`} value={option.value} onChange={handleChange} className={Styles.radio} />
-                  <label htmlFor={`select-${index + 1}`} className={Styles["select-list__btn"]}>
-                    {option.name}
-                  </label>
-                </li>
-              );
-            })}
+            {selectOptions.map((option, index) => (
+              <li className={Styles["select-list"]}>
+                <input type="radio" name={name} id={`select-${index + 1}`} value={option.value} onChange={handleChange} className={Styles.radio} />
+                <label htmlFor={`select-${index + 1}`} className={Styles["select-list__btn"]}>
+                  {option.name}
+                </label>
+              </li>
+            ))}
           </ul>
         )}
       </form>

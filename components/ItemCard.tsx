@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import icoHeart from "@/src/img/ic_heart.svg";
 import { Item } from "@/src/types/item";
-import Styles from "./ItemCard.module.scss";
 import ImgProductEmpty from "@/src/img/Img_product_empty-sm.png";
+import Styles from "./ItemCard.module.scss";
 
 interface ItemCardProps {
   item: Item;

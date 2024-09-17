@@ -44,6 +44,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
     formData.append("images", values.images || "");
 
     if (typeof onSubmitAsync !== "function") {
+      /* eslint-disable no-console */
       console.error("onSubmitAsync is not a function");
       return;
     }

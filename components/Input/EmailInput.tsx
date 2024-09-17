@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Styles from "./Input.module.scss";
 
 interface EmailInputProps {
@@ -25,7 +25,6 @@ export default function EmailInput({ name, value, id, className, required, setIs
     } else {
       setIsEmpty(false);
     }
-    onChange(e);
   };
   return (
     <>

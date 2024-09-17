@@ -31,7 +31,7 @@ const getTime = (updatedTime: string): string => {
   return result;
 };
 
-export function ReplyList({ items }: ReplyListProps) {
+export default function ReplyList({ items }: ReplyListProps) {
   return (
     <ul className={Styles["reply-lists"]}>
       {items?.map((item) => (

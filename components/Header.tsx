@@ -1,12 +1,12 @@
 import Link from "next/link";
-import Logo from "./Logo";
-import GNB from "./GNB";
-import { useAuth } from "@/src/contexts/AuthProvider";
 import Image from "next/image";
 import ImgUser from "@/src/img/ic_profile.svg";
+import { useAuth } from "@/src/contexts/AuthProvider";
+import Logo from "./Logo";
+import GNB from "./GNB";
 
 export default function Header() {
-  const { user, isAuth } = useAuth(true);
+  const { isAuth } = useAuth(true);
 
   return (
     <header className="header">

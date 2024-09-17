@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import ItemCard from "./ItemCard";
+import { Pagination } from "@nextui-org/react";
 import { getItems } from "@/src/api/api";
 import useAsync from "@/src/hooks/useAsync";
 import { Item } from "@/src/types/item";
+import ItemCard from "./ItemCard";
 import Styles from "./ItemList.module.scss";
-import { Pagination } from "@nextui-org/react";
 
 interface ItemListProps {
   order: string;
@@ -13,12 +13,7 @@ interface ItemListProps {
   pageSize: number;
 }
 
-export default function ItemList({
-  order = "",
-  pageSize = 0,
-  keyword = "",
-  page = undefined,
-}: ItemListProps) {
+export default function ItemList({ order = "", pageSize = 0, keyword = "", page = undefined }: ItemListProps) {
   const [items, setItems] = useState<Item[]>([]);
   const [paging, setPaging] = useState<number>(1);
   const [isLoading, loadingError, getItemsAsync] = useAsync(getItems);
@@ -27,6 +22,7 @@ export default function ItemList({
   const handleLoad = useCallback(
     async (options: ItemListProps) => {
       if (typeof getItemsAsync !== "function") {
+        /* eslint-disable no-console */
         console.error("getItemsAsync is not a function");
         return;
       }
@@ -90,13 +86,11 @@ export default function ItemList({
   }
   return (
     <ul className={`${Styles.itemLists} ${Styles.best}`}>
-      {items.map((item) => {
-        return (
-          <li key={item.id} className={Styles.itemList}>
-            <ItemCard item={item} />
-          </li>
-        );
-      })}
+      {items.map((item) => (
+        <li key={item.id} className={Styles.itemList}>
+          <ItemCard item={item} />
+        </li>
+      ))}
     </ul>
   );
 }

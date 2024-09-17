@@ -13,6 +13,7 @@ export async function getItems({ order, page, pageSize, keyword = "" }: { order:
   try {
     response = await fetch(`${BASE_URL}/products${query}`);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
   }
@@ -71,6 +72,7 @@ export async function getArticles({ order, page = 1, pageSize, keyword = "" }: {
   try {
     response = await fetch(`${BASE_URL}/articles${query}`);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
   }
@@ -86,6 +88,7 @@ export async function getArticleDetail(articleId: string) {
   try {
     response = await fetch(`${BASE_URL}/articles/${articleId}`);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
   }
@@ -101,6 +104,7 @@ export async function getArticleComments(articleId: string) {
   try {
     response = await fetch(`${BASE_URL}/articles/${articleId}/comments/?limit=100`);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
   }
@@ -111,7 +115,7 @@ export async function getArticleComments(articleId: string) {
   return body.list;
 }
 
-export async function postArticleComment(articleId:string, data: Record<string, any>) {
+export async function postArticleComment(articleId: string, data: Record<string, any>) {
   const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -157,6 +161,7 @@ export async function deleteLike(articleId: string) {
       },
     });
   } catch (error) {
+    /* eslint-disable no-console */
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");
   }

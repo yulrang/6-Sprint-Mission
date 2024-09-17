@@ -6,8 +6,8 @@ interface TextAreaProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   id?: string;
-  className?: string;
-  required?: boolean;
+  className: string;
+  required: boolean;
   placeholder?: string;
   size: string;
   ref: LegacyRef<HTMLTextAreaElement>;

@@ -76,6 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await getMe(result.accessToken);
       }
     } catch (error) {
+      /* eslint-disable no-console */
       console.error("로그인 요청 중 오류 발생:", error);
     }
   };
@@ -99,6 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await getMe(result.accessToken);
       }
     } catch (error) {
+      /* eslint-disable no-console */
       console.error("로그인 요청 중 오류 발생:", error);
     }
   };
