@@ -31,17 +31,38 @@
       gap: 16px;
     }
     .section-tit {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: relative;
     }
     .detail-tit {
       font-size: 2.4rem;
       font-weight: 600;
     }
     .btn-more {
+      float: right;
       border: none;
       background: transparent;
+    }
+    .pop-menu {
+      position: absolute;
+      right: 0;
+      transform: translateY(-10px);
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      overflow: hidden;
+      li {
+        border-top: 1px solid #ddd;
+        &:first-child {
+          border-top: 0;
+        }
+      }
+      &_btn {
+        padding: 5px 20px;
+        font-size: 1.4rem;
+        &:hover {
+          background: #f9f9f9;
+        }
+      }
     }
     .detail-price {
       font-size: 4rem;

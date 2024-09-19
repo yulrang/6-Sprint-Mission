@@ -35,6 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function ItemDetailPage({ product, comments }: { product: any; comments: any }) {
+  const [isPopMenu, setIsPopMenu] = useState(false);
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsCommentDisabled(e.target.value === "");
@@ -51,9 +52,23 @@ export default function ItemDetailPage({ product, comments }: { product: any; co
             <div className="section-row">
               <h2 className="section-tit">
                 <span className="detail-tit">{product.name}</span>
-                <button type="button" className="btn-more">
+                <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
                   <Image width="24" height="24" src={icoKebab} alt="더보기" />
                 </button>
+                {isPopMenu && (
+                  <ul className="pop-menu">
+                    <li>
+                      <button type="button" className="pop-menu_btn">
+                        수정하기
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" className="pop-menu_btn">
+                        삭제하기
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </h2>
               <strong className="detail-price">{product.price?.toLocaleString()}원</strong>
               <hr className="line" />

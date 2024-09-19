@@ -7,7 +7,15 @@ import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
 
-const INITIAL_VALUES = {
+interface InitialValues {
+  name: string;
+  description: string;
+  price: string;
+  tags: string[];
+  images: string;
+}
+
+const INITIAL_VALUES: InitialValues = {
   name: "",
   description: "",
   price: "",
@@ -38,6 +46,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
+    // @ts-ignore
     formData.append("tags", values.tags);
 
     if (values.images) {
