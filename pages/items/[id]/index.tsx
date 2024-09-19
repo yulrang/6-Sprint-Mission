@@ -4,23 +4,25 @@ import Button from "@/components/Button/Button";
 import Input from "@/components/Input";
 import ReplyList from "@/components/ReplyList";
 import Header from "@/components/Header";
+import icoHeartOn from "@/src/img/ic_heart_on.svg";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { GetServerSidePropsContext } from "next";
-import { deleteItem, getItemComments, getItemDetail } from "@/src/api/api";
+import { deleteItem, deleteProductLike, getProductComments, getProductDetail, postProductComment, postProductLike } from "@/src/api/api";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import ImgProductEmpty from "@/src/img/Img_product_empty.png";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useAuth } from "@/src/contexts/AuthProvider";
+import { Product, Comment } from "@/src/types/product";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   let product;
   let comments;
   try {
-    const productRes = await getItemDetail(String(id));
-    const commentRes = await getItemComments(String(id));
+    const productRes = await getProductDetail(String(id));
+    const commentRes = await getProductComments(String(id));
     product = productRes ?? [];
     comments = commentRes ?? [];
   } catch {
@@ -36,12 +38,35 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-export default function ItemDetailPage({ product, comments }: { product: any; comments: any }) {
+export default function ItemDetailPage({ product, comments }: { product: Product; comments: Comment[] }) {
   const { user } = useAuth(true);
   const [isPopMenu, setIsPopMenu] = useState(false);
-  const [isCommentDisabled, setIsCommentDisabled] = useState(true);
+  const [likeTotal, setLikeTotal] = useState<number>(product.favoriteCount);
+  const [comment, setComment] = useState<string>("");
+  const router = useRouter();
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setIsCommentDisabled(e.target.value === "");
+    setComment(e.target.value);
+  };
+
+  const handleLike = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      await postProductLike(product.id);
+      setLikeTotal((prevNum) => prevNum + 1);
+    } else {
+      await deleteProductLike(product.id);
+      setLikeTotal((prevNum) => prevNum - 1);
+    }
+  };
+
+  const handleReplySubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const response = await postProductComment(product.id, { content: comment });
+    if (!response) return;
+
+    setComment("");
+    router.reload();
   };
 
   const handleEdit = async (e: FormEvent) => {
@@ -107,27 +132,32 @@ export default function ItemDetailPage({ product, comments }: { product: any; co
               </section>
             </div>
             <div className="section-row">
-              <button type="button" className="btn-heart">
-                <Image width="32" height="32" src={icoHeart} alt="좋아요" />
-                <span>{product.favoriteCount}</span>
-              </button>
+              <span className="like">
+                <input type="checkbox" id="chk_like" className="chk_like" checked={product.isFavorite} onChange={handleLike} />
+                <label htmlFor="chk_like" className="lab_like">
+                  <Image width="24" height="24" src={product.isFavorite ? icoHeartOn : icoHeart} alt="좋아요 수" />
+                </label>
+                <em className="count">{likeTotal}</em>
+              </span>
             </div>
           </div>
         </section>
         <hr className="line" />
         <section className="section-comment">
           <h3 className="section-tit">문의하기</h3>
-          <div className="section-content">
-            <Input.Textarea
-              name="comment"
-              className="input-theme txt-comment"
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-              onChange={handleChange}
-            />
-            <Button type="submit" id="submit-comment" size="small" className="btn-comment" disabled={isCommentDisabled}>
-              등록
-            </Button>
-          </div>
+          <form onSubmit={handleReplySubmit}>
+            <div className="section-content">
+              <Input.Textarea
+                name="comment"
+                className="input-theme txt-comment"
+                placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+                onChange={handleChange}
+              />
+              <Button type="submit" id="submit-comment" size="small" className="btn-comment" disabled={comment === ""}>
+                등록
+              </Button>
+            </div>
+          </form>
         </section>
         <section className="section-reply">
           <ReplyList items={comments} />

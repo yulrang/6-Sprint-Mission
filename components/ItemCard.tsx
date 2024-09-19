@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import icoHeart from "@/src/img/ic_heart.svg";
-import { Item } from "@/src/types/item";
+import { Product } from "@/src/types/item";
 import ImgProductEmpty from "@/src/img/Img_product_empty-sm.png";
 import Styles from "./ItemCard.module.scss";
 
 interface ItemCardProps {
-  item: Item;
+  item: Product;
 }
 
 export default function ItemCard({ item }: ItemCardProps) {

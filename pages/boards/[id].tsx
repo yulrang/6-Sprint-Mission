@@ -39,7 +39,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function ItemDetailPage({ article, comments }: { article: any; comments: any }) {
   const [like, setLike] = useState(false);
-  // TODO: isLiked API 추가 가능한지 문의함
   const [likeTotal, setLikeTotal] = useState<number>(article.likeCount);
   const [comment, setComment] = useState<string>("");
   const router = useRouter();

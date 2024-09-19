@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { editItem, getItemDetail, postItem, uploadImg } from "@/src/api/api";
+import { editItem, getProductDetail, postItem, uploadImg } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
@@ -33,7 +33,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   let product;
   try {
-    const productRes = await getItemDetail(String(id));
+    const productRes = await getProductDetail(String(id));
     product = productRes ?? [];
   } catch {
     return {

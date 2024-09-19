@@ -1,21 +1,9 @@
 import Image from "next/image";
 import userImg from "@/src/img/ic_profile.svg";
 import Styles from "./ReplyList.module.scss";
+import { Comment } from "@/src/types/product";
 
-interface Reply {
-  content: string;
-  writer: {
-    image: string;
-    nickname: string;
-  };
-  updatedAt: string;
-  id: number;
-}
-interface ReplyListProps {
-  items: Reply[];
-}
-
-const getTime = (updatedTime: string): string => {
+const getTime = (updatedTime: Date): string => {
   const UPDATED_TIME = new Date(updatedTime);
   const NOW = new Date();
 
@@ -31,7 +19,7 @@ const getTime = (updatedTime: string): string => {
   return result;
 };
 
-export default function ReplyList({ items }: ReplyListProps) {
+export default function ReplyList({ items }: { items: Comment[] }) {
   return (
     <ul className={Styles["reply-lists"]}>
       {items?.map((item) => (

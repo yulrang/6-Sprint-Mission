@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Pagination } from "@nextui-org/react";
 import { getItems } from "@/src/api/api";
 import useAsync from "@/src/hooks/useAsync";
-import { Item } from "@/src/types/item";
+import { Product } from "@/src/types/item";
 import ItemCard from "./ItemCard";
 import Styles from "./ItemList.module.scss";
 
@@ -14,7 +14,7 @@ interface ItemListProps {
 }
 
 export default function ItemList({ order = "", pageSize = 0, keyword = "", page = undefined }: ItemListProps) {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
   const [paging, setPaging] = useState<number>(1);
   const [isLoading, loadingError, getItemsAsync] = useAsync(getItems);
   const [pageTotal, setPageTotal] = useState<number>(0);
