@@ -2,27 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import useAsync from "@/src/hooks/useAsync";
-import { createItems } from "@/src/api/api";
+import { postItem, uploadImg } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
 
 const INITIAL_VALUES = {
-  name: null,
-  description: null,
-  price: null,
-  tags: null,
-  images: null,
+  name: "",
+  description: "",
+  price: "",
+  tags: [],
+  images: "",
 };
 
 export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
-  const [isLoading, loadingError, onSubmitAsync] = useAsync(createItems);
   const [isDisableSubmit, setIsDisableSubmit] = useState(true);
   const [values, setValues] = useState(initialValues);
   const router = useRouter();
 
-  const handleChange = (name: keyof typeof INITIAL_VALUES, value: string) => {
+  const handleChange = (name: string, value: keyof typeof INITIAL_VALUES) => {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -31,28 +29,35 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    handleChange(name as keyof typeof INITIAL_VALUES, value);
+    handleChange(name, value as keyof typeof INITIAL_VALUES);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", values.name || "");
-    formData.append("description", values.description || "");
-    formData.append("price", values.price || "");
-    formData.append("tags", values.tags || "");
-    formData.append("images", values.images || "");
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("price", values.price);
+    formData.append("tags", values.tags);
 
-    if (typeof onSubmitAsync !== "function") {
-      /* eslint-disable no-console */
-      console.error("onSubmitAsync is not a function");
-      return;
+    if (values.images) {
+      const imgForm = new FormData();
+      imgForm.append("image", values.images);
+
+      const response = await uploadImg(imgForm);
+      if (!response) return;
+      formData.append("images", response);
     }
 
-    const result = await onSubmitAsync(formData);
-    if (!result) return;
+    const jsonObject: { [key: string]: any } = {};
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
 
-    router.push("/items");
+    const response = await postItem(jsonObject);
+    if (!response) return;
+
+    router.push(`/items/${response.id}`);
   };
 
   useEffect(() => {

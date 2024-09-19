@@ -203,6 +203,22 @@ export async function postArticle(data: Record<string, any>) {
   return body;
 }
 
+export async function postItem(data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/products`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("게시글 등록에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
 export async function join(data: Record<string, any>) {
   const response = await fetch(`${BASE_URL}/auth/signUp`, {
     method: "POST",

@@ -95,7 +95,7 @@
         }
       }
       .chk_like {
-        display:none;
+        display: none;
       }
       .lab_like {
         display: flex;
@@ -153,11 +153,13 @@
 
 .section-replyList {
   .no-reply {
-    padding-top:40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
     font-size: 1.6rem;
     line-height: 2.6rem;
-    text-align: center;
-    color:#9CA3AF;
+    color: #9ca3af;
   }
 }
 

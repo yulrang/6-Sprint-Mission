@@ -51,6 +51,7 @@ $size-mobile: 375px;
   @include collapse(2);
   .link {
     display: flex;
+    justify-content: space-between;
     color: var(--cool-grey800);
     &:hover {
       text-decoration: underline;
