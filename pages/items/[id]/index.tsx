@@ -8,9 +8,11 @@ import icoHeart from "@/src/img/ic_heart.svg";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { GetServerSidePropsContext } from "next";
-import { getItemComments, getItemDetail } from "@/src/api/api";
-import { ChangeEvent, useState } from "react";
+import { deleteItem, getItemComments, getItemDetail } from "@/src/api/api";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import ImgProductEmpty from "@/src/img/Img_product_empty.png";
+import Router from "next/router";
+import { useAuth } from "@/src/contexts/AuthProvider";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
@@ -35,11 +37,28 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function ItemDetailPage({ product, comments }: { product: any; comments: any }) {
+  const { user } = useAuth(true);
   const [isPopMenu, setIsPopMenu] = useState(false);
   const [isCommentDisabled, setIsCommentDisabled] = useState(true);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsCommentDisabled(e.target.value === "");
   };
+
+  const handleEdit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    Router.push(`/items/${product.id}/edit`);
+  };
+
+  const handleDelete = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const response = await deleteItem(product.id);
+    if (!response) return;
+
+    Router.push("/items");
+  };
+
   return (
     <>
       <Header />
@@ -52,18 +71,20 @@ export default function ItemDetailPage({ product, comments }: { product: any; co
             <div className="section-row">
               <h2 className="section-tit">
                 <span className="detail-tit">{product.name}</span>
-                <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
-                  <Image width="24" height="24" src={icoKebab} alt="더보기" />
-                </button>
+                {product.ownerId === user?.id && (
+                  <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
+                    <Image width="24" height="24" src={icoKebab} alt="더보기" />
+                  </button>
+                )}
                 {isPopMenu && (
                   <ul className="pop-menu">
                     <li>
-                      <button type="button" className="pop-menu_btn">
+                      <button type="button" className="pop-menu_btn" onClick={handleEdit}>
                         수정하기
                       </button>
                     </li>
                     <li>
-                      <button type="button" className="pop-menu_btn">
+                      <button type="button" className="pop-menu_btn" onClick={handleDelete}>
                         삭제하기
                       </button>
                     </li>

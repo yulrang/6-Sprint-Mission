@@ -173,6 +173,7 @@ export async function deleteLike(articleId: string) {
 }
 
 export async function uploadImg(data: FormData) {
+  console.log(accessToken);
   const response = await fetch(`${BASE_URL}/images/upload`, {
     method: "POST",
     body: data,
@@ -214,6 +215,43 @@ export async function postItem(data: Record<string, any>) {
   });
   if (!response.ok) {
     throw new Error("게시글 등록에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function editItem(productId: number, data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/products/${productId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("게시글 수정에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function deleteItem(productId: string) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/products/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    /* eslint-disable no-console */
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("상품 삭제에 실패했습니다.");
   }
   const body = await response.json();
   return body;
