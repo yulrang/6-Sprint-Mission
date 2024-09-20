@@ -48,12 +48,13 @@ export default function Page() {
           </div>
           <Modal
             backdrop="opaque"
+            placement="center"
             isOpen={isOpen}
             size="sm"
             onOpenChange={onOpenChange}
             radius="lg"
             classNames={{
-              wrapper: "text-xl",
+              wrapper: "flex text-xl justify-center items-center",
               body: "text-center",
               base: "text-[#111]",
             }}

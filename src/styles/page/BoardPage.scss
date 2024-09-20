@@ -18,7 +18,7 @@
   .section-header {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 12px 10px;
     .section-boards__btn {
       @include btnSmall();
     }
@@ -26,8 +26,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
       .section-boards__search {
+        max-width: calc(100% - 60px);
         flex: 1 1;
       }
       .section-boards__dropdown {

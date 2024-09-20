@@ -42,7 +42,7 @@ export default function Header() {
           onOpenChange={onOpenChange}
           radius="lg"
           classNames={{
-            wrapper: "text-xl",
+            wrapper: "flex text-xl justify-center items-center",
             body: "text-center",
             base: "text-[#111]",
           }}

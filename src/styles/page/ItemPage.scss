@@ -2,7 +2,7 @@
   padding: 24px 0;
   .section-header {
     display: flex;
-    gap: 12px;
+    gap: 12px 10px;
     flex-wrap: wrap;
     margin-bottom: 24px;
     @media screen and (max-width: $size-tablet) {
@@ -28,7 +28,8 @@
 
   .section-item__search {
     @media screen and (max-width: $size-tablet) {
-      flex: 2 1;
+      max-width: calc(100% - 60px);
+      flex: 1 1;
       order: 2;
     }
   }
