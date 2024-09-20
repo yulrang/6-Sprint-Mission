@@ -4,9 +4,16 @@ import ImgUser from "@/src/img/ic_profile.svg";
 import { useAuth } from "@/src/contexts/AuthProvider";
 import Logo from "./Logo";
 import GNB from "./GNB";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
+import { Button } from "@nextui-org/react";
 
 export default function Header() {
-  const { isAuth } = useAuth(true);
+  const { isAuth, logout } = useAuth(true);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <header className="header">
@@ -19,13 +26,52 @@ export default function Header() {
         </div>
         <div>
           {isAuth ? (
-            <Image src={ImgUser} width={40} height={40} alt="유저 이미지" />
+            <button type="button" onClick={onOpen}>
+              <Image src={ImgUser} width={40} height={40} alt="유저 이미지" />
+            </button>
           ) : (
             <Link href="/signin" className="btn-login">
               로그인
             </Link>
           )}
         </div>
+        <Modal
+          backdrop="opaque"
+          isOpen={isOpen}
+          size="sm"
+          onOpenChange={onOpenChange}
+          radius="lg"
+          classNames={{
+            wrapper: "text-xl",
+            body: "text-center",
+            base: "text-[#111]",
+          }}
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                <ModalBody>
+                  <p className="inline-block p-10">로그아웃 하시겠습니까?</p>
+                </ModalBody>
+                <ModalFooter className="justify-center">
+                  <Button color="default" onPress={onClose}>
+                    취소
+                  </Button>
+                  <Button
+                    color="primary"
+                    onPress={() => {
+                      onClose();
+                      handleLogout();
+                    }}
+                  >
+                    확인
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </header>
   );

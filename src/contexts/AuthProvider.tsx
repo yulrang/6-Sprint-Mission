@@ -15,6 +15,7 @@ interface AuthContextType {
   isPending: boolean;
   isAuth: boolean;
   login: (credentials: Record<string, any>) => Promise<void>;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -22,6 +23,7 @@ const AuthContext = createContext<AuthContextType>({
   isAuth: false,
   isPending: true,
   login: async ({ email, password }) => {},
+  logout: async () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -112,6 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }));
     setIsAuth(false);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   };
 
   useEffect(() => {
@@ -133,6 +136,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isPending: values.isPending,
         isAuth: isAuth,
         login,
+        logout,
       }}
     >
       {children}
