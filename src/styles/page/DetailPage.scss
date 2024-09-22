@@ -58,28 +58,7 @@
         font-style: normal;
       }
     }
-    .pop-menu {
-      position: absolute;
-      right: 0;
-      transform: translateY(-10px);
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 14px;
-      overflow: hidden;
-      li {
-        border-top: 1px solid #ddd;
-        &:first-child {
-          border-top: 0;
-        }
-      }
-      &_btn {
-        padding: 5px 20px;
-        font-size: 1.4rem;
-        &:hover {
-          background: #f9f9f9;
-        }
-      }
-    }
+
     .detail-price {
       font-size: 4rem;
       font-weight: 600;
@@ -207,5 +186,29 @@
     margin: 10px 0;
     width: fit-content;
     height: fit-content;
+  }
+}
+
+.pop-menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  overflow: hidden;
+  li {
+    border-top: 1px solid #ddd;
+    &:first-child {
+      border-top: 0;
+    }
+  }
+  &_btn {
+    padding: 5px 20px;
+    font-size: 1.4rem;
+    &:hover {
+      background: #f9f9f9;
+    }
   }
 }

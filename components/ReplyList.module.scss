@@ -10,6 +10,11 @@
       line-height: 22.4px;
       color: var(--cool-grey800);
     }
+    &__content {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+    }
     &__info {
       display: flex;
       gap: 8px;
@@ -42,5 +47,24 @@
         font-style: normal;
       }
     }
+  }
+}
+
+.edit-comment {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  .txt-comment {
+    width: 100%;
+  }
+  .btn-wrap {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .btn-cancel {
+    background: transparent;
+    color: var(--cool-grey600);
   }
 }

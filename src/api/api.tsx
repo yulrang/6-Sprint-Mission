@@ -88,6 +88,51 @@ export async function postArticleComment(articleId: string, data: Record<string,
   return body;
 }
 
+export async function EditComment(commentId: string, data: Record<string, string>) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    /* eslint-disable no-console */
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("댓글을 수정하는데 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function deleteComment(commentId: string) {
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    /* eslint-disable no-console */
+    console.error(error);
+    throw new Error("주소가 유효하지 않습니다.");
+  }
+  if (!response.ok) {
+    throw new Error("댓글을 삭제하는데 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
 export async function postLike(articleId: string) {
   let response;
   try {
