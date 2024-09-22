@@ -28,6 +28,12 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "flexible.img.hani.co.kr",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

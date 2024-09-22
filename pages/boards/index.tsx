@@ -1,20 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useResponsive from "@/src/hooks/useResponsive";
 import Input from "@/components/Input";
 import BoardList from "@/components/BoardList";
 import BoardCard from "@/components/BoardCard";
 import Header from "@/components/Header";
+import { InView, useInView } from "react-intersection-observer";
 
 export default function Page() {
   const [isPC, isTablet, isMobile] = useResponsive();
+  const [ref, inView] = useInView();
 
   const [values, setValues] = useState({
     search: "",
     order: "recent",
     page: 1,
+    pageSize: 10,
   });
 
   const handleChange = (name: string, value: string) => {
@@ -32,6 +35,15 @@ export default function Page() {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    if (inView) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        pageSize: prevValues.pageSize + 10,
+      }));
+    }
+  }, [inView]);
 
   return (
     <>
@@ -70,7 +82,8 @@ export default function Page() {
             </div>
           </header>
           <div className="section-content">
-            <BoardList order={values.order} pageSize={10} keyword={values.search} page={values.page} />
+            <BoardList order={values.order} pageSize={values.pageSize} keyword={values.search} page={values.page} />
+            <div ref={ref}>dd</div>
           </div>
         </div>
       </section>
