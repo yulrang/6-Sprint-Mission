@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { GetServerSidePropsContext } from "next";
-import { deleteLike, getArticleComments, getArticleDetail, postArticleComment, postLike } from "@/src/api/api";
+import { deleteArticle, deleteLike, getArticleComments, getArticleDetail, postArticleComment, postLike } from "@/src/api/api";
 import WriterInfo from "@/components/WriterInfo";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoHeartOn from "@/src/img/ic_heart_on.svg";
@@ -42,6 +42,7 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
   const [likeTotal, setLikeTotal] = useState<number>(article.likeCount);
   const [comment, setComment] = useState<string>("");
   const router = useRouter();
+  const [isPopMenu, setIsPopMenu] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -69,6 +70,21 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
     router.reload();
   };
 
+  const handleEdit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    router.push(`/boards/${article.id}/edit`);
+  };
+
+  const handleDelete = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const response = await deleteArticle(article.id);
+    if (!response) return;
+
+    router.push("/boards");
+  };
+
   return (
     <>
       <Header />
@@ -79,9 +95,23 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
               <div>
                 <h2 className="section-tit">
                   <span className="detail-tit">{article.title}</span>
-                  <button type="button" className="btn-more">
+                  <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
                     <Image width="24" height="24" src={icoKebab} alt="더보기" />
                   </button>
+                  {isPopMenu && (
+                    <ul className="pop-menu">
+                      <li>
+                        <button type="button" className="pop-menu_btn" onClick={handleEdit}>
+                          수정하기
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" className="pop-menu_btn" onClick={handleDelete}>
+                          삭제하기
+                        </button>
+                      </li>
+                    </ul>
+                  )}
                 </h2>
               </div>
               <div>

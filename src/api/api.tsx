@@ -72,6 +72,37 @@ export async function postArticle(data: Record<string, any>) {
   return body;
 }
 
+export async function editArticle(articleId: string, data: Record<string, any>) {
+  const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("게시글 수정에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function deleteArticle(articleId: string) {
+  const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("게시글 삭제에 실패했습니다.");
+  }
+  const body = await response.json();
+  return body;
+}
+
 export async function postArticleComment(articleId: string, data: Record<string, any>) {
   const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
     method: "POST",
