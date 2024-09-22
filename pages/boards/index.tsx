@@ -83,7 +83,7 @@ export default function Page() {
           </header>
           <div className="section-content">
             <BoardList order={values.order} pageSize={values.pageSize} keyword={values.search} page={values.page} />
-            <div ref={ref}>dd</div>
+            <div className="h-10" ref={ref}></div>
           </div>
         </div>
       </section>
