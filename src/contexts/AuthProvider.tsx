@@ -119,11 +119,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken") ?? "";
-    if (values.user) {
-      getMe(accessToken);
-    }
     if (accessToken) {
       const thirtyMinute = 30 * 60 * 1000;
+      getMe(accessToken);
       setIsAuth(true);
       setInterval(refresh, thirtyMinute);
     }
