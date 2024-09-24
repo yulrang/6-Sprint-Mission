@@ -38,13 +38,15 @@ const formatTimeAgo = (dateString: Date): string => {
 
 export default function ReplyList({ items }: { items: Comment[] }) {
   return (
-    <ul className={Styles["reply-lists"]}>
-      {items?.map((item) => (
-        <li key={item?.id} className={Styles["reply-list"]}>
-          <Reply item={item} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={Styles["reply-lists"]}>
+        {items?.map((item) => (
+          <li key={item?.id} className={Styles["reply-list"]}>
+            <Reply item={item} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

@@ -6,84 +6,93 @@ import ReplyList from "@/components/ReplyList";
 import Header from "@/components/Header";
 import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
-import { GetServerSidePropsContext } from "next";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import ImgReplyEmpty from "@/src/img/Img_reply_empty.png";
+import { useInView } from "react-intersection-observer";
 import { deleteArticle, deleteLike, getArticleComments, getArticleDetail, postArticleComment, postLike } from "@/src/api/api";
 import WriterInfo from "@/components/WriterInfo";
 import icoHeart from "@/src/img/ic_heart.svg";
 import icoHeartOn from "@/src/img/ic_heart_on.svg";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useRouter } from "next/router";
-import ImgReplyEmpty from "@/src/img/Img_reply_empty.png";
+import { Comment } from "@/src/types/product";
+import { Article } from "@/src/types/article";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { id } = context.query;
-  let article;
-  let comments;
-  try {
-    const articleRes = await getArticleDetail(String(id));
-    const commentRes = await getArticleComments(String(id));
-    article = articleRes ?? [];
-    comments = commentRes ?? [];
-  } catch {
-    return {
-      notFound: true,
-    };
-  }
-  return {
-    props: {
-      article,
-      comments,
-    },
-  };
-}
-
-export default function ItemDetailPage({ article, comments }: { article: any; comments: any }) {
-  const [like, setLike] = useState(false);
-  const [likeTotal, setLikeTotal] = useState<number>(article.likeCount);
-  const [comment, setComment] = useState<string>("");
+export default function ItemDetailPage() {
   const router = useRouter();
+  const { id } = router.query;
+  const [article, setArticle] = useState<Article | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [like, setLike] = useState(false);
+  const [likeTotal, setLikeTotal] = useState(0);
+  const [comment, setComment] = useState<string>("");
+  const [limit, setLimit] = useState(5); // limit 상태 추가
+  const [cursor, setCursor] = useState(0);
   const [isPopMenu, setIsPopMenu] = useState(false);
+  const [ref, inView] = useInView();
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const fetchArticleData = async () => {
+    if (id) {
+      const articleRes = await getArticleDetail(String(id));
+      setArticle(articleRes);
+      setLikeTotal(articleRes.likeCount);
+    }
+  };
+
+  const fetchComments = async () => {
+    if (id && cursor !== null) {
+      const newComments = await getArticleComments(String(id), limit, cursor);
+      setCursor(newComments.nextCursor);
+      setComments((prevValues) => [...prevValues, ...newComments.list]);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
-  const handleLike = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleLike = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      await postLike(article.id);
+      await postLike(String(article?.id));
       setLikeTotal((prevNum) => prevNum + 1);
       setLike(true);
     } else {
-      await deleteLike(article.id);
+      await deleteLike(String(article?.id));
       setLikeTotal((prevNum) => prevNum - 1);
       setLike(false);
     }
   };
 
-  const handleReplySubmit = async (e: FormEvent) => {
+  const handleReplySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await postArticleComment(article.id, { content: comment });
+    const response = await postArticleComment(String(article?.id), { content: comment });
     if (!response) return;
 
     setComment("");
-    router.reload();
+    fetchComments(); // 새로운 댓글이 추가되면 댓글 목록 갱신
   };
 
-  const handleEdit = async (e: FormEvent) => {
+  const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    router.push(`/boards/${article.id}/edit`);
+    router.push(`/boards/${article?.id}/edit`);
   };
 
-  const handleDelete = async (e: FormEvent) => {
+  const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await deleteArticle(article.id);
+    const response = await deleteArticle(String(article?.id));
     if (!response) return;
 
     router.push("/boards");
   };
+
+  useEffect(() => {
+    fetchArticleData();
+  }, [id]);
+
+  useEffect(() => {
+    if (inView && cursor !== null) {
+      fetchComments();
+    }
+  }, [inView, id]);
 
   return (
     <>
@@ -94,7 +103,7 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
             <div className="section-row">
               <div>
                 <h2 className="section-tit">
-                  <span className="detail-tit">{article.title}</span>
+                  <span className="detail-tit">{article?.title}</span>
                   <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
                     <Image width="24" height="24" src={icoKebab} alt="더보기" />
                   </button>
@@ -116,9 +125,7 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
               </div>
               <div>
                 <ul className="info-list">
-                  <li>
-                    <WriterInfo article={article} />
-                  </li>
+                  <li>{article && <WriterInfo article={article} />}</li>
                   <li>
                     <span className="like">
                       <input type="checkbox" id="chk_like" className="chk_like" onChange={handleLike} />
@@ -135,10 +142,10 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
         </section>
         <hr className="line" />
         <section className="section-article-content">
-          <div>{article.content}</div>
-          {article.image && (
+          <div>{article?.content}</div>
+          {article?.image && (
             <figure>
-              <Image width="72" height="72" src={article.image} alt="이미지" className="content-img" />
+              <Image width="72" height="72" src={article?.image} alt="이미지" className="content-img" />
             </figure>
           )}
         </section>
@@ -155,6 +162,7 @@ export default function ItemDetailPage({ article, comments }: { article: any; co
         </section>
         <section className="section-replyList">
           <ReplyList items={comments} />
+          <div className="h-10" ref={ref}></div>
           {comments.length === 0 && (
             <div className="no-reply">
               <Image src={ImgReplyEmpty} width={140} height={140} alt="댓글 이미지" />

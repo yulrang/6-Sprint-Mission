@@ -40,10 +40,10 @@ export async function getArticleDetail(articleId: string) {
   return body;
 }
 
-export async function getArticleComments(articleId: string) {
+export async function getArticleComments(articleId: string, limit: number, cursor: number) {
   let response;
   try {
-    response = await fetch(`${BASE_URL}/articles/${articleId}/comments/?limit=100`);
+    response = await fetch(`${BASE_URL}/articles/${articleId}/comments/?limit=${limit}&cursor=${cursor}`);
   } catch (error) {
     /* eslint-disable no-console */
     console.error(error);
@@ -53,7 +53,7 @@ export async function getArticleComments(articleId: string) {
     throw new Error("댓글을 불러오는데 실패했습니다.");
   }
   const body = await response.json();
-  return body.list;
+  return body;
 }
 
 export async function postArticle(data: Record<string, any>) {
@@ -268,7 +268,7 @@ export async function getProductDetail(productId: string) {
 export async function getProductComments(productId: string) {
   let response;
   try {
-    response = await fetch(`${BASE_URL}/products/${productId}/comments/?limit=100`);
+    response = await fetch(`${BASE_URL}/products/${productId}/comments/?limit=9999`);
   } catch (error) {
     console.error(error);
     throw new Error("주소가 유효하지 않습니다.");

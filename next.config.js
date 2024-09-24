@@ -46,6 +46,18 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "image.hanatour.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cafe24.poxo.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

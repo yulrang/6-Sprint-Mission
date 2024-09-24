@@ -9,8 +9,8 @@ export default function WriterInfo({ article }: { article: Article }) {
       <figure className={Styles.profile}>
         <Image width="24" height="24" src={icoProfile} alt="프로필" />
       </figure>
-      <strong className={Styles.writer}>{article.writer.nickname}</strong>
-      <em className={Styles.date}>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</em>
+      <strong className={Styles.writer}>{article?.writer?.nickname}</strong>
+      <em className={Styles.date}>{new Date(article?.createdAt).toLocaleDateString("ko-KR")}</em>
     </span>
   );
 }

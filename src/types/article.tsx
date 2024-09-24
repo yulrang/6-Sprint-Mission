@@ -1,4 +1,5 @@
 export interface Article {
+  updatedAt: Date;
   createdAt: Date;
   likeCount: number;
   writer: {
