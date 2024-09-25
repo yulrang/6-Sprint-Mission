@@ -16,9 +16,11 @@ import icoHeart from "@/src/img/ic_heart.svg";
 import icoHeartOn from "@/src/img/ic_heart_on.svg";
 import { Comment } from "@/src/types/product";
 import { Article } from "@/src/types/article";
+import { useAuth } from "@/src/contexts/AuthProvider";
 
 export default function ItemDetailPage() {
   const router = useRouter();
+  const { user } = useAuth(true);
   const { id } = router.query;
   const [article, setArticle] = useState<Article | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -104,9 +106,11 @@ export default function ItemDetailPage() {
               <div>
                 <h2 className="section-tit">
                   <span className="detail-tit">{article?.title}</span>
-                  <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
-                    <Image width="24" height="24" src={icoKebab} alt="더보기" />
-                  </button>
+                  {article?.writer?.id === user?.id && (
+                    <button type="button" className="btn-more" onClick={() => setIsPopMenu(!isPopMenu)}>
+                      <Image width="24" height="24" src={icoKebab} alt="더보기" />
+                    </button>
+                  )}
                   {isPopMenu && (
                     <ul className="pop-menu">
                       <li>
