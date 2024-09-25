@@ -7,7 +7,6 @@ import FileInput from "./FileInput";
 import Select from "./Select";
 import Textarea from "./Textarea";
 
-//@ts-ignore
 const Input = Object.assign({
   Email: EmailInput,
   Search: SearchInput,

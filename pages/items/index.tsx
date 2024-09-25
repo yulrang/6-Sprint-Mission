@@ -55,7 +55,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 상품</h2>
           </header>
           <div className="section-content">
-            <ItemList order="favorite" pageSize={getBestItemSize()} />
+            <ItemList order="favorite" pageSize={getBestItemSize()} page={0} />
           </div>
         </div>
       </section>
