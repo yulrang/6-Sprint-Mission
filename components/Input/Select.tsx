@@ -18,7 +18,7 @@ interface SelectProps {
   className?: string;
 }
 
-export default function Select({ selectOptions, name, value, onChange, className }: SelectProps) {
+export default function Select({ selectOptions, name, value, onChange, className = "" }: SelectProps) {
   const [isPC, isTablet, isMobile] = useResponsive();
   const [device, setDevice] = useState("");
   const [isShow, setIsShow] = useState(false);
@@ -33,8 +33,15 @@ export default function Select({ selectOptions, name, value, onChange, className
     setIsShow(false);
   };
 
+  const getDevice = () => {
+    if (isMobile) return "mobile";
+    else if (isTablet) return "tablet";
+    else if (isPC) return "desktop";
+    else return "mobile";
+  };
+
   useEffect(() => {
-    setDevice(isMobile ? "mobile" : isTablet ? "tablet" : "desktop");
+    setDevice(getDevice());
   }, [isPC, isTablet, isMobile]);
 
   return (
@@ -48,11 +55,7 @@ export default function Select({ selectOptions, name, value, onChange, className
                 <Image width="24" height="24" src={icoArrow} alt="아이콘" aria-hidden="true" className="ico-arrow" />
               </>
             )}
-            {device === "mobile" && (
-              <>
-                <Image width="24" height="24" src={icoSort} alt="아이콘" aria-hidden="true" />
-              </>
-            )}
+            {device === "mobile" && <Image width="24" height="24" src={icoSort} alt="아이콘" aria-hidden="true" />}
           </button>
         </div>
         {isShow && (

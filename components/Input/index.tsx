@@ -7,6 +7,7 @@ import FileInput from "./FileInput";
 import Select from "./Select";
 import Textarea from "./Textarea";
 
+//@ts-ignore
 const Input = Object.assign({
   Email: EmailInput,
   Search: SearchInput,
@@ -14,8 +15,8 @@ const Input = Object.assign({
   Password: PasswordInput,
   Tag: TagInput,
   File: FileInput,
-  Select: Select,
-  Textarea: Textarea,
+  Select,
+  Textarea,
 });
 
 export default Input;

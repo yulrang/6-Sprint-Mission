@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Styles from "./Input.module.scss";
 
 interface PasswordInputProps {

@@ -38,17 +38,47 @@ export default function ItemList({ order = "", pageSize = 0, keyword = "", page 
     [getItemsAsync, pageSize],
   );
 
-  const handleLoadMore = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setPaging(Number(e.currentTarget.value));
-    handleLoad({ order, page: paging, pageSize, keyword });
-  };
-
   useEffect(() => {
     handleLoad({ order, page: paging, pageSize, keyword });
   }, [order, keyword, paging, pageSize, handleLoad]);
+
   if (page) {
     return (
       <>
+        {isLoading && (
+          <ul className={`${Styles.itemLists} ${Styles.skeleton}`}>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+            <li className={Styles.itemList}>
+              <div className={Styles.image}></div>
+            </li>
+          </ul>
+        )}
         <ul className={Styles.itemLists}>
           {items.map((item) => (
             <li key={item.id} className={Styles.itemList}>
@@ -85,12 +115,30 @@ export default function ItemList({ order = "", pageSize = 0, keyword = "", page 
     );
   }
   return (
-    <ul className={`${Styles.itemLists} ${Styles.best}`}>
-      {items.map((item) => (
-        <li key={item.id} className={Styles.itemList}>
-          <ItemCard item={item} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {isLoading && (
+        <ul className={`${Styles.itemLists} ${Styles.skeleton} ${Styles.best}`}>
+          <li className={Styles.itemList}>
+            <div className={Styles.image}></div>
+          </li>
+          <li className={Styles.itemList}>
+            <div className={Styles.image}></div>
+          </li>
+          <li className={Styles.itemList}>
+            <div className={Styles.image}></div>
+          </li>
+          <li className={Styles.itemList}>
+            <div className={Styles.image}></div>
+          </li>
+        </ul>
+      )}
+      <ul className={`${Styles.itemLists} ${Styles.best}`}>
+        {items.map((item) => (
+          <li key={item.id} className={Styles.itemList}>
+            <ItemCard item={item} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

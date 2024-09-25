@@ -8,10 +8,10 @@ interface FileInputProps {
   name?: string;
   value?: File | null;
   initialValue?: string[];
-  onChange?: (name: string, file: File | null) => void;
+  onChange: (name: string, file: File | null) => void;
 }
 
-export default function FileInput({ name, value, initialValue, onChange }: FileInputProps) {
+export default function FileInput({ name = "file", value = null, initialValue = [""], onChange }: FileInputProps) {
   const [preview, setPreview] = useState<string | null>(initialValue?.[0] ?? null);
   const fileInput = useRef<HTMLInputElement>(null);
 
