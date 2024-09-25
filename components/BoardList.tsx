@@ -47,16 +47,16 @@ export default function BoardList({ order = "", pageSize = 0, keyword = "", page
       {isLoading && (
         <div className={`${Styles.boardLists} ${Styles.skeleton}`}>
           <div className={Styles.article}>
-            <div className={Styles.main}></div>
-            <div className={Styles.info}></div>
+            <div className={Styles.main} />
+            <div className={Styles.info} />
           </div>
           <div className={Styles.article}>
-            <div className={Styles.main}></div>
-            <div className={Styles.info}></div>
+            <div className={Styles.main} />
+            <div className={Styles.info} />
           </div>
           <div className={Styles.article}>
-            <div className={Styles.main}></div>
-            <div className={Styles.info}></div>
+            <div className={Styles.main} />
+            <div className={Styles.info} />
           </div>
         </div>
       )}
