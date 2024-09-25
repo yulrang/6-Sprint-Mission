@@ -18,6 +18,11 @@ $size-mobile: 375px;
   @media screen and (max-width: $size-tablet) {
     grid-template-columns: repeat(1, 1fr);
   }
+  &.skeleton {
+    .article {
+      height: 166px;
+    }
+  }
 }
 .article {
   display: flex;

@@ -12,7 +12,7 @@ export default function useAsync<T>(asyncFunction: (...args: any[]) => Promise<T
         return await asyncFunction(...args);
       } catch (error: any) {
         setErrorState(error);
-        return;
+        return 0;
       } finally {
         setPending(false);
       }

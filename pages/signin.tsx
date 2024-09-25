@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 
 export default function SignInPage() {
   const { login } = useAuth(false);
+  // @ts-ignore
   const [values, setValues] = useState({
     email: "",
     password: "",

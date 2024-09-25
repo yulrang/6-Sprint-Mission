@@ -1,3 +1,19 @@
+.skeleton {
+  .article {
+    height: 112px;
+  }
+  .main {
+    width: 400px;
+    height: 20px;
+    background: rgb(249, 250, 251);
+  }
+  .info {
+    width: 140px;
+    height: 20px;
+    background: rgb(249, 250, 251);
+  }
+}
+
 .article {
   display: flex;
   flex-direction: column;

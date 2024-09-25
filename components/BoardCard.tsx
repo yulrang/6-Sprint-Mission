@@ -40,37 +40,51 @@ export default function BoardCard({ order, pageSize }: ArticleListProps) {
   }, [order, pageSize, handleLoad]);
 
   return (
-    <ul className={`${Styles.boardCardLists}`}>
-      {articles.map((article) => (
-        <li key={article.id} className={Styles.boardCardList}>
-          <article className={Styles.article}>
-            <div className={Styles.flag}>
-              <Image width="16" height="16" src={icoMedal} alt="아이콘" aria-hidden="true" />
-              <span className={Styles.name}>Best</span>
-            </div>
-            <h3 className={Styles.title}>
-              <Link href={`boards/${article.id}`} className={Styles.link}>
-                <span>{article.title}</span>
-                {article.image && (
-                  <figure className={Styles.image}>
-                    <Image width="72" height="72" src={article.image} alt="이미지" />
-                  </figure>
-                )}
-              </Link>
-            </h3>
-            <div className={Styles.info}>
-              <span className={Styles.wrap}>
-                <strong className={Styles.writer}>{article.writer.nickname}</strong>
-                <span className={Styles.like}>
-                  <Image width="16" height="16" src={icoHeart} alt="좋아요 수" />
-                  <em className={Styles.count}>{article.likeCount}</em>
+    <>
+      {isLoading && (
+        <div className={`${Styles.boardCardLists} ${Styles.skeleton}`}>
+          <div className={Styles.article} />
+          <div className={Styles.article} />
+          <div className={Styles.article} />
+        </div>
+      )}
+      {loadingError && (
+        <p className="error">
+          <span className="error-txt">데이터를 불러오는데 실패했습니다.</span>
+        </p>
+      )}
+      <ul className={`${Styles.boardCardLists}`}>
+        {articles.map((article) => (
+          <li key={article.id} className={Styles.boardCardList}>
+            <article className={Styles.article}>
+              <div className={Styles.flag}>
+                <Image width="16" height="16" src={icoMedal} alt="아이콘" aria-hidden="true" />
+                <span className={Styles.name}>Best</span>
+              </div>
+              <h3 className={Styles.title}>
+                <Link href={`boards/${article.id}`} className={Styles.link}>
+                  <span>{article.title}</span>
+                  {article.image && (
+                    <figure className={Styles.image}>
+                      <Image width="72" height="72" src={article.image} alt="이미지" />
+                    </figure>
+                  )}
+                </Link>
+              </h3>
+              <div className={Styles.info}>
+                <span className={Styles.wrap}>
+                  <strong className={Styles.writer}>{article.writer.nickname}</strong>
+                  <span className={Styles.like}>
+                    <Image width="16" height="16" src={icoHeart} alt="좋아요 수" />
+                    <em className={Styles.count}>{article.likeCount}</em>
+                  </span>
                 </span>
-              </span>
-              <em className={Styles.date}>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</em>
-            </div>
-          </article>
-        </li>
-      ))}
-    </ul>
+                <em className={Styles.date}>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</em>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

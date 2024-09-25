@@ -36,6 +36,13 @@ export default function Page() {
     e.preventDefault();
   };
 
+  const getPageSize = () => {
+    if (isMobile) return 1;
+    else if (isTablet) return 2;
+    else if (isPC) return 3;
+    else return 1;
+  };
+
   useEffect(() => {
     if (inView) {
       setValues((prevValues) => ({
@@ -54,7 +61,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 게시글</h2>
           </header>
           <div className="section-content">
-            <BoardCard order="like" pageSize={isMobile ? 1 : isTablet ? 2 : 3} />
+            <BoardCard order="like" pageSize={getPageSize()} />
           </div>
         </div>
       </section>

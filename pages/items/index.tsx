@@ -32,6 +32,20 @@ export default function Page() {
     e.preventDefault();
   };
 
+  const getBestItemSize = () => {
+    if (isMobile) return 1;
+    else if (isTablet) return 2;
+    else if (isPC) return 4;
+    else return 1;
+  };
+
+  const getItemSize = () => {
+    if (isMobile) return 4;
+    else if (isTablet) return 6;
+    else if (isPC) return 10;
+    else return 4;
+  };
+
   return (
     <>
       <Header />
@@ -41,7 +55,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 상품</h2>
           </header>
           <div className="section-content">
-            <ItemList order="favorite" pageSize={isMobile ? 1 : isTablet ? 2 : 4} />
+            <ItemList order="favorite" pageSize={getBestItemSize()} />
           </div>
         </div>
       </section>
@@ -65,7 +79,7 @@ export default function Page() {
             />
           </header>
           <div className="section-content">
-            <ItemList order={values.order} pageSize={isMobile ? 4 : isTablet ? 6 : 10} keyword={values.search} page={values.page} />
+            <ItemList order={values.order} pageSize={getItemSize()} keyword={values.search} page={values.page} />
           </div>
         </div>
       </section>
