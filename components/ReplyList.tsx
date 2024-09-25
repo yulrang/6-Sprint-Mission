@@ -21,19 +21,22 @@ const formatTimeAgo = (dateString: Date): string => {
   const hours = Math.round(diffInSeconds / (60 * 60));
   const minutes = Math.round(diffInSeconds / 60);
 
-  if (years > 0) {
-    return `${years}년 전`;
-  } else if (months > 0) {
-    return `${months}달 전`;
-  } else if (days > 0) {
-    return `${days}일 전`;
-  } else if (hours > 0) {
-    return `${hours}시간 전`;
-  } else if (minutes > 0) {
-    return `${minutes}분 전`;
-  } else {
-    return `${diffInSeconds}초 전`;
+  const timeUnits = [
+    { unit: "년", value: years },
+    { unit: "달", value: months },
+    { unit: "일", value: days },
+    { unit: "시간", value: hours },
+    { unit: "분", value: minutes },
+    { unit: "초", value: diffInSeconds },
+  ];
+
+  for (const { unit, value } of timeUnits) {
+    if (value > 0) {
+      return `${value}${unit} 전`;
+    }
   }
+
+  return "방금 전";
 };
 
 interface ReplyProps {
@@ -71,8 +74,7 @@ export function Reply({ item }: ReplyProps) {
   };
 
   const handleDelete = (id: number) => async () => {
-    const response = await deleteComment(String(id));
-    if (!response) return;
+    await deleteComment(String(id));
   };
 
   return (
@@ -91,7 +93,7 @@ export function Reply({ item }: ReplyProps) {
             </span>
           </form>
         ) : (
-          <p className={Styles["content"]}>{item?.content}</p>
+          <p className={Styles.content}>{item?.content}</p>
         )}
         {!onEdit && item.writer.id === user?.id && (
           <button type="button" className={Styles["btn-more"]} onClick={() => setIsPopMenu(!isPopMenu)}>
@@ -118,8 +120,8 @@ export function Reply({ item }: ReplyProps) {
           <Image width="32" height="32" src={item?.writer?.image ?? userImg} alt="댓글 작성자 프로필" />
         </figure>
         <div className={Styles["reply-list__writer-info"]}>
-          <strong className={Styles["writer"]}>{item?.writer?.nickname}</strong>
-          <em className={Styles["time"]}>{`${formatTimeAgo(item.updatedAt)}`}</em>
+          <strong className={Styles.writer}>{item?.writer?.nickname}</strong>
+          <em className={Styles.time}>{`${formatTimeAgo(item.updatedAt)}`}</em>
         </div>
       </div>
     </>
@@ -128,14 +130,12 @@ export function Reply({ item }: ReplyProps) {
 
 export default function ReplyList({ items }: { items: Comment[] }) {
   return (
-    <>
-      <ul className={Styles["reply-lists"]}>
-        {items?.map((item) => (
-          <li key={item?.id} className={Styles["reply-list"]}>
-            <Reply item={item} />
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className={Styles["reply-lists"]}>
+      {items?.map((item) => (
+        <li key={item?.id} className={Styles["reply-list"]}>
+          <Reply item={item} />
+        </li>
+      ))}
+    </ul>
   );
 }

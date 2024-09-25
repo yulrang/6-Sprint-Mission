@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface User {
   updatedAt: Date;
@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuth: false,
   isPending: true,
-  login: async ({ email, password }) => {},
+  login: async (data: Record<string, unknown>) => {},
   logout: async () => {},
 });
 
@@ -126,12 +126,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isAuth]);
 
+  const value = useMemo(
+    () => ({
+      user: values.user,
+      isPending: values.isPending,
+      isAuth: isAuth,
+      login,
+      logout,
+    }),
+    [values.user, values.isPending, isAuth, login, logout],
+  );
+
   return (
     <AuthContext.Provider
       value={{
         user: values.user,
         isPending: values.isPending,
-        isAuth: isAuth,
+        isAuth,
         login,
         logout,
       }}

@@ -9,7 +9,7 @@ import Styles from "./ItemList.module.scss";
 interface ItemListProps {
   order: string;
   keyword?: string;
-  page?: number;
+  page?: number | undefined;
   pageSize: number;
 }
 
