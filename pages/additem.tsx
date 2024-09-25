@@ -70,7 +70,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
   };
 
   useEffect(() => {
-    setIsDisableSubmit(Object.values(values).every((el: unknown) => el !== "" && el !== null && el.length !== 0));
+    setIsDisableSubmit(Object.values(values).every((el: string) => el !== "" && el !== null && el.length !== 0));
   }, [values]);
 
   return (
