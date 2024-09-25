@@ -38,9 +38,9 @@ export default function Page() {
 
   const getPageSize = () => {
     if (isMobile) return 1;
-    else if (isTablet) return 2;
-    else if (isPC) return 3;
-    else return 1;
+    if (isTablet) return 2;
+    if (isPC) return 3;
+    return 1; // 기본값
   };
 
   useEffect(() => {

@@ -34,16 +34,16 @@ export default function Page() {
 
   const getBestItemSize = () => {
     if (isMobile) return 1;
-    else if (isTablet) return 2;
-    else if (isPC) return 4;
-    else return 1;
+    if (isTablet) return 2;
+    if (isPC) return 4;
+    return 1;
   };
 
   const getItemSize = () => {
     if (isMobile) return 4;
-    else if (isTablet) return 6;
-    else if (isPC) return 10;
-    else return 4;
+    if (isTablet) return 6;
+    if (isPC) return 10;
+    return 4;
   };
 
   return (
