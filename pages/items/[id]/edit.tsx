@@ -78,7 +78,7 @@ export default function EditItemPage({ product }: { product: InitialValues }) {
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
-    // @ts-expect-error
+    // @ts-expect-error : error
     formData.append("tags", values.tags);
 
     if (values.images !== product.images) {

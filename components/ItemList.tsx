@@ -48,34 +48,34 @@ export default function ItemList({ order = "", pageSize = 0, keyword = "", page 
         {isLoading && (
           <ul className={`${Styles.itemLists} ${Styles.skeleton}`}>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
             <li className={Styles.itemList}>
-              <div className={Styles.image}></div>
+              <div className={Styles.image} />
             </li>
           </ul>
         )}
@@ -119,16 +119,16 @@ export default function ItemList({ order = "", pageSize = 0, keyword = "", page 
       {isLoading && (
         <ul className={`${Styles.itemLists} ${Styles.skeleton} ${Styles.best}`}>
           <li className={Styles.itemList}>
-            <div className={Styles.image}></div>
+            <div className={Styles.image} />
           </li>
           <li className={Styles.itemList}>
-            <div className={Styles.image}></div>
+            <div className={Styles.image} />
           </li>
           <li className={Styles.itemList}>
-            <div className={Styles.image}></div>
+            <div className={Styles.image} />
           </li>
           <li className={Styles.itemList}>
-            <div className={Styles.image}></div>
+            <div className={Styles.image} />
           </li>
         </ul>
       )}
