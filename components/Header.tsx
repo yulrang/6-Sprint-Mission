@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@nextui-org/react";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import ImgUser from "@/src/img/ic_profile.svg";
 import { useAuth } from "@/src/contexts/AuthProvider";
 import Logo from "./Logo";
 import GNB from "./GNB";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/react";
 
 export default function Header() {
   const { isAuth, logout } = useAuth(true);
@@ -50,7 +50,7 @@ export default function Header() {
           <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                <ModalHeader className="flex flex-col gap-1" />
                 <ModalBody>
                   <p className="inline-block p-10">로그아웃 하시겠습니까?</p>
                 </ModalBody>

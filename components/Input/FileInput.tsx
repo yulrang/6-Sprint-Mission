@@ -21,7 +21,7 @@ export default function FileInput({ name, value, initialValue, onChange }: FileI
     }
   };
 
-  const handleClearClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClearClick: MouseEventHandler<HTMLButtonElement> = () => {
     setPreview(null);
     onChange && onChange(name || "", null);
   };

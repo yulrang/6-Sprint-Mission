@@ -25,7 +25,7 @@ export default function ItemDetailPage() {
   const [like, setLike] = useState(false);
   const [likeTotal, setLikeTotal] = useState(0);
   const [comment, setComment] = useState<string>("");
-  const [limit, setLimit] = useState(5); // limit 상태 추가
+  const [limit] = useState(5);
   const [cursor, setCursor] = useState(0);
   const [isPopMenu, setIsPopMenu] = useState(false);
   const [ref, inView] = useInView();
@@ -162,7 +162,7 @@ export default function ItemDetailPage() {
         </section>
         <section className="section-replyList">
           <ReplyList items={comments} />
-          <div className="h-10" ref={ref}></div>
+          <div className="h-10" ref={ref} />
           {comments.length === 0 && (
             <div className="no-reply">
               <Image src={ImgReplyEmpty} width={140} height={140} alt="댓글 이미지" />

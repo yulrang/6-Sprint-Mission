@@ -43,7 +43,7 @@ export default function AddBoardPage() {
       formData.append("image", response);
     }
 
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: unknown } = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });

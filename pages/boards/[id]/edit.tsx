@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { editArticle, getArticleDetail, postArticle, uploadImg } from "@/src/api/api";
+import { editArticle, getArticleDetail, uploadImg } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
@@ -21,7 +21,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
   return {
     props: {
-      article: article,
+      article,
     },
   };
 }
@@ -61,7 +61,7 @@ export default function EditBoardPage({ article }: { article: Article }) {
       formData.append("image", response);
     }
 
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: unknown } = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });

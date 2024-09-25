@@ -10,7 +10,7 @@ import icoKebab from "@/src/img/ic_kebab.svg";
 import icoBack from "@/src/img/ic_back.svg";
 import { GetServerSidePropsContext } from "next";
 import { deleteItem, deleteProductLike, getProductComments, getProductDetail, postProductComment, postProductLike } from "@/src/api/api";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import ImgProductEmpty from "@/src/img/Img_product_empty.png";
 import Router, { useRouter } from "next/router";
 import { useAuth } from "@/src/contexts/AuthProvider";
@@ -127,7 +127,13 @@ export default function ItemDetailPage({ product, comments }: { product: Product
               <section className="section-detail-content">
                 <h3 className="section-tit">상품 태그</h3>
                 <div className="section-content tag-view">
-                  <ul className="tag-container">{product.tags?.map((tag: string) => <li className="tag-view__list">{tag}</li>)}</ul>
+                  <ul className="tag-container">
+                    {product.tags?.map((tag: string) => (
+                      <li key={product.id} className="tag-view__list">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </section>
             </div>

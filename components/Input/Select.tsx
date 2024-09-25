@@ -58,7 +58,7 @@ export default function Select({ selectOptions, name, value, onChange, className
         {isShow && (
           <ul id="select-box" className={Styles["select-lists"]}>
             {selectOptions.map((option, index) => (
-              <li className={Styles["select-list"]}>
+              <li key={Number(option)} className={Styles["select-list"]}>
                 <input type="radio" name={name} id={`select-${index + 1}`} value={option.value} onChange={handleChange} className={Styles.radio} />
                 <label htmlFor={`select-${index + 1}`} className={Styles["select-list__btn"]}>
                   {option.name}

@@ -33,7 +33,7 @@ export default function SignInPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const jsonObject: Record<string, any> = {};
+    const jsonObject: Record<string, unknown> = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });

@@ -1,5 +1,5 @@
-import { GetProductResult } from "@/src/types/item";
 import { GetArticlesResult } from "@/src/types/article";
+import { GetProductResult } from "@/src/types/product";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 let accessToken: string;
@@ -56,7 +56,7 @@ export async function getArticleComments(articleId: string, limit: number, curso
   return body;
 }
 
-export async function postArticle(data: Record<string, any>) {
+export async function postArticle(data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/articles`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -72,7 +72,7 @@ export async function postArticle(data: Record<string, any>) {
   return body;
 }
 
-export async function editArticle(articleId: string, data: Record<string, any>) {
+export async function editArticle(articleId: string, data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
     method: "PATCH",
     body: JSON.stringify(data),
@@ -103,7 +103,7 @@ export async function deleteArticle(articleId: string) {
   return body;
 }
 
-export async function postArticleComment(articleId: string, data: Record<string, any>) {
+export async function postArticleComment(articleId: string, data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -280,7 +280,7 @@ export async function getProductComments(productId: string) {
   return body.list;
 }
 
-export async function postProductComment(productId: string, data: Record<string, any>) {
+export async function postProductComment(productId: string, data: Record<string, unknown>) {
   console.log(accessToken);
   const response = await fetch(`${BASE_URL}/products/${productId}/comments`, {
     method: "POST",
@@ -338,7 +338,7 @@ export async function deleteProductLike(productId: string) {
   return body;
 }
 
-export async function postItem(data: Record<string, any>) {
+export async function postItem(data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/products`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -354,7 +354,7 @@ export async function postItem(data: Record<string, any>) {
   return body;
 }
 
-export async function editItem(productId: number, data: Record<string, any>) {
+export async function editItem(productId: number, data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/products/${productId}`, {
     method: "PATCH",
     body: JSON.stringify(data),
@@ -391,7 +391,7 @@ export async function deleteItem(productId: string) {
   return body;
 }
 
-export async function join(data: Record<string, any>) {
+export async function join(data: Record<string, unknown>) {
   const response = await fetch(`${BASE_URL}/auth/signUp`, {
     method: "POST",
     body: JSON.stringify(data),

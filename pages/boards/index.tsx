@@ -7,7 +7,7 @@ import Input from "@/components/Input";
 import BoardList from "@/components/BoardList";
 import BoardCard from "@/components/BoardCard";
 import Header from "@/components/Header";
-import { InView, useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 
 export default function Page() {
   const [isPC, isTablet, isMobile] = useResponsive();
@@ -83,7 +83,7 @@ export default function Page() {
           </header>
           <div className="section-content">
             <BoardList order={values.order} pageSize={values.pageSize} keyword={values.search} page={values.page} />
-            <div className="h-10" ref={ref}></div>
+            <div className="h-10" ref={ref} />
           </div>
         </div>
       </section>

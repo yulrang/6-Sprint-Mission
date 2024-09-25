@@ -46,7 +46,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
-    // @ts-ignore
+    // @ts-expect-error
     formData.append("tags", values.tags);
 
     if (values.images) {
@@ -58,7 +58,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
       formData.append("images", response);
     }
 
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: unknown } = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });
@@ -70,7 +70,7 @@ export default function AddItemPage({ initialValues = INITIAL_VALUES }) {
   };
 
   useEffect(() => {
-    setIsDisableSubmit(Object.values(values).every((el: any) => el !== "" && el !== null && el.length !== 0));
+    setIsDisableSubmit(Object.values(values).every((el: unknown) => el !== "" && el !== null && el.length !== 0));
   }, [values]);
 
   return (

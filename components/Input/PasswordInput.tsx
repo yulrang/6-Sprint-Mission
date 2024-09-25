@@ -9,10 +9,9 @@ interface PasswordInputProps {
   required: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
   setIsInvalid: (value: boolean) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function PasswordInput({ id, name, value, className, required, inputRef, setIsInvalid, onChange }: PasswordInputProps) {
+export default function PasswordInput({ id, name, value, className, required, inputRef, setIsInvalid }: PasswordInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +23,8 @@ export default function PasswordInput({ id, name, value, className, required, in
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length < 8) {
+    const inputValue = e.target.value;
+    if (inputValue.length < 8) {
       setIsInvalid(true);
       setIsEmpty(true);
     } else {

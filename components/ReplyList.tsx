@@ -1,14 +1,14 @@
 import Image from "next/image";
-import userImg from "@/src/img/ic_profile.svg";
-import Styles from "./ReplyList.module.scss";
-import { Comment } from "@/src/types/product";
-import icoKebab from "@/src/img/ic_kebab.svg";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { deleteComment, EditComment } from "@/src/api/api";
+import userImg from "@/src/img/ic_profile.svg";
+import icoKebab from "@/src/img/ic_kebab.svg";
+import { Comment } from "@/src/types/product";
 import { useAuth } from "@/src/contexts/AuthProvider";
-import { Router, useRouter } from "next/router";
 import Input from "./Input";
 import Button from "./Button/Button";
-import { deleteComment, EditComment } from "@/src/api/api";
+import Styles from "./ReplyList.module.scss";
 
 const formatTimeAgo = (dateString: Date): string => {
   const date = new Date(dateString);
@@ -35,20 +35,6 @@ const formatTimeAgo = (dateString: Date): string => {
     return `${diffInSeconds}초 전`;
   }
 };
-
-export default function ReplyList({ items }: { items: Comment[] }) {
-  return (
-    <>
-      <ul className={Styles["reply-lists"]}>
-        {items?.map((item) => (
-          <li key={item?.id} className={Styles["reply-list"]}>
-            <Reply item={item} />
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
 
 interface ReplyProps {
   item: Comment;
@@ -84,7 +70,7 @@ export function Reply({ item }: ReplyProps) {
     handleReplySubmit(id);
   };
 
-  const handleDelete = (id: number) => async (e: FormEvent<HTMLButtonElement>) => {
+  const handleDelete = (id: number) => async () => {
     const response = await deleteComment(String(id));
     if (!response) return;
   };
@@ -136,6 +122,20 @@ export function Reply({ item }: ReplyProps) {
           <em className={Styles["time"]}>{`${formatTimeAgo(item.updatedAt)}`}</em>
         </div>
       </div>
+    </>
+  );
+}
+
+export default function ReplyList({ items }: { items: Comment[] }) {
+  return (
+    <>
+      <ul className={Styles["reply-lists"]}>
+        {items?.map((item) => (
+          <li key={item?.id} className={Styles["reply-list"]}>
+            <Reply item={item} />
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

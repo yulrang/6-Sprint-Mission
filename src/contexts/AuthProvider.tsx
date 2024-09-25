@@ -1,4 +1,3 @@
-import { access } from "fs";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -14,7 +13,7 @@ interface AuthContextType {
   user: User | null;
   isPending: boolean;
   isAuth: boolean;
-  login: (credentials: Record<string, any>) => Promise<void>;
+  login: (credentials: Record<string, unknown>) => Promise<void>;
   logout: () => void;
 }
 
@@ -59,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const login = async (data: Record<string, any>) => {
+  const login = async (data: Record<string, unknown>) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
         method: "POST",
@@ -83,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const refresh = async (data: Record<string, any>) => {
+  const refresh = async (data: Record<string, unknown>) => {
     const tokenObject = { refreshToken: localStorage.getItem("refreshToken") };
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`, {

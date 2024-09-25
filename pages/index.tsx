@@ -62,7 +62,7 @@ export default function Page() {
             <ModalContent>
               {(onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                  <ModalHeader className="flex flex-col gap-1" />
                   <ModalBody>
                     <p className="inline-block p-10">로그아웃 하시겠습니까?</p>
                   </ModalBody>

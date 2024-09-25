@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import icoHeart from "@/src/img/ic_heart.svg";
-import { Product } from "@/src/types/item";
 import ImgProductEmpty from "@/src/img/Img_product_empty-sm.png";
+import { Product } from "@/src/types/product";
 import Styles from "./ItemCard.module.scss";
 
 interface ItemCardProps {
@@ -14,7 +14,7 @@ export default function ItemCard({ item }: ItemCardProps) {
     <>
       <div className={Styles["img-wrap"]}>
         <Link href={`/items/${item.id}`} className="link">
-          <Image width="221" height="221" src={item?.images[0] ?? ImgProductEmpty} alt={item.name + " 이미지"} className={Styles.img} />
+          <Image width="221" height="221" src={item?.images[0] ?? ImgProductEmpty} alt={`${item.name} 이미지`} className={Styles.img} />
         </Link>
       </div>
       <div className={Styles.content}>

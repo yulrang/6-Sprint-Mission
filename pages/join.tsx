@@ -46,7 +46,7 @@ export default function JoinPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: unknown } = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });

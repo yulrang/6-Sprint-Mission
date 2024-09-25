@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { editItem, getProductDetail, postItem, uploadImg } from "@/src/api/api";
+import { editItem, getProductDetail, uploadImg } from "@/src/api/api";
 import Input from "@/components/Input";
 import Button from "@/components/Button/Button";
 import Header from "@/components/Header";
@@ -49,7 +49,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function EditItemPage({ product }: { product: InitialValues }) {
   const { user } = useAuth(true);
-  const [isDisableSubmit, setIsDisableSubmit] = useState(true);
+  const [isDisableSubmit] = useState(true);
   const [values, setValues] = useState({
     id: product.id,
     name: product.name,
@@ -78,7 +78,7 @@ export default function EditItemPage({ product }: { product: InitialValues }) {
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
-    // @ts-ignore
+    // @ts-expect-error
     formData.append("tags", values.tags);
 
     if (values.images !== product.images) {
@@ -90,7 +90,7 @@ export default function EditItemPage({ product }: { product: InitialValues }) {
       formData.append("images", response);
     }
 
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: unknown } = {};
     formData.forEach((value, key) => {
       jsonObject[key] = value;
     });

@@ -4,14 +4,13 @@ import Styles from "./Input.module.scss";
 interface EmailInputProps {
   name: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   id: string;
   className: string;
   required: boolean;
   setIsInvalid: (value: boolean) => void;
 }
 
-export default function EmailInput({ name, value, id, className, required, setIsInvalid, onChange }: EmailInputProps) {
+export default function EmailInput({ name, value, id, className, required, setIsInvalid }: EmailInputProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
