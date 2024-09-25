@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
 
-export default function useAsync<T>(asyncFunction: (...args: unknown[]) => Promise<T>) {
+// @ts-ignore
+export default function useAsync<T>(asyncFunction: (...args: any) => Promise<T>) {
   const [pending, setPending] = useState(false);
   const [errorState, setErrorState] = useState<Error | null>(null);
 
   const wrappedFunction = useCallback(
-    async (...args: unknown[]) => {
+    //@ts-ignore
+    async (...args: any) => {
       try {
         setPending(true);
         setErrorState(null);
