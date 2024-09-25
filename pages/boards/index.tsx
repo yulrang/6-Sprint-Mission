@@ -61,7 +61,7 @@ export default function Page() {
             <h2 className="section-tit">베스트 게시글</h2>
           </header>
           <div className="section-content">
-            <BoardCard order="like" pageSize={getPageSize()} />
+            <BoardCard order="like" page={1} pageSize={getPageSize()} />
           </div>
         </div>
       </section>

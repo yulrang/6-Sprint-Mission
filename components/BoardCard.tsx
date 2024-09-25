@@ -10,10 +10,11 @@ import Styles from "./BoardCard.module.scss";
 
 interface ArticleListProps {
   order: string;
+  page: number;
   pageSize: number;
 }
 
-export default function BoardCard({ order, pageSize }: ArticleListProps) {
+export default function BoardCard({ order, page, pageSize }: ArticleListProps) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, loadingError, getArticlesAsync] = useAsync(getArticles);
 
@@ -36,7 +37,7 @@ export default function BoardCard({ order, pageSize }: ArticleListProps) {
   );
 
   useEffect(() => {
-    handleLoad({ order, pageSize });
+    handleLoad({ order, page, pageSize });
   }, [order, pageSize, handleLoad]);
 
   return (

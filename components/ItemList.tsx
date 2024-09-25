@@ -9,11 +9,11 @@ import Styles from "./ItemList.module.scss";
 interface ItemListProps {
   order: string;
   keyword?: string;
-  page?: number | undefined;
+  page: number;
   pageSize: number;
 }
 
-export default function ItemList({ order = "", pageSize = 0, keyword = "", page = undefined }: ItemListProps) {
+export default function ItemList({ order = "", pageSize = 0, keyword = "", page = 1 }: ItemListProps) {
   const [items, setItems] = useState<Product[]>([]);
   const [paging, setPaging] = useState<number>(1);
   const [pageTotal, setPageTotal] = useState<number>(0);

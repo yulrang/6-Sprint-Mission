@@ -1,26 +1,24 @@
 import { useCallback, useState } from "react";
 
-// @ts-ignore
-export default function useAsync<T>(asyncFunction: (...args: any) => Promise<T>) {
-  const [pending, setPending] = useState(false);
+export default function useAsync<T, Args extends any[]>(asyncFunction: (...args: Args) => Promise<T>) {
+  const [pending, setPending] = useState<boolean>(false);
   const [errorState, setErrorState] = useState<Error | null>(null);
 
   const wrappedFunction = useCallback(
-    //@ts-ignore
-    async (...args: any) => {
+    async (...args: Args) => {
       try {
         setPending(true);
         setErrorState(null);
         return await asyncFunction(...args);
-        // @ts-ignore
-      } catch (error: any) {
-        setErrorState(error);
-        return 0;
+      } catch (error) {
+        setErrorState(error instanceof Error ? error : new Error("Unknown error"));
+        return null as unknown as T; // 원하는 기본값으로 변경 가능
       } finally {
         setPending(false);
       }
     },
     [asyncFunction],
   );
-  return [pending, errorState, wrappedFunction];
+
+  return [pending, errorState, wrappedFunction] as const; // 타입 안전성을 위해 'as const' 사용
 }
